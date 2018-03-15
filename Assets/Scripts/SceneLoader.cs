@@ -10,25 +10,18 @@ public class SceneLoader : SingletonMB<SceneLoader>
     //a variable to hold a reference to the AsyncOperation
     private AsyncOperation async;
 
-
     //variables to hold references for the loadingscreen prefab, and it's instance.
     public UILoadingScreen loadingUIPrefab;
     private UILoadingScreen loadingUIinstance;
 
-    public override void CopyValues(SceneLoader copy)
-    {
-        if(copy.loadingUIPrefab != null)
-        {
-            loadingUIPrefab = copy.loadingUIPrefab;
-        }
-
-    }
-
     IEnumerator LoadScene(string scene)
     {
-        Debug.Log("scene: " + scene);
-        if (scene == "")
+
+        if (scene == "" || !Application.CanStreamedLevelBeLoaded(scene))
+        {
+            Debug.LogWarning(scene == "" ? "Scene must have a name" : "Scene does not exist in build settings");
             yield break;
+        }
 
         //instantiate the loading screen, and pause momentarily while the screen fades in.
         loadingUIinstance = Instantiate(loadingUIPrefab) as UILoadingScreen;
@@ -38,11 +31,6 @@ public class SceneLoader : SingletonMB<SceneLoader>
         }
 
         async = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
-        if (async == null)
-        {
-            loadingUIinstance.Destroy();
-            yield break;
-        }
 
         //update progress bar as scene loads.
         while (!async.isDone)
@@ -61,8 +49,11 @@ public class SceneLoader : SingletonMB<SceneLoader>
         }
     }
 
+    //load scene by name
     public void Load(string scene)
     {
+        //There will temporarily be 2 AudioListeners as we are async loading the new scene, and then unloading the old.
+        //Because of this we disable the old AudioListener.
         Camera.main.GetComponent<AudioListener>().enabled = false;
         StartCoroutine(LoadScene(scene));
     }
