@@ -102,7 +102,7 @@ Animator:
   m_GameObject: {fileID: 1630354825624260}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c65bb779b5b6c5a4084e88781433aeb0, type: 2}
+  m_Controller: {fileID: 9100000, guid: cc21905422084b1488c95e1c4228669a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -118,13 +118,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1630354825624260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b281287418bc594449d92ca638f12113, type: 3}
+  m_Script: {fileID: 11500000, guid: 70ed4574150497641b99e31d1dc55fad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3.5
   handRadius: 0.4
-  centerpointOffset: {x: -0.03125, y: 0.21875}
-  demoProjectile: {fileID: 50595031806870532, guid: 2636c2d213c54414687ccb139a8f0dcb,
+  centerpointOffset: {x: -0.03125, y: 0.15625}
+  demoProjectile: {fileID: 50595031806870532, guid: 4fd7a601d6bb015498e3b3494ce0bd2c,
     type: 2}
 --- !u!212 &212106958219633562
 SpriteRenderer:
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300006, guid: 0e83b2d9382f1f74fbd9f746a1438a41, type: 3}
+  m_Sprite: {fileID: 21300006, guid: 132554caf2d9da94f90d6a7878f56c02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -204,7 +204,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 7998e7ce78f8a904e914e3ca3a1cca6b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0d67eb103877154ea2d72c379de3532, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
