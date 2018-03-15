@@ -9,7 +9,7 @@ public abstract class SingletonMB<T> : MonoBehaviour {
     protected static T component;
     public static T Instance {
         get {
-            if(component == null)
+            if(component == null || EqualityComparer<T>.Default.Equals(component, default(T)) && instance != null)
             {
                 component = instance.GetComponent<T>();
             }
@@ -24,14 +24,17 @@ public abstract class SingletonMB<T> : MonoBehaviour {
 
     protected void Awake()
     {
-        //If another instance exists, copy it's values and destroy it.
+        //If another instance exists, copy it's values
         //This is used when moving between scenes.
+        //moving between scenes, destroys the items, so no need to force destroy here.
         if (instance != null && instance != this)
         {
             this.CopyValues(Instance);
-            Destroy(instance);
+            component = default(T);
         }
 
         instance = this;
     }
+
+
 }
