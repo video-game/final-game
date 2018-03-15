@@ -11,8 +11,8 @@ public class SceneLoader : SingletonMB<SceneLoader>
     private AsyncOperation async;
 
     //variables to hold references for the loadingscreen prefab, and it's instance.
-    public UILoadingScreen loadingUIPrefab;
-    private UILoadingScreen loadingUIinstance;
+    public LoadingScreen loadingUIPrefab;
+    private LoadingScreen loadingUIinstance;
 
     IEnumerator LoadScene(string scene)
     {
@@ -24,7 +24,7 @@ public class SceneLoader : SingletonMB<SceneLoader>
         }
 
         //instantiate the loading screen, and pause momentarily while the screen fades in.
-        loadingUIinstance = Instantiate(loadingUIPrefab) as UILoadingScreen;
+        loadingUIinstance = Instantiate(loadingUIPrefab) as LoadingScreen;
         while (!loadingUIinstance.ready)
         {
             yield return null;

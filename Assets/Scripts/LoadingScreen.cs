@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 
-public class UILoadingScreen : MonoBehaviour
+public class LoadingScreen : MonoBehaviour
 {
     //references to all of loadin
     public UnityEngine.UI.RawImage loadScreen;
@@ -34,10 +34,9 @@ public class UILoadingScreen : MonoBehaviour
     IEnumerator Fade(bool fadeIn, bool destroy = false)
     {
         ready = false;
-
         if (loadingBarPanel.activeInHierarchy)
         {
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSecondsRealtime(.1f);
             loadingBarPanel.SetActive(false);
         }
 
@@ -48,23 +47,23 @@ public class UILoadingScreen : MonoBehaviour
 
         loadScreen.color = new Color(loadScreen.color.r, loadScreen.color.g, loadScreen.color.b, alpha);
 
-        while(fadeIn ? alpha < alphaMax : alpha > alphaMin)
+        while (fadeIn ? alpha < alphaMax : alpha > alphaMin)
         {
             alpha = Mathf.Lerp(fadeIn ? alphaMin : alphaMax, fadeIn ? alphaMax : alphaMin, time / fadeTime);
             loadScreen.color = new Color(loadScreen.color.r, loadScreen.color.g, loadScreen.color.b, alpha / alphaMax);
-            time += Time.deltaTime;
+            time += Time.unscaledDeltaTime;
             yield return null;
         }
+
+        ready = true;
 
         if (destroy)
         {
             Destroy();
         }
-
-        ready = true;
     }
 
-    private void Awake()
+    private void Start()
     {
         StartCoroutine(Fade(true));
         DontDestroyOnLoad(this.gameObject);
