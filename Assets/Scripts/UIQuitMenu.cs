@@ -10,6 +10,11 @@ public class UIQuitMenu : UIMenu
         base.Init();
     }
 
+    public void CancelButton()
+    {
+        UIManager.Instance.CloseLast();
+    }
+
     public void MainMenuButton()
     {
         SceneLoader.Instance.Load("MainMenu");
