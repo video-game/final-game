@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3.5
+  dashSpeed: 12
+  dashDuration: 0.15
+  dashCooldown: 3
   handRadius: 0.4
   centerpointOffset: {x: -0.03125, y: 0.15625}
   demoProjectile: {fileID: 50595031806870532, guid: f87d04f126dabda4d9bcee7cec15c52a,

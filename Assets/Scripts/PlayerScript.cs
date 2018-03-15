@@ -8,6 +8,15 @@ public class PlayerScript : MonoBehaviour
 	private float speed;
 
 	[SerializeField]
+	private float dashSpeed;
+
+	[SerializeField]
+	private float dashDuration;
+
+	[SerializeField]
+	private float dashCooldown;
+
+	[SerializeField]
 	private float handRadius;
 
 	[SerializeField]
@@ -21,6 +30,10 @@ public class PlayerScript : MonoBehaviour
 	private Transform hand;
 
 	private bool fireKeyDown;
+	private bool dashKeyDown;
+	private bool dashOnCooldown;
+	private bool movementInputEnabled = true;
+	private bool isWalking;
 
 	private void Awake()
 	{
@@ -31,10 +44,15 @@ public class PlayerScript : MonoBehaviour
 
 	private void Update()
 	{
-		move();
+		handleMovementInput();
+		handleDashInput();
+		handleFireInput();
 		faceTowardsMouse();
 		moveHandTowardsMouse();
+	}
 
+	private void handleFireInput()
+	{
 		if (Input.GetAxisRaw("Fire1") != 0)
 		{
 			if (!fireKeyDown)
@@ -47,35 +65,77 @@ public class PlayerScript : MonoBehaviour
 			fireKeyDown = false;
 	}
 
+	private void handleDashInput()
+	{
+		if (Input.GetAxis("Dash") != 0)
+		{
+			if (!dashKeyDown)
+			{
+				if (!dashOnCooldown)
+				{
+					StartCoroutine(dash());
+					if (dashCooldown > 0f)
+						StartCoroutine(startDashCooldown());
+				}
+				dashKeyDown = true;
+			}
+		}
+		else
+			dashKeyDown = false;
+	}
+
+	private IEnumerator dash()
+	{
+		if (isWalking)
+		{
+			movementInputEnabled = false;
+			Vector2 currentDirection = body.velocity.normalized;
+			body.velocity = currentDirection * dashSpeed;
+			yield return new WaitForSeconds(dashDuration);
+			body.velocity = Vector2.zero;
+			movementInputEnabled = true;
+		}
+	}
+
+	private IEnumerator startDashCooldown()
+	{
+		dashOnCooldown = true;
+		yield return new WaitForSeconds(dashCooldown);
+		dashOnCooldown = false;
+	}
+
 	private void shootDemoProjectile()
 	{
-		var direction = calculateDirectionFromPlayerToMouse();
+		var direction = calculateDirectionToMouse();
 		var clone = Instantiate(demoProjectile, hand.position, Quaternion.identity);
 		clone.velocity = 9 * direction;
 	}
 
-	private void move()
+	private void handleMovementInput()
 	{
-		var horizontalInput = Input.GetAxisRaw("Horizontal");
-		var verticalInput = Input.GetAxisRaw("Vertical");
+		if (movementInputEnabled)
+		{
+			var horizontalInput = Input.GetAxisRaw("Horizontal");
+			var verticalInput = Input.GetAxisRaw("Vertical");
 
-		var velocity = new Vector2();
-		velocity.x = horizontalInput * speed;
-		velocity.y = verticalInput * speed;
+			var velocity = new Vector2();
+			velocity.x = horizontalInput * speed;
+			velocity.y = verticalInput * speed;
 
-		// if moving diagonally
-		if (horizontalInput != 0 && verticalInput != 0)
-			velocity *= Mathf.Cos(45 * Mathf.Deg2Rad);
-		
-		body.velocity = velocity;
+			// if moving diagonally
+			if (horizontalInput != 0 && verticalInput != 0)
+				velocity *= Mathf.Cos(45 * Mathf.Deg2Rad);
+			
+			body.velocity = velocity;
 
-		var isWalking = (horizontalInput != 0 || verticalInput != 0);
-		animator.SetBool("IsWalking", isWalking);
+			isWalking = (horizontalInput != 0 || verticalInput != 0);
+			animator.SetBool("IsWalking", isWalking);
+		}
 	}
 
 	private void faceTowardsMouse()
 	{
-		var directionVector = calculateDirectionFromPlayerToMouse();
+		var directionVector = calculateDirectionToMouse();
 		var x = directionVector.x;
 		var y = directionVector.y;
 
@@ -93,7 +153,7 @@ public class PlayerScript : MonoBehaviour
 		animator.SetInteger("Direction", (int)direction);
 	}
 
-	private Vector2 calculateDirectionFromPlayerToMouse()
+	private Vector2 calculateDirectionToMouse()
 	{
 		var mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		var playerPosition = (Vector2)transform.position + centerpointOffset;
@@ -104,7 +164,7 @@ public class PlayerScript : MonoBehaviour
 	private void moveHandTowardsMouse()
 	{
 		var playerPosition = (Vector2)transform.position + centerpointOffset;
-		var direction = calculateDirectionFromPlayerToMouse();
+		var direction = calculateDirectionToMouse();
 		var handPosition = playerPosition + (direction * handRadius);
 		hand.position = handPosition;
 	}
