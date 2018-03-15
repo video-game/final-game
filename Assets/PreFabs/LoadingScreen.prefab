@@ -466,7 +466,7 @@ MonoBehaviour:
   LoadingBar: {fileID: 114887374774597242}
   LoadingText: {fileID: 114055430070200556}
   ready: 0
-  fadeTime: 0.8
+  fadeTime: 0.3
 --- !u!222 &222323375697722362
 CanvasRenderer:
   m_ObjectHideFlags: 1
