@@ -12,9 +12,12 @@ public class LoadingScreen : MonoBehaviour
     public UnityEngine.UI.Slider LoadingBar;
     public TextMeshProUGUI LoadingText;
 
+    //ready variable is used to delay operation while fading. (optional)
     public bool ready;
     public float fadeTime = .8f;
 
+    //Set % of the loading bar slider and text.
+    //progress is from 0 to 1.
     public void SetPercentage(float progress)
     {
         if (!loadingBarPanel.activeInHierarchy)
@@ -25,6 +28,8 @@ public class LoadingScreen : MonoBehaviour
         LoadingBar.value = progress;
         LoadingText.text = progress * 100f + "%";
 
+        //if progress is at 1 (aka 100%)
+        //start fading out.
         if(progress == 1f)
         {
             Destroy(true);
@@ -34,6 +39,9 @@ public class LoadingScreen : MonoBehaviour
     IEnumerator Fade(bool fadeIn, bool destroy = false)
     {
         ready = false;
+
+        //if the loadingBar is still active, delay for 100ms and then deactivate.
+        //without the delay, it could load to dissapear before actually displaying the 100% progress.
         if (loadingBarPanel.activeInHierarchy)
         {
             yield return new WaitForSecondsRealtime(.1f);
@@ -45,12 +53,16 @@ public class LoadingScreen : MonoBehaviour
         float alpha = fadeIn ? alphaMin : alphaMax;
         float time = 0;
 
+        //normalize the current alpha.
         loadScreen.color = new Color(loadScreen.color.r, loadScreen.color.g, loadScreen.color.b, alpha);
 
+        //fade In or Out in fadeTime seconds.
         while (fadeIn ? alpha < alphaMax : alpha > alphaMin)
         {
             alpha = Mathf.Lerp(fadeIn ? alphaMin : alphaMax, fadeIn ? alphaMax : alphaMin, time / fadeTime);
             loadScreen.color = new Color(loadScreen.color.r, loadScreen.color.g, loadScreen.color.b, alpha / alphaMax);
+
+            //unscaled time so that it works while paused.
             time += Time.unscaledDeltaTime;
             yield return null;
         }
@@ -65,7 +77,10 @@ public class LoadingScreen : MonoBehaviour
 
     private void Start()
     {
+        //start fading in when initialized.
         StartCoroutine(Fade(true));
+        //dont destroy on load.
+        //The scene that initializes this might be unloaded while this is still fading.
         DontDestroyOnLoad(this.gameObject);
     }
 

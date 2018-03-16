@@ -11,14 +11,18 @@ public class UIMenu : MonoBehaviour {
 
     //init virtual functions used to set some Initial state
     public virtual void Init() {
+        //Hide if set to hiddenAtStart
         Hide(hiddenAtStart);
 
+        //if not set to hiddenAtStart, start open.
         if (!hiddenAtStart)
         {
             Open();
         }
     }
 
+    //override of Init that takes in a string parameter.
+    //it sets the name as the string then calls the original Init afterwards.
     public virtual void Init(string name) {
         this.name = name;
         Init();

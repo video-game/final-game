@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class UIQuitMenu : UIMenu
 {
-
-    public override void Init()
-    {
-        base.Init();
-    }
-
     public void CancelButton()
     {
         UIManager.Instance.CloseLast();

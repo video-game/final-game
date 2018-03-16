@@ -10,6 +10,7 @@ public class UIPauseMenu : UIMenu
         base.Init(name);
 
         //add listener to the OnPause event
+        //This menu is not opened by a button press, but instead opens when the GameManager is set to Pause.
         GameManager.Instance.OnPause += Toggle;
     }
 
@@ -30,7 +31,7 @@ public class UIPauseMenu : UIMenu
 
     private void BeforeDestroy()
     {
-        //remove listener
+        //remove listener (just good practice)
         if(GameManager.Instance != null)
         {
             GameManager.Instance.OnPause -= Toggle;
