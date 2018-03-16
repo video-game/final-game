@@ -3461,7 +3461,7 @@ Tilemap:
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 10
+    m_DirtyIndex: 0
 --- !u!4 &69956482 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4225124632981500, guid: 507ea9da3fb62d547a1a899eff1aeb80,
@@ -3870,6 +3870,26 @@ CircleCollider2D:
   m_Offset: {x: 0.0064409375, y: 0.1940822}
   serializedVersion: 2
   m_Radius: 0.3828265
+--- !u!1 &1765462694 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1630354825624260, guid: 507ea9da3fb62d547a1a899eff1aeb80,
+    type: 2}
+  m_PrefabInternal: {fileID: 690392773}
+--- !u!70 &1765462699
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1765462694}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.034817964, y: -0.009948015}
+  m_Size: {x: 0.5722353, y: 0.90051985}
+  m_Direction: 0
 --- !u!1 &2074397869
 GameObject:
   m_ObjectHideFlags: 0
