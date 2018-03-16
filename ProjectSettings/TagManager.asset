@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Base Tile
+    uniqueID: 3312863733
+    locked: 0
+  - name: Tile Decoration
+    uniqueID: 3580099023
+    locked: 0
+  - name: Object
+    uniqueID: 3412341625
+    locked: 0
+  - name: Actor
+    uniqueID: 3967710005
+    locked: 0
+  - name: Height 1
+    uniqueID: 3209682119
+    locked: 0
+  - name: Height 2
+    uniqueID: 872968827
+    locked: 0

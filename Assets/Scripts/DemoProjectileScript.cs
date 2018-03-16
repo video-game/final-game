@@ -1,3 +1,4 @@
+
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,17 +10,12 @@ public class DemoProjectileScript : MonoBehaviour
 
 	private void Awake()
 	{
-		StartCoroutine(DestroyIn(lifetime));
+        Destroy(gameObject, lifetime);
 	}
 
-	private IEnumerator DestroyIn(float seconds)
-	{
-		yield return new WaitForSeconds(seconds);
-		Destroy(gameObject);
-	}
-
-	private void OnTriggerEnter2D(Collider2D other)
-	{
+	private void OnCollisionEnter2D(Collision2D other)
+    {   
 		Destroy(gameObject);
 	}
 }
+
