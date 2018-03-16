@@ -1,3 +1,4 @@
+
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class DemoProjectileScript : MonoBehaviour
 
 	private void Awake()
 	{
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), GameManager.Instance.player.GetComponent<Collider2D>());
 		StartCoroutine(DestroyIn(lifetime));
 	}
 
@@ -23,3 +25,4 @@ public class DemoProjectileScript : MonoBehaviour
 		Destroy(gameObject);
 	}
 }
+
