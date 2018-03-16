@@ -53,7 +53,9 @@ public class ChargingEnemyAI : MonoBehaviour
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
-        if (other.tag == "Player") ;
+        //Enemy should try to attack here
+
+        //if (other.tag == "Player")
 			//combat.Attack(other.gameObject);
 	}
 
