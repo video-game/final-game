@@ -17,8 +17,6 @@ public class NavMeshAgentDemo : MonoBehaviour {
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.Log(agent);
-
             agent.SetDestination(ray.GetPoint(1));
         }
     }

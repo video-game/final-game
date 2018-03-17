@@ -33,7 +33,6 @@ public class TileMapToMesh : MonoBehaviour {
     //parent must have be a grid.
     private void Reset()
     {
-        Debug.Log(transform);
         if(transform.parent == null && !transform.parent.GetComponentInParent<Grid>())
         {
             Debug.LogError(transform.parent == null ? "GameObject must have a Parent, and the Parent Must have Grid Component" : "Parent Must have Grid Component");
