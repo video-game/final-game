@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEditor;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Tilemap), typeof(TilemapCollider2D))]
+[RequireComponent(typeof(Tilemap))]
 public class TileMapToMesh : MonoBehaviour {
 
     //optional material variable, lets you assign material to the mesh after tilemap is generated.
@@ -17,7 +17,7 @@ public class TileMapToMesh : MonoBehaviour {
     //It needs a seperate gameobject, as it's parent already has a tilemap renderer and tilemapCollider
     GameObject meshContainer;
     const string containerName = "Mesh Container";
-
+    
     //reference variables to it's components.
     Tilemap tileMap;
     TilemapCollider2D tileMapCollider;
@@ -44,11 +44,16 @@ public class TileMapToMesh : MonoBehaviour {
     public void Generate () {
         //set the references, just incase. (was behaving weird in awake, start and reset)
         tileMap = GetComponent<Tilemap>();
-        tileMapCollider = GetComponent<TilemapCollider2D>();
-        tileMapCollider.enabled = false;
         grid = transform.parent.GetComponentInParent<Grid>();
 
-        CreateGameObject(Composite2DToMesh());
+        Mesh newMesh = Composite2DToMesh();
+        MeshCollider collider = GetComponent<MeshCollider>();
+        if(collider != null)
+        {
+            collider.sharedMesh = newMesh;
+        }
+
+        CreateGameObject(newMesh);
     }
 	
     //helper function to create the game object.
@@ -121,9 +126,6 @@ public class TileMapToMesh : MonoBehaviour {
             points.Add(new Vector2(tiles[i].x + grid.cellSize.x, tiles[i].y + grid.cellSize.y));
         }
 
-        //get the offset of the collider, just incase.
-        Vector2 offset = tileMapCollider.offset;
-
         //create arrays for the vertices, uvs and triangles.
         Vector3[] vertices = new Vector3[points.Count + 1];
         Vector2[] uvs = new Vector2[vertices.Length];
@@ -132,10 +134,10 @@ public class TileMapToMesh : MonoBehaviour {
         for (int i = 0; i < points.Count; i++)
         {
             //get the world space location of the points
-            Vector2 pt = tileMapCollider.transform.TransformPoint(points[i]);
+            Vector2 pt = transform.TransformPoint(points[i]);
 
             //set the vertex position, using xz
-            vertices[i] = new Vector3(pt.x + offset.x, 0, pt.y + offset.y);
+            vertices[i] = new Vector3(pt.x , 0, pt.y);
 
             //every points has 4 vertices.
             //we only run for every 4th point, else we'd have overlaps.

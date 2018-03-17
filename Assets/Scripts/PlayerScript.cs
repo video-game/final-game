@@ -26,7 +26,7 @@ public class PlayerScript : MonoBehaviour
 	private Rigidbody2D demoProjectile; // prefab
 
 	private Animator animator;
-	private Rigidbody2D body;
+	private Rigidbody body;
 	private Transform hand;
 
 	private bool fireKeyDown;
@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
-		body = GetComponent<Rigidbody2D>();
+		body = GetComponent<Rigidbody>();
 		hand = transform.Find("Hand");
 	}
 
@@ -90,7 +90,7 @@ public class PlayerScript : MonoBehaviour
 		{
 			movementInputEnabled = false;
 			Vector2 currentDirection = body.velocity.normalized;
-			body.velocity = currentDirection * dashSpeed;
+			body.velocity = new Vector3(currentDirection.x, 0 , currentDirection.y) * dashSpeed;
 			yield return new WaitForSeconds(dashDuration);
 			body.velocity = Vector2.zero;
 			movementInputEnabled = true;
@@ -118,9 +118,9 @@ public class PlayerScript : MonoBehaviour
 			var horizontalInput = Input.GetAxisRaw("Horizontal");
 			var verticalInput = Input.GetAxisRaw("Vertical");
 
-			var velocity = new Vector2();
+			var velocity = new Vector3();
 			velocity.x = horizontalInput * speed;
-			velocity.y = verticalInput * speed;
+			velocity.z = verticalInput * speed;
 
 			// if moving diagonally
 			if (horizontalInput != 0 && verticalInput != 0)
