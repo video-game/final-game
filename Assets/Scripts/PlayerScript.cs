@@ -23,10 +23,10 @@ public class PlayerScript : MonoBehaviour
 	private Vector2 centerpointOffset;
 
 	[SerializeField]
-	private Rigidbody2D demoProjectile; // prefab
+	private Rigidbody demoProjectile; // prefab
 
 	private Animator animator;
-	private Rigidbody2D body;
+	private Rigidbody body;
 	private Transform hand;
 
 	private bool fireKeyDown;
@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour
 	private void Awake()
 	{
 		animator = GetComponent<Animator>();
-		body = GetComponent<Rigidbody2D>();
+		body = GetComponent<Rigidbody>();
 		hand = transform.Find("Hand");
 	}
 
@@ -90,7 +90,7 @@ public class PlayerScript : MonoBehaviour
 		{
 			movementInputEnabled = false;
 			Vector2 currentDirection = body.velocity.normalized;
-			body.velocity = currentDirection * dashSpeed;
+			body.velocity = new Vector3(currentDirection.x, 0 , currentDirection.y) * dashSpeed;
 			yield return new WaitForSeconds(dashDuration);
 			body.velocity = Vector2.zero;
 			movementInputEnabled = true;
@@ -107,7 +107,7 @@ public class PlayerScript : MonoBehaviour
 	private void shootDemoProjectile()
 	{
 		var direction = calculateDirectionToMouse();
-		var clone = Instantiate(demoProjectile, hand.position, Quaternion.identity);
+		var clone = Instantiate(demoProjectile, new Vector3(hand.position.x, 0, hand.position.z), demoProjectile.transform.rotation);
 		clone.velocity = 9 * direction;
 	}
 
@@ -118,9 +118,9 @@ public class PlayerScript : MonoBehaviour
 			var horizontalInput = Input.GetAxisRaw("Horizontal");
 			var verticalInput = Input.GetAxisRaw("Vertical");
 
-			var velocity = new Vector2();
+			var velocity = new Vector3();
 			velocity.x = horizontalInput * speed;
-			velocity.y = verticalInput * speed;
+			velocity.z = verticalInput * speed;
 
 			// if moving diagonally
 			if (horizontalInput != 0 && verticalInput != 0)
@@ -137,15 +137,15 @@ public class PlayerScript : MonoBehaviour
 	{
 		var directionVector = calculateDirectionToMouse();
 		var x = directionVector.x;
-		var y = directionVector.y;
+		var z = directionVector.z;
 
 		Utilities.Direction direction;
 
-		if (x < 0 && Mathf.Abs(x) > Mathf.Abs(y))
+		if (x < 0 && Mathf.Abs(x) > Mathf.Abs(z))
 			direction = Utilities.Direction.Left;
-		else if (x > 0 && x > Mathf.Abs(y))
+		else if (x > 0 && x > Mathf.Abs(z))
 			direction = Utilities.Direction.Right;
-		else if (y > 0 && y > Mathf.Abs(x))
+		else if (z > 0 && z > Mathf.Abs(x))
 			direction = Utilities.Direction.Up;
 		else
 			direction = Utilities.Direction.Down;
@@ -153,18 +153,18 @@ public class PlayerScript : MonoBehaviour
 		animator.SetInteger("Direction", (int)direction);
 	}
 
-	private Vector2 calculateDirectionToMouse()
+	private Vector3 calculateDirectionToMouse()
 	{
-		var mousePosition = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		var playerPosition = (Vector2)transform.position + centerpointOffset;
+		var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		var playerPosition = transform.position + new Vector3(centerpointOffset.x, 0, centerpointOffset.y);
 		var direction = (mousePosition - playerPosition).normalized;
 		return direction;
 	}
 
 	private void moveHandTowardsMouse()
 	{
-		var playerPosition = (Vector2)transform.position + centerpointOffset;
-		var direction = calculateDirectionToMouse();
+		Vector3 playerPosition = transform.position + new Vector3(centerpointOffset.x, 0, centerpointOffset.y);
+		Vector3 direction = calculateDirectionToMouse();
 		var handPosition = playerPosition + (direction * handRadius);
 		hand.position = handPosition;
 	}

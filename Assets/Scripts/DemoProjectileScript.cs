@@ -13,7 +13,7 @@ public class DemoProjectileScript : MonoBehaviour
         Destroy(gameObject, lifetime);
 	}
 
-	private void OnCollisionEnter2D(Collision2D other)
+	private void OnCollisionEnter(Collision other)
     {   
 		Destroy(gameObject);
 	}
