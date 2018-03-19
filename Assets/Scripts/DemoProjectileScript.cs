@@ -5,8 +5,17 @@ using UnityEngine;
 
 public class DemoProjectileScript : MonoBehaviour
 {
+    [HideInInspector]
+    public Vector3 velocity;
+
 	[SerializeField]
 	private float lifetime;
+
+    public void init(Vector3 vel)
+    {
+        velocity = vel;
+        GetComponent<Rigidbody>().velocity = velocity;
+    }
 
 	private void Awake()
 	{
@@ -14,7 +23,8 @@ public class DemoProjectileScript : MonoBehaviour
 	}
 
 	private void OnCollisionEnter(Collision other)
-    {   
+    {
+        Debug.Log("Projectile velocity: " + GetComponent<Rigidbody>().velocity.normalized);
 		Destroy(gameObject);
 	}
 }

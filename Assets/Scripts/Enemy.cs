@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicEnemy : MonoBehaviour {
+public class Enemy : MonoBehaviour {
 
     [SerializeField]
     private float playerCheckTime;
@@ -31,19 +31,19 @@ public class BasicEnemy : MonoBehaviour {
     {
         if(collision.gameObject.tag == "PlayerProjectile")
         {
-            Knockback(collision.gameObject.GetComponent<DemoProjectileScript>().velocity.normalized, 5);
+            Knockback(collision.gameObject.GetComponent<Rigidbody>().velocity.normalized, 5);
             health -= 10;
             if(health < 1)
             {
                 Destroy(this.gameObject);
             }
+
         }
     }
 
     private void Knockback(Vector3 direction, float power)
     {
-        
-        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
+        agent.velocity = direction * power;
     }
 
     void Update ()

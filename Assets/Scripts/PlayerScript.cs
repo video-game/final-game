@@ -64,8 +64,9 @@ public class PlayerScript : MonoBehaviour
 		else
 			fireKeyDown = false;
 	}
+    
 
-	private void handleDashInput()
+    private void handleDashInput()
 	{
 		if (Input.GetAxis("Dash") != 0)
 		{
@@ -108,7 +109,7 @@ public class PlayerScript : MonoBehaviour
 	{
 		var direction = calculateDirectionToMouse();
 		var clone = Instantiate(demoProjectile, new Vector3(hand.position.x, 0, hand.position.z), demoProjectile.transform.rotation);
-		clone.velocity = 9 * direction;
+		clone.GetComponent<DemoProjectileScript>().init( 9 * direction);
 	}
 
 	private void handleMovementInput()
