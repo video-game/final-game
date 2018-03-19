@@ -44,7 +44,7 @@ public class PlayerScript : MonoBehaviour
 
 	private void Update()
 	{
-		handleMovementInput();
+        handleMovementInput();
 		handleDashInput();
 		handleFireInput();
 		faceTowardsMouse();
