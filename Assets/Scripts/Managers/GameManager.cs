@@ -60,7 +60,7 @@ public class GameManager : SingletonMB<GameManager>
 
     private void Start()
     {
-        PlayerScript p = GameObject.FindObjectOfType<PlayerScript>();
+        Player p = GameObject.FindObjectOfType<Player>();
         if(p != null)
         {
             player = p.gameObject;
