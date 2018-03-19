@@ -348,7 +348,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.11666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 074cb32f5f2b61448bbcef8a20808ea8, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: f3eaa2519d178cd47aa35ef4833c24a5, type: 2}
 --- !u!43 &368053405
 Mesh:
   m_ObjectHideFlags: 0
@@ -1148,9 +1148,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 7404ebe0033048746bbf259df35258fb, type: 2}
-  layerName: TileMapMesh
-  navMeshSurface: 0
-  navigationArea: 
+  layerIndex: 0
+  navMeshModifier: 0
+  navigationArea: 0
+  meshCollider: 0
+  physicsMaterial: {fileID: 0}
 --- !u!64 &611510691
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5884,9 +5886,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 7404ebe0033048746bbf259df35258fb, type: 2}
-  layerName: TileMapMesh
-  navMeshSurface: 0
-  navigationArea: 
+  layerIndex: 0
+  navMeshModifier: 0
+  navigationArea: 0
+  meshCollider: 0
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &696473580
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -9223,9 +9227,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 7404ebe0033048746bbf259df35258fb, type: 2}
-  layerName: TileMapMesh
-  navMeshSurface: 0
-  navigationArea: 
+  layerIndex: 0
+  navMeshModifier: 0
+  navigationArea: 0
+  meshCollider: 0
+  physicsMaterial: {fileID: 0}
 --- !u!19719996 &1395982811
 TilemapCollider2D:
   m_ObjectHideFlags: 0
