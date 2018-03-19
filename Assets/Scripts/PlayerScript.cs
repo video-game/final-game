@@ -169,4 +169,10 @@ public class PlayerScript : MonoBehaviour
 		var handPosition = playerPosition + (direction * handRadius);
 		hand.position = handPosition;
 	}
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "EnemyProjectile")
+            Camera.main.GetComponent<CameraEffects>().ShakeCamera(0.1f, 0.02f);
+    }
 }

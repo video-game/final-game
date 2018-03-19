@@ -24,7 +24,6 @@ public class DemoProjectileScript : MonoBehaviour
 
 	private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("Projectile velocity: " + GetComponent<Rigidbody>().velocity.normalized);
 		Destroy(gameObject);
 	}
 }

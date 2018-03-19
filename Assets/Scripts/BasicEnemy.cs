@@ -31,7 +31,7 @@ public class BasicEnemy : MonoBehaviour {
     {
         if(collision.gameObject.tag == "PlayerProjectile")
         {
-            Knockback(collision.gameObject.GetComponent<DemoProjectileScript>().velocity.normalized, 5);
+            Knockback(collision.gameObject.GetComponent<DemoProjectileScript>().velocity, 5);
             health -= 10;
             if(health < 1)
             {
@@ -42,7 +42,8 @@ public class BasicEnemy : MonoBehaviour {
 
     private void Knockback(Vector3 direction, float power)
     {
-        
+        //normalize the vector, just to be sure
+        direction.Normalize();
         agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
     }
 
