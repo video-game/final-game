@@ -30,11 +30,14 @@ public class Player : MonoBehaviour
 
     private Vector3 aimDirection;
 
+    Vector3 projectileSpawn;
+
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         body = GetComponentInChildren<Rigidbody>();
         hand = transform.Find("Hand");
+        projectileSpawn = hand.GetChild(0).transform.position;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -79,7 +82,7 @@ public class Player : MonoBehaviour
     public void Shoot()
     {
         //spawn projectile, set it's trajectory
-        Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(hand.position.x, 0, hand.position.z), demoProjectile.transform.rotation);
+        Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.x, 0, projectileSpawn.z), demoProjectile.transform.rotation);
         clone.velocity = 9 * aimDirection;
     }
 
