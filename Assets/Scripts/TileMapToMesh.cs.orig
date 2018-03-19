@@ -18,7 +18,7 @@ public class TileMapToMesh : MonoBehaviour {
     //It needs a seperate gameobject, as it's parent already has a tilemap renderer and tilemapCollider
     GameObject meshContainer;
     const string containerName = "Mesh Container";
-
+    
     //reference variables to it's components.
     Tilemap tileMap;
     Grid grid;
@@ -141,8 +141,16 @@ public class TileMapToMesh : MonoBehaviour {
 
         for (int i = 0; i < points.Count; i++)
         {
+<<<<<<< HEAD
             //set the vertex position, using xz
             vertices[i] = new Vector3(points[i].x, 0, points[i].y);
+=======
+            //get the world space location of the points
+            Vector2 pt = transform.TransformPoint(points[i]);
+
+            //set the vertex position, using xz
+            vertices[i] = new Vector3(pt.x , 0, pt.y);
+>>>>>>> master
 
             //every points has 4 vertices.
             //we only run for every 4th point, else we'd have overlaps.
