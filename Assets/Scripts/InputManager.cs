@@ -33,8 +33,10 @@ public class InputManager : SingletonMB<InputManager> {
         {
             for (int i = 0; i < GameManager.Instance.player.Count; i++)
             {
+                //always be updating the player i aim direction.
                 GameManager.Instance.player[i].AimInDirection(playerControl[i].Direction(GameManager.Instance.player[i].transform.position));
 
+                //if player i is moving, or has just stopped moving .. update player i movement.
                 if (playerControl[i].Moving || playerControl[i].Stopped)
                 {
                     GameManager.Instance.player[i].Move(playerControl[i].Horizontal, playerControl[i].Vertical);
@@ -61,9 +63,10 @@ public class PlayerControl
 {
     const float moveValue = 0.5f;
 
-    //these are not final ofcourse.
+    //player inputs to listen to. //todo support gamepads
     public KeyCode MoveUp, MoveDown, MoveLeft, MoveRight, Shoot, Dash, Ability1, Ability2, Ability3;
 
+    //check if player is moving.
     public bool Moving {
         get
         {
@@ -72,6 +75,7 @@ public class PlayerControl
         }
     }
 
+    //check if player just stopped.
     public bool Stopped
     {
         get
@@ -81,6 +85,7 @@ public class PlayerControl
         }
     }
 
+    //get player horizontal movement.
     public float Horizontal
     {
         get
@@ -98,6 +103,7 @@ public class PlayerControl
         }
     }
 
+    //get player vertical movement.
     public float Vertical
     {
         get
@@ -115,13 +121,16 @@ public class PlayerControl
         }
     }
 
+    //get player aim target.
     private Vector3 Aim{
         get
         {
+            //todo support gamepads.
             return Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
     }
 
+    //get player aim direction.
     public Vector3 Direction(Vector3 origin)
     {
         return (Aim - origin).normalized;

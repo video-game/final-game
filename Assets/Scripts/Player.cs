@@ -44,6 +44,8 @@ public class Player : MonoBehaviour
         isWalking = (horizontal != 0 || vertical != 0);
         animator.SetBool("IsWalking", (horizontal != 0 || vertical != 0));
 
+        //set destination right infront of player. (player navMeshAgent has high acceleration)
+        //good way of thinking about it, is like tying a hotdog on a stick to a dog.
         Vector3 movePos = new Vector3(transform.position.x + horizontal, 0, transform.position.z + vertical);
         agent.SetDestination(movePos);
     }
@@ -76,19 +78,24 @@ public class Player : MonoBehaviour
 
     public void Shoot()
     {
+        //spawn projectile, set it's trajectory
         Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(hand.position.x, 0, hand.position.z), demoProjectile.transform.rotation);
         clone.velocity = 9 * aimDirection;
     }
 
     public void AimInDirection(Vector3 direction)
     {
+        //set aim direction (used for shooting)
         aimDirection = direction;
 
+        //calculate rotation Quaternion
         Quaternion rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, Quaternion.LookRotation(aimDirection, Vector3.up).eulerAngles.y,
             transform.rotation.eulerAngles.z);
 
+        //set rotation
         hand.rotation = rotation;
 
+        //set animator Directon
         animator.SetInteger("Direction", (int)Utilities.VectorToDirection(direction.x, direction.z));
     }
 }
