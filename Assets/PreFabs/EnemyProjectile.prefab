@@ -19,11 +19,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4993170194353842}
-  - component: {fileID: 114839504398229022}
   - component: {fileID: 212190184215990882}
   - component: {fileID: 95921973940960514}
   - component: {fileID: 54506367409316654}
   - component: {fileID: 135392441643877968}
+  - component: {fileID: 114036228575005632}
   m_Layer: 11
   m_Name: EnemyProjectile
   m_TagString: EnemyProjectile
@@ -76,7 +76,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114839504398229022
+--- !u!114 &114036228575005632
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -84,10 +84,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1775384306581496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0d10b160edb8d043b0c94805768d4d6, type: 3}
+  m_Script: {fileID: 11500000, guid: b3797e2e5ea47f64781c9a0f09aeb509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 5
+  velocity: {x: 0, y: 0, z: 0}
+  lifetime: 3
 --- !u!135 &135392441643877968
 SphereCollider:
   m_ObjectHideFlags: 1
