@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
     public void Move(float horizontal, float vertical)
     {
         isWalking = (horizontal != 0 || vertical != 0);
-        animator.SetBool("IsWalking", (horizontal != 0 || vertical != 0));
+        animator.SetBool("IsWalking", isWalking);
 
         //set destination right infront of player. (player navMeshAgent has high acceleration)
         //good way of thinking about it, is like tying a hotdog on a stick to a dog.

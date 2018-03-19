@@ -59,10 +59,6 @@ public class GameManager : SingletonMB<GameManager>
 
     private void Start()
     {
-        Player[] p = GameObject.FindObjectsOfType<Player>();
-        for (int i = 0; i < p.Length; i++)
-        {
-            player.Add(p[i]);
-        }
+        player.AddRange(GameObject.FindObjectsOfType<Player>());   
     }
 }
