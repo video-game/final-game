@@ -17,7 +17,7 @@ public abstract class SingletonMB<T> : MonoBehaviour {
         }
     }
 
-    //Virtiaæ method, that can be implemented
+    //Virtual method, that can be implemented
     //The purpose of this is to copy any neccasery information over to a new scene.
     //Some singletons might not have any values that need copying.
     public virtual void CopyValues(T copy) { }
