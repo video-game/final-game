@@ -109,7 +109,7 @@ public class PlayerScript : MonoBehaviour
 	{
 		var direction = calculateDirectionToMouse();
 		var clone = Instantiate(demoProjectile, new Vector3(hand.position.x, 0, hand.position.z), demoProjectile.transform.rotation);
-		clone.GetComponent<DemoProjectileScript>().init( 9 * direction);
+		clone.GetComponent<DemoProjectile>().init( 9 * direction);
 	}
 
 	private void handleMovementInput()

@@ -31,7 +31,7 @@ public class BasicEnemy : MonoBehaviour {
     {
         if(collision.gameObject.tag == "PlayerProjectile")
         {
-            Knockback(collision.gameObject.GetComponent<DemoProjectileScript>().velocity, 5);
+            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 5);
             health -= 10;
             if(health < 1)
             {
@@ -53,7 +53,7 @@ public class BasicEnemy : MonoBehaviour {
         if (playerCheckTimer > playerCheckTime)
         {
             playerCheckTimer = 0;
-            Vector3 playerPosition = GameManager.Instance.player.transform.position;
+            Vector3 playerPosition = GameManager.Instance.player[0].transform.position;
             NavMeshPath path = new UnityEngine.AI.NavMeshPath();
 
             //calculate the distance of path to player

@@ -1,9 +1,8 @@
-
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DemoProjectileScript : MonoBehaviour
+public class DemoProjectile : MonoBehaviour
 {
     [HideInInspector]
     public Vector3 velocity;
@@ -22,9 +21,8 @@ public class DemoProjectileScript : MonoBehaviour
         Destroy(gameObject, lifetime);
 	}
 
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
     {
 		Destroy(gameObject);
 	}
 }
-
