@@ -14,10 +14,9 @@ public class GameManager : SingletonMB<GameManager>
     //how many players
     public int playerCount;
 
-    //If we want more than 1 player, we will have to change this.
     //Reference to player for other scripts.
     [HideInInspector]
-    public GameObject player;
+    public List<Player> player;
 
     //a private bool to see if the game is paused
     //it is then escaped as a property (but only for get)
@@ -60,10 +59,10 @@ public class GameManager : SingletonMB<GameManager>
 
     private void Start()
     {
-        Player p = GameObject.FindObjectOfType<Player>();
-        if(p != null)
+        Player[] p = GameObject.FindObjectsOfType<Player>();
+        for (int i = 0; i < p.Length; i++)
         {
-            player = p.gameObject;
+            player.Add(p[i]);
         }
     }
 }
