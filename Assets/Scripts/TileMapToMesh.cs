@@ -20,7 +20,6 @@ public class TileMapToMesh : MonoBehaviour {
     
     //reference variables to it's components.
     Tilemap tileMap;
-    TilemapCollider2D tileMapCollider;
     Grid grid;
 
     //optional setting to auto apply navMeshSurface and navigation area after tilemap is generated.
@@ -46,14 +45,7 @@ public class TileMapToMesh : MonoBehaviour {
         tileMap = GetComponent<Tilemap>();
         grid = transform.parent.GetComponentInParent<Grid>();
 
-        Mesh newMesh = Composite2DToMesh();
-        MeshCollider collider = GetComponent<MeshCollider>();
-        if(collider != null)
-        {
-            collider.sharedMesh = newMesh;
-        }
-
-        CreateGameObject(newMesh);
+        CreateGameObject(MeshFromTileMap());
     }
 	
     //helper function to create the game object.
@@ -107,7 +99,7 @@ public class TileMapToMesh : MonoBehaviour {
 
 
     //helper function that generates the mesh from the tile positions.
-    private Mesh Composite2DToMesh()
+    private Mesh MeshFromTileMap()
     {
         //each tile is a quad made up of 2 triangles. each triangle has 3 points. ergo.. 6
         const int trianglesPerPoint = 6;
