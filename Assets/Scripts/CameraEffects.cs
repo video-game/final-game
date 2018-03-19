@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraEffects : MonoBehaviour {
-
     private bool shaking = false;
 
     public void ShakeCamera(float duration, float magnitude)
@@ -13,13 +12,11 @@ public class CameraEffects : MonoBehaviour {
     }
     IEnumerator CameraShakeRoutine(float duration, float magnitude)
     {
-        float time = 0;
         Vector3 leftPos = new Vector3(transform.localPosition.x - magnitude, transform.localPosition.y, transform.localPosition.z);
         Vector3 rightPos = new Vector3(transform.localPosition.x + magnitude, transform.localPosition.y, transform.localPosition.z);
         bool posToggle = false;
         while (duration > 0)
         {
-            time += Time.deltaTime;
             if(posToggle)
             {
                 transform.localPosition = rightPos;
@@ -33,7 +30,6 @@ public class CameraEffects : MonoBehaviour {
             duration -= 0.05f;
         }
         transform.localPosition = Vector3.zero;
-        Debug.Log("time taken: " + time);
     }
 
 	// Use this for initialization
@@ -43,9 +39,5 @@ public class CameraEffects : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetAxisRaw("Fire1") != 0)
-        {
-            ShakeCamera(0.2f, 0.04f);
-        }
     }
 }
