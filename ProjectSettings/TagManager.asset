@@ -53,6 +53,9 @@ TagManager:
   - name: Actor
     uniqueID: 3967710005
     locked: 0
+  - name: Projectile
+    uniqueID: 3661520721
+    locked: 0
   - name: Height 1
     uniqueID: 3209682119
     locked: 0
