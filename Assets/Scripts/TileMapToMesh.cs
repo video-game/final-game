@@ -6,13 +6,14 @@ using UnityEngine.Tilemaps;
 using UnityEditor;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(Tilemap), typeof(TilemapCollider2D))]
+[RequireComponent(typeof(Tilemap))]
 public class TileMapToMesh : MonoBehaviour {
 
     //optional material variable, lets you assign material to the mesh after tilemap is generated.
     public Material material;
-    //layerName to sat the tileMap mesh to. (camera is then set to ignore this layer)
-    public string layerName = "TileMapMesh";
+    //layerIndex to sat the tileMap mesh to. (camera is then set to ignore this layer)
+    [HideInInspector]
+    public int layerIndex;
 
     //It needs a seperate gameobject, as it's parent already has a tilemap renderer and tilemapCollider
     GameObject meshContainer;
@@ -20,20 +21,37 @@ public class TileMapToMesh : MonoBehaviour {
 
     //reference variables to it's components.
     Tilemap tileMap;
-    TilemapCollider2D tileMapCollider;
     Grid grid;
 
     //optional setting to auto apply navMeshSurface and navigation area after tilemap is generated.
     [HideInInspector]
-    public bool navMeshSurface;
+    public bool navMeshModifier;
+    [HideInInspector][SerializeField]
+    public int navigationArea;
+
     [HideInInspector]
-    public string navigationArea = "Walkable";
+    public bool meshCollider;
+    [HideInInspector]
+    public PhysicMaterial physicsMaterial;
 
     //idiot proofing
     //parent must have be a grid.
     private void Reset()
     {
-        if(transform.parent == null && !transform.parent.GetComponentInParent<Grid>())
+        //check if TileMapMesh layer exists, if not let the developer know.
+        if (LayerMask.NameToLayer("TileMapMesh") == -1)
+        {
+            Debug.LogWarning("\"TileMapMesh\" Layer does not exist, setting layer to \"Default\".");
+        }
+        else
+        {
+            layerIndex = LayerMask.NameToLayer("TileMapMesh");
+        }
+
+        //load default material (hardcoded path :S)
+        material = AssetDatabase.LoadAssetAtPath("Assets/Material/TileMapMesh.mat", typeof(Material)) as Material;
+
+        if (transform.parent == null && !transform.parent.GetComponentInParent<Grid>())
         {
             Debug.LogError(transform.parent == null ? "GameObject must have a Parent, and the Parent Must have Grid Component" : "Parent Must have Grid Component");
             DestroyImmediate(this);
@@ -44,8 +62,6 @@ public class TileMapToMesh : MonoBehaviour {
     public void Generate () {
         //set the references, just incase. (was behaving weird in awake, start and reset)
         tileMap = GetComponent<Tilemap>();
-        tileMapCollider = GetComponent<TilemapCollider2D>();
-        tileMapCollider.enabled = false;
         grid = transform.parent.GetComponentInParent<Grid>();
 
         CreateGameObject(Composite2DToMesh());
@@ -68,13 +84,13 @@ public class TileMapToMesh : MonoBehaviour {
         mF.mesh = mesh;
         MeshRenderer mR = meshContainer.AddComponent<MeshRenderer>();
 
-        //add nav Mesh Surface if exists navMeshSurface = true
-        if (navMeshSurface)
+        //add nav Mesh Modifier if exists navMeshModifier = true
+        if (navMeshModifier)
         {
             NavMeshModifier nMM = meshContainer.AddComponent<NavMeshModifier>();
             //override the area with navigationArea area type.
             nMM.overrideArea = true;
-            nMM.area = NavMesh.GetAreaFromName(navigationArea);
+            nMM.area = navigationArea;
         }
 
         //apply the material, if set.
@@ -83,21 +99,18 @@ public class TileMapToMesh : MonoBehaviour {
             mR.material = material;
         }
 
-        //apply layer if set.
-        if (layerName != null)
+        meshContainer.layer = layerIndex;
+
+        //add nav Mesh Modifier if exists navMeshModifier = true
+        if (meshCollider)
         {
-            //if layer exists use it, else throw error.
-            LayerMask layer = LayerMask.NameToLayer(layerName);
-            if (LayerMask.LayerToName(layer.value) != string.Empty)
+            MeshCollider mC = meshContainer.AddComponent<MeshCollider>();
+            mC.sharedMesh = mesh;
+            if(physicsMaterial != null)
             {
-                meshContainer.layer = LayerMask.NameToLayer(layerName);
-            }
-            else
-            {
-                Debug.LogWarning(layerName + " layer does not exist");
+                mC.material = physicsMaterial;
             }
         }
-        
     }
 
 
@@ -121,9 +134,6 @@ public class TileMapToMesh : MonoBehaviour {
             points.Add(new Vector2(tiles[i].x + grid.cellSize.x, tiles[i].y + grid.cellSize.y));
         }
 
-        //get the offset of the collider, just incase.
-        Vector2 offset = tileMapCollider.offset;
-
         //create arrays for the vertices, uvs and triangles.
         Vector3[] vertices = new Vector3[points.Count + 1];
         Vector2[] uvs = new Vector2[vertices.Length];
@@ -131,11 +141,8 @@ public class TileMapToMesh : MonoBehaviour {
 
         for (int i = 0; i < points.Count; i++)
         {
-            //get the world space location of the points
-            Vector2 pt = tileMapCollider.transform.TransformPoint(points[i]);
-
             //set the vertex position, using xz
-            vertices[i] = new Vector3(pt.x + offset.x, 0, pt.y + offset.y);
+            vertices[i] = new Vector3(points[i].x, 0, points[i].y);
 
             //every points has 4 vertices.
             //we only run for every 4th point, else we'd have overlaps.
@@ -163,10 +170,12 @@ public class TileMapToMesh : MonoBehaviour {
         }
 
         //put it all together.
-        Mesh mesh = new Mesh();
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mesh.uv = uvs;
+        Mesh mesh = new Mesh()
+        {
+            vertices = vertices,
+            triangles = triangles,
+            uv = uvs
+        };
         mesh.RecalculateNormals();
 
         return mesh;
@@ -175,6 +184,7 @@ public class TileMapToMesh : MonoBehaviour {
 
 
 //Extension to TileMap that lets you get the positions of all the tiles in the tilemap.
+//modified version GetTiles by: Dmitry Tabakov (https://gamedev.stackexchange.com/questions/150917/how-to-get-all-tiles-from-a-tilemap)
 public static class TilemapExtensions
 {
     public static List<Vector2> GetTilePositions<T>(this Tilemap tilemap) where T : TileBase
