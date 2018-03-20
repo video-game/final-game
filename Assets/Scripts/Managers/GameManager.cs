@@ -28,6 +28,8 @@ public class GameManager : SingletonMB<GameManager>
     private bool gameOver;
     public bool GameOver { get { return gameOver; } }
 
+    [SerializeField]
+    private Texture2D cursorTexture;
 
     public override void CopyValues(GameManager copy)
     {
@@ -59,6 +61,8 @@ public class GameManager : SingletonMB<GameManager>
 
     private void Start()
     {
-        player.AddRange(GameObject.FindObjectsOfType<Player>());   
+        player.AddRange(GameObject.FindObjectsOfType<Player>());  
+        if (cursorTexture)
+            Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }
 }
