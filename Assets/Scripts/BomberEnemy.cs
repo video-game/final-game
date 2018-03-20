@@ -16,9 +16,6 @@ public class BomberEnemy : MonoBehaviour
 	private float stopDistance;
 
 	[SerializeField]
-	private float chaseDistance;
-
-	[SerializeField]
 	private float updatePathInterval;
 
 	[SerializeField]
