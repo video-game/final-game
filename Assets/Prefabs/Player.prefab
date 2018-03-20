@@ -36,9 +36,10 @@ GameObject:
   - component: {fileID: 4371119427949318}
   - component: {fileID: 114170190425166190}
   - component: {fileID: 195943734753037132}
+  - component: {fileID: 136418734726154906}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +70,6 @@ GameObject:
   - component: {fileID: 4761356516966078}
   - component: {fileID: 212316295306171402}
   - component: {fileID: 95000814890205510}
-  - component: {fileID: 136155067622595492}
   - component: {fileID: 54583146039989660}
   m_Layer: 8
   m_Name: Model
@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1698090335433510}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3.8412929}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4761356516966078}
@@ -182,19 +182,19 @@ MonoBehaviour:
   dashCooldown: 3
   demoProjectile: {fileID: 54506367409316654, guid: 88c7430dde931484fa6d7f7afdc4b1ac,
     type: 2}
---- !u!136 &136155067622595492
+--- !u!136 &136418734726154906
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1986222589145684}
+  m_GameObject: {fileID: 1698090335433510}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.22
   m_Height: 1
-  m_Direction: 1
-  m_Center: {x: -0.03, y: 0, z: 0}
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195943734753037132
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -203,7 +203,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1698090335433510}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 120
   avoidancePriority: 50
