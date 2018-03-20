@@ -106,7 +106,7 @@ MonoBehaviour:
   stopAttackDistance: 8
   stopDistance: 2
   bullet: {fileID: 1775384306581496, guid: c0473aedfbb28ae49ba1ae5313119407, type: 2}
-  health: 60
+  health: 30
 --- !u!135 &135184753960464396
 SphereCollider:
   m_ObjectHideFlags: 1
