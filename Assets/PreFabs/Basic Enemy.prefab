@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4841073792916888}
   - component: {fileID: 212088410936283634}
+  - component: {fileID: 95352982029880650}
   m_Layer: 10
   m_Name: Model - X Rotation at 90
   m_TagString: Untagged
@@ -51,8 +52,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1480074238854560}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.46, y: 0, z: 6.62}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 26.88, y: 0, z: 6.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4841073792916888}
@@ -72,6 +73,23 @@ Transform:
   m_Father: {fileID: 4805335504698768}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!95 &95352982029880650
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1330021523423730}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a6e8867a90c53fa419105e0a5ad683bb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114546425585709894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -83,10 +101,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6e41caa6799924eb14ac41a0352937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCheckTime: 0.3
-  attackDistance: 4
-  stopDistance: 6
-  bullet: {fileID: 1775384306581496, guid: c0473aedfbb28ae49ba1ae5313119407, type: 2}
+  playerCheckTime: 0.5
+  attackDistance: 7
+  stopAttackDistance: 9
+  stopDistance: 1
+  bullet: {fileID: 1775384306581496, guid: e157e8f2023645044858a0171cd44557, type: 2}
   health: 50
 --- !u!135 &135384661847546182
 SphereCollider:
@@ -98,7 +117,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195312489722409592
 NavMeshAgent:
@@ -108,9 +127,9 @@ NavMeshAgent:
   m_GameObject: {fileID: 1480074238854560}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Speed: 2
-  m_Acceleration: 8
+  m_Acceleration: 120
   avoidancePriority: 50
   m_AngularSpeed: 0
   m_StoppingDistance: 0
@@ -155,7 +174,7 @@ SpriteRenderer:
   m_SortingLayerID: -327257291
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300022, guid: 5b32c2d36abe44540bed74c1f787033b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f57af8c0d933279478b4e008816338ba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

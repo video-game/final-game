@@ -28,9 +28,12 @@ public class BasicEnemy : MonoBehaviour {
 
     public float health;
 
+    Animator animator;
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = transform.GetComponentInChildren<Animator>();
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -56,10 +59,13 @@ public class BasicEnemy : MonoBehaviour {
 
     void Update ()
     {
+        animator.SetBool("IsRunning", agent.velocity != Vector3.zero);
+
         playerCheckTimer += Time.deltaTime;
         if (playerCheckTimer > playerCheckTime)
         {
             playerCheckTimer = 0;
+            //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
             Vector3 playerPosition = GameManager.Instance.player[0].transform.position;
             NavMeshPath path = new UnityEngine.AI.NavMeshPath();
 
