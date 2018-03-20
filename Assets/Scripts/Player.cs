@@ -89,7 +89,7 @@ public class Player : MonoBehaviour
     {
         //spawn projectile, set it's trajectory
         Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
-        clone.velocity = 9 * aimDirection;
+        clone.GetComponent<DemoProjectile>().init(9 * aimDirection);
     }
 
     public void AimInDirection(Vector3 direction)
@@ -144,6 +144,7 @@ public class Player : MonoBehaviour
     {
         //normalize the vector, just to be sure
         direction.Normalize();
+        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
         agent.SetDestination(new Vector3(direction.x, 0, direction.z) + transform.position);
     }
 }

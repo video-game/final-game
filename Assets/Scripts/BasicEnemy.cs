@@ -49,8 +49,9 @@ public class BasicEnemy : MonoBehaviour {
     private void Knockback(Vector3 direction, float power)
     {
         //normalize the vector, just to be sure
-        direction.Normalize();
+        direction = direction.normalized;
         agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
+        agent.SetDestination((new Vector3(direction.x, 0, direction.z) + transform.position));
     }
 
     void Update ()
@@ -65,7 +66,6 @@ public class BasicEnemy : MonoBehaviour {
             //calculate the distance of path to player
             agent.CalculatePath(playerPosition, path);
             float distance = Utilities.PathDistance(path);
-            Debug.Log("Distance: " + distance);
             if (attackDistance > distance)
             {
                 inAttackDistance = true;

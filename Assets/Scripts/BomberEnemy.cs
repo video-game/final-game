@@ -73,6 +73,11 @@ public class BomberEnemy : MonoBehaviour
 				}
 				else
 					agent.isStopped = true;
+
+                if (distance < 0.1)
+                {
+                    die();
+                }
 			}
 
 			// Wait for updatePathInterval seconds before looking again
