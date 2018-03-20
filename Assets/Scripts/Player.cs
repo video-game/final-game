@@ -144,7 +144,6 @@ public class Player : MonoBehaviour
     {
         //normalize the vector, just to be sure
         direction.Normalize();
-        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
         agent.SetDestination(new Vector3(direction.x, 0, direction.z) + transform.position);
     }
 }

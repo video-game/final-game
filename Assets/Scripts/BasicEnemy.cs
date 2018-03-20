@@ -11,10 +11,16 @@ public class BasicEnemy : MonoBehaviour {
 
     NavMeshAgent agent;
 
+    //How close should the enemy be to start following the player
     [SerializeField]
-    private float attackDistance = 4;
+    private float attackDistance;
+    //How far does the player have to be for the agent to give up
     [SerializeField]
-    private float stopDistance = 6;
+    private float stopAttackDistance;
+    //enemy should stop at an arm's length.
+    //This variable controls that.
+    [SerializeField]
+    private float stopDistance;
 
     private bool inAttackDistance = false;
 
@@ -59,11 +65,12 @@ public class BasicEnemy : MonoBehaviour {
             //calculate the distance of path to player
             agent.CalculatePath(playerPosition, path);
             float distance = Utilities.PathDistance(path);
+            Debug.Log("Distance: " + distance);
             if (attackDistance > distance)
             {
                 inAttackDistance = true;
             }
-            else if (stopDistance < distance)
+            else if (stopAttackDistance < distance)
             {
                 inAttackDistance = false;
             }
@@ -76,8 +83,17 @@ public class BasicEnemy : MonoBehaviour {
                 Vector3 zeroedPos = new Vector3(transform.position.x, 0, transform.position.z);
 
                 GameObject clone = Instantiate(bullet, new Vector3(transform.position.x, 0, transform.position.z), bullet.transform.rotation);
-                clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 5);
+                clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 4);
 
+
+                if(agent.remainingDistance < stopDistance)
+                {
+                    agent.isStopped = true;
+                }
+                else
+                {
+                    agent.isStopped = false;
+                }
 
                 //TODO make this work
                 //for some reason raycasting on the mesh doesn't work so we just have to make it shoot at blockades I guess
