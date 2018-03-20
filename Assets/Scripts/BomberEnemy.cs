@@ -91,7 +91,12 @@ public class BomberEnemy : MonoBehaviour
 	private void die()
 	{
 		explode();
-		Destroy(gameObject);
+        var effects = Camera.main.GetComponent<CameraEffects>();
+        if(effects != null)
+        {
+            effects.ShakeCamera(0.2f, 0.05f);
+        }
+        Destroy(gameObject);
 	}
 
 	private void explode()
@@ -106,7 +111,7 @@ public class BomberEnemy : MonoBehaviour
 				
 				var direction = new Vector3(x, 0, z).normalized;
 				var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-				clone.velocity = 7.5f * direction;
+				clone.GetComponent<DemoProjectile>().init( 7.5f * direction);
 			}
 		}
 	}

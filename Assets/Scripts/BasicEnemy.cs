@@ -31,7 +31,7 @@ public class BasicEnemy : MonoBehaviour {
     {
         if(collision.gameObject.tag == "PlayerProjectile")
         {
-            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 5);
+            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
             health -= 10;
             if(health < 1)
             {
@@ -76,7 +76,7 @@ public class BasicEnemy : MonoBehaviour {
                 Vector3 zeroedPos = new Vector3(transform.position.x, 0, transform.position.z);
 
                 GameObject clone = Instantiate(bullet, new Vector3(transform.position.x, 0, transform.position.z), bullet.transform.rotation);
-                clone.GetComponent<Rigidbody>().velocity = (playerPosition - zeroedPos).normalized * 5;
+                clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 5);
 
 
                 //TODO make this work
