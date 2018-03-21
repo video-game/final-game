@@ -26,7 +26,7 @@ public class LoadingScreen : MonoBehaviour
         }
 
         LoadingBar.value = progress;
-        LoadingText.text = progress * 100f + "%";
+        LoadingText.text = Mathf.Round(progress * 100f) + "%";
 
         //if progress is at 1 (aka 100%)
         //start fading out.
