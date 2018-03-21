@@ -29,11 +29,13 @@ public class BasicEnemy : MonoBehaviour {
     public float health;
 
     Animator animator;
+    private DamageTakenCanvas damageTakenCanvas;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = transform.GetComponentInChildren<Animator>();
+		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -42,11 +44,13 @@ public class BasicEnemy : MonoBehaviour {
         {
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
             health -= 10;
+            damageTakenCanvas.InitializeDamageText(10.ToString());
             if(health < 1)
             {
                 var tombstone = Instantiate(GameManager.Instance.Tombstone);
                 tombstone.transform.position = transform.position;
 
+                damageTakenCanvas.Orphan();
                 Destroy(this.gameObject);
             }
         }
