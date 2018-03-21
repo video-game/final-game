@@ -75,6 +75,11 @@ public class BomberEnemy : MonoBehaviour
 				}
 				else
 					agent.isStopped = true;
+
+                if (distance < 0.1)
+                {
+                    die();
+                }
 			}
 
 			// Wait for updatePathInterval seconds before looking again
@@ -97,7 +102,16 @@ public class BomberEnemy : MonoBehaviour
 	{
 		explode();
 		damageTakenCanvas.Orphan();
-		Destroy(gameObject);
+        var effects = Camera.main.GetComponent<CameraEffects>();
+        if(effects != null)
+        {
+            effects.ShakeCamera(0.2f, 0.05f);
+        }
+
+        var tombstone = Instantiate(GameManager.Instance.Tombstone);
+        tombstone.transform.position = transform.position;
+
+        Destroy(gameObject);
 	}
 
 	private void explode()
@@ -112,7 +126,7 @@ public class BomberEnemy : MonoBehaviour
 				
 				var direction = new Vector3(x, 0, z).normalized;
 				var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-				clone.velocity = 7.5f * direction;
+				clone.GetComponent<DemoProjectile>().init( 7.5f * direction);
 			}
 		}
 	}
