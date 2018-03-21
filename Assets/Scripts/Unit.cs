@@ -10,6 +10,9 @@ public class Unit : MonoBehaviour {
     protected int maxHealth;
     protected int currentHealth;
 
+    protected bool alive = true;
+    public bool Alive { get { return alive; } }
+
     public void ChangeHealth(int value)
     {
         currentHealth = (currentHealth + value) < 0 ? 0 : (currentHealth + value) > maxHealth ? maxHealth : (currentHealth + value);
@@ -20,6 +23,20 @@ public class Unit : MonoBehaviour {
         {
             OnHealthChange(currentHealth, maxHealth);
         }
+
+        if(currentHealth == 0)
+        {
+            Dead();
+        }
+    }
+
+    protected virtual void Dead()
+    {
+        alive = false;
+        var tombstone = Instantiate(GameManager.Instance.Tombstone);
+        tombstone.transform.position = transform.position;
+
+        this.gameObject.SetActive(false);
     }
 
 }
