@@ -46,12 +46,10 @@ public class Player : MonoBehaviour
         hand = transform.Find("Hand");
         projectileSpawn = hand.GetChild(0).transform;
         agent = GetComponent<NavMeshAgent>();
+
+        bodyColor = m.GetComponent<SpriteRenderer>().color;
     }
 
-    private void Start()
-    {
-        bodyColor = transform.Find("Model").GetComponent<SpriteRenderer>().color;
-    }
     //player move function
     public void Move(float horizontal, float vertical)
     {
