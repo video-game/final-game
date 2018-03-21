@@ -45,6 +45,11 @@ public class GameManager : SingletonMB<GameManager>
         paused = copy.paused;
     }
 
+    public void SetPlayerCount(int count)
+    {
+        playerCount = count;
+    }
+
     //a function that pauses the game, stops gameTime shows the pauseScreen;
     public void PauseGame()
     {
