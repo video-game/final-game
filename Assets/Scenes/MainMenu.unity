@@ -142,6 +142,7 @@ Transform:
   - {fileID: 910564955}
   - {fileID: 166193139}
   - {fileID: 793946548}
+  - {fileID: 2049445469}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -541,7 +542,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1d611e8d3e73c4690f46556e58c558, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCount: 0
+  playerPrefab: {fileID: 1698090335433510, guid: 507ea9da3fb62d547a1a899eff1aeb80,
+    type: 2}
+  playerModelPrefab:
+  - {fileID: 1805136030995804, guid: 456465ffc0ab52343ab76f0d753769ca, type: 2}
+  - {fileID: 1805136030995804, guid: 10c67ef41ccea4742bf07b954104ec96, type: 2}
+  playerCount: 2
   player:
   - {fileID: 0}
   cursorTexture: {fileID: 0}
@@ -607,3 +613,44 @@ Transform:
   m_Father: {fileID: 778198482}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2049445468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2049445469}
+  - component: {fileID: 2049445470}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2049445469
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049445468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 71340460}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2049445470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2049445468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc7c4804b7a18249bbeb39c174aa337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartLocation: []
