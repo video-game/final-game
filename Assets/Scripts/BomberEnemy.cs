@@ -13,9 +13,6 @@ public class BomberEnemy : Enemy
 	private float attackDistance;
 
 	[SerializeField]
-	private float stopDistance;
-
-	[SerializeField]
 	private float updatePathInterval;
 
 	[SerializeField]
@@ -25,7 +22,7 @@ public class BomberEnemy : Enemy
 	private Animator animator;
 	private DamageTakenCanvas damageTakenCanvas;
 
-	private bool inAttackDistance;
+	private bool attacking;
 
 	private void Awake()
 	{
@@ -64,22 +61,10 @@ public class BomberEnemy : Enemy
 				var distance = Utilities.PathDistance(path);
 
 				if (distance <= attackDistance)
-					inAttackDistance = true;
-				else if (distance >= stopDistance)
-					inAttackDistance = false;
+					attacking = true;
 				
-				if (inAttackDistance)
-				{
+				if (attacking)
 					agent.SetPath(path);
-					agent.isStopped = false;
-				}
-				else
-					agent.isStopped = true;
-
-                if (distance < 0.1)
-                {
-                    die();
-                }
 			}
 
 			// Wait for updatePathInterval seconds before looking again
@@ -95,22 +80,24 @@ public class BomberEnemy : Enemy
 		{
 			health -= 10;
 			damageTakenCanvas.InitializeDamageText(10.ToString());
+
+			attacking = true;
 		}
 	}
 
+	// Called in grandparent Unit.Dead() method
 	private void die()
 	{
 		explode();
-		damageTakenCanvas.Orphan();
+
         var effects = Camera.main.GetComponent<CameraEffects>();
-        if(effects != null)
-        {
+        if (effects != null)
             effects.ShakeCamera(0.2f, 0.05f);
-        }
 
         var tombstone = Instantiate(GameManager.Instance.Tombstone);
         tombstone.transform.position = transform.position;
 
+		damageTakenCanvas.Orphan();
         Destroy(gameObject);
 	}
 
@@ -126,7 +113,7 @@ public class BomberEnemy : Enemy
 				
 				var direction = new Vector3(x, 0, z).normalized;
 				var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-				clone.GetComponent<DemoProjectile>().init( 7.5f * direction);
+				clone.GetComponent<DemoProjectile>().init(7.5f * direction);
 			}
 		}
 	}
