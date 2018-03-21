@@ -115,7 +115,7 @@ MonoBehaviour:
   speed: 3.5
   dashSpeed: 12
   dashDuration: 0.15
-  dashCooldown: 3
+  dashCooldown: 0.5
   demoProjectile: {fileID: 54506367409316654, guid: 88c7430dde931484fa6d7f7afdc4b1ac,
     type: 2}
 --- !u!136 &136418734726154906
