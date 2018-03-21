@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
+    public GameObject model;
+
     [SerializeField]
     private float speed;
 
@@ -20,7 +22,6 @@ public class Player : MonoBehaviour
     private Rigidbody demoProjectile; // prefab
 
     private Animator animator;
-    private Rigidbody body;
     private Transform hand;
 
     private bool dashOnCooldown;
@@ -34,8 +35,9 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        GameObject m = Instantiate(model, transform);
+        m.name = "Model";
         animator = GetComponentInChildren<Animator>();
-        body = GetComponentInChildren<Rigidbody>();
         hand = transform.Find("Hand");
         projectileSpawn = hand.GetChild(0).transform;
         agent = GetComponent<NavMeshAgent>();
