@@ -71,6 +71,8 @@ public class GameManager : SingletonMB<GameManager>
 
     private void SpawnPlayers()
     {
+        player = new List<Player>();
+
         if (LevelManager.Instance.StartLocation.Count > 0)
         {
             for (int i = 0; i < playerCount; i++)
