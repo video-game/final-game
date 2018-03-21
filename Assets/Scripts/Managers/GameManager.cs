@@ -11,6 +11,9 @@ public class GameManager : SingletonMB<GameManager>
     public delegate void GameOverDelegate(bool isGameOver);
     public GameOverDelegate OnGameOver;
 
+    public GameObject playerPrefab;
+    public List<GameObject> playerModelPrefab;
+
     //how many players
     public int playerCount;
 
@@ -34,6 +37,8 @@ public class GameManager : SingletonMB<GameManager>
     public override void CopyValues(GameManager copy)
     {
         playerCount = copy.playerCount;
+        playerPrefab = copy.playerPrefab;
+        playerModelPrefab = copy.playerModelPrefab;
     }
 
     //a function that pauses the game, stops gameTime shows the pauseScreen;
@@ -58,10 +63,23 @@ public class GameManager : SingletonMB<GameManager>
         }
     }
 
-
     private void Start()
     {
-        player.AddRange(GameObject.FindObjectsOfType<Player>());  
+        SpawnPlayers();
+    }
+
+
+    private void SpawnPlayers()
+    {
+        if (LevelManager.Instance.StartLocation.Count > 0)
+        {
+            for (int i = 0; i < playerCount; i++)
+            {
+                player.Add(Instantiate(playerPrefab, LevelManager.Instance.StartLocation[0]).GetComponent<Player>());
+                player[i].Init(playerModelPrefab[i]);
+            }
+        }
+
         if (cursorTexture)
             Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }
