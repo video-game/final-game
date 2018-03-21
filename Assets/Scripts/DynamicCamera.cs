@@ -34,12 +34,30 @@ public class DynamicCamera : MonoBehaviour {
         }
     }
 
+    private Bounds GetBounds()
+    {
+        Bounds bounds = new Bounds(GameManager.Instance.player[GameManager.Instance.player.Count - 1].transform.position, Vector3.zero);
+        for (int i = 0; i < GameManager.Instance.player.Count; i++)
+        {
+            if (!GameManager.Instance.player[i].Alive)
+            {
+                continue;
+            }
+            bounds = new Bounds(GameManager.Instance.player[i].transform.position, Vector3.zero);
+            break;
+        }
+        return bounds;
+    }
+
     private Vector3 GetCenterPoint()
     {
-        Bounds bounds = new Bounds(GameManager.Instance.player[GameManager.Instance.player.Count - 1].transform.position, Vector3.zero );
-        for(int i = 0; i < 1; i++)
+        Bounds bounds = GetBounds();
+        for (int i = 0; i < GameManager.Instance.player.Count; i++)
         {
-
+            if (!GameManager.Instance.player[i].Alive)
+            {
+                continue;
+            }
             bounds.Encapsulate(GameManager.Instance.player[i].transform.position);
             
         }
@@ -49,10 +67,14 @@ public class DynamicCamera : MonoBehaviour {
 
     private float GetOptimalCameraSize()
     {
-        Bounds bounds = new Bounds(GameManager.Instance.player[GameManager.Instance.player.Count-1].transform.position, Vector3.zero);
+        Bounds bounds = GetBounds();
         for (int i = 0; i < GameManager.Instance.player.Count; i++)
         {
-              bounds.Encapsulate(GameManager.Instance.player[i].transform.position);  
+            if (!GameManager.Instance.player[i].Alive)
+            {
+                continue;
+            }
+            bounds.Encapsulate(GameManager.Instance.player[i].transform.position);  
         }
 
         return Mathf.Clamp(Mathf.Max(bounds.size.x, bounds.size.y * 1.78f ), minSize, maxSize);

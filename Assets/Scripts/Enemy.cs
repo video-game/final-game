@@ -12,6 +12,11 @@ public class Enemy : Unit
 
         for (int i = 0; i < GameManager.Instance.player.Count; i++)
         {
+            if (!GameManager.Instance.player[i].Alive)
+            {
+                continue;
+            }
+
             float temp = Vector3.Distance(GameManager.Instance.player[i].transform.position, transform.position);
             if (temp < distance)
             {

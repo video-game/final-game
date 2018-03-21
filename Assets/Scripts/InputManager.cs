@@ -33,6 +33,11 @@ public class InputManager : SingletonMB<InputManager> {
         {
             for (int i = 0; i < GameManager.Instance.player.Count; i++)
             {
+                if (!GameManager.Instance.player[i].Alive)
+                {
+                    continue;
+                }
+
                 //always be updating the player i aim direction.
                 GameManager.Instance.player[i].AimInDirection(playerControl[i].Direction(GameManager.Instance.player[i].transform.position));
 
