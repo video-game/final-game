@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Player : MonoBehaviour
+public class Player : Unit
 {
     [SerializeField]
     private float speed;
@@ -48,6 +48,9 @@ public class Player : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         bodyColor = m.GetComponent<SpriteRenderer>().color;
+
+        maxHealth = 100;
+        currentHealth = maxHealth;
     }
 
     //player move function
@@ -117,6 +120,7 @@ public class Player : MonoBehaviour
         {
             Damaged();
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
+            ChangeHealth(-10);
         }
     }
 
