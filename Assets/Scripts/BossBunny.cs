@@ -20,6 +20,7 @@ public class BossBunny : MonoBehaviour
 
 	private NavMeshAgent agent;
     private Animator animator;
+	private DamageTakenCanvas damageTakenCanvas;
 
 	private bool inRange, active;
 
@@ -43,6 +44,7 @@ public class BossBunny : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = transform.GetComponentInChildren<Animator>();
         originalPos = transform.position;
+		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
 	}
 
 	private void Start()
@@ -156,6 +158,7 @@ public class BossBunny : MonoBehaviour
         {
             Damaged();
             health -= 10;
+            damageTakenCanvas.InitializeDamageText(10.ToString());
         }
 	}
 
