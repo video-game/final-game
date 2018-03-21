@@ -48,7 +48,7 @@ public class InputManager : SingletonMB<InputManager> {
                 }
 
                 //if player i is pressing down his "Shoot" button.
-                if ((!playerControl[i].joystick && Input.GetKeyDown(playerControl[i].Shoot)) || (playerControl[i].joystick && playerControl[i].shootReady  && Input.GetAxis("Shoot") > .8f ))
+                if ((!playerControl[i].joystick && Input.GetKeyDown(playerControl[i].Shoot)) || (playerControl[i].joystick && playerControl[i].shootReady  && Input.GetAxisRaw("Shoot") == 1f ))
                 {
                     GameManager.Instance.player[i].Shoot();
 
@@ -58,7 +58,7 @@ public class InputManager : SingletonMB<InputManager> {
                     }
                 }
                 //if player i is pressing down his "Dash" button.
-                if ((!playerControl[i].joystick && playerControl[i].Moving && Input.GetKeyDown(playerControl[i].Dash)) || (playerControl[i].joystick && playerControl[i].dashReady && Input.GetAxis("Dash") > .8f))
+                if ((!playerControl[i].joystick && playerControl[i].Moving && Input.GetKeyDown(playerControl[i].Dash)) || (playerControl[i].joystick && playerControl[i].dashReady && Input.GetAxisRaw("Dash") == 1f))
                 {
                     GameManager.Instance.player[i].Dash();
 
@@ -68,11 +68,11 @@ public class InputManager : SingletonMB<InputManager> {
                     }
                 }
 
-                if (playerControl[i].joystick && !playerControl[i].shootReady && Input.GetAxis("Shoot") < .8f)
+                if (playerControl[i].joystick && !playerControl[i].shootReady && Input.GetAxisRaw("Shoot") < 1f)
                 {
                     playerControl[i].shootReady = true;
                 }
-                if (playerControl[i].joystick && !playerControl[i].dashReady && Input.GetAxis("Dash") < .8f)
+                if (playerControl[i].joystick && !playerControl[i].dashReady && Input.GetAxisRaw("Dash") < 1f)
                 {
                     playerControl[i].dashReady = true;
                 }
@@ -159,8 +159,8 @@ public class PlayerControl
         }
     }
 
-    float hor2 = 0;
-    float ver2 = 0;
+    float hor2 = .05f;
+    float ver2 = .05f;
 
     //get player aim target.
     private Vector3 Aim{
