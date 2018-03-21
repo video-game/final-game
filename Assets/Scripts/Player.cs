@@ -29,6 +29,8 @@ public class Player : MonoBehaviour
 
     private Vector3 aimDirection;
 
+    private Color bodyColor;
+
     Transform projectileSpawn;
 
     private void Awake()
@@ -46,6 +48,10 @@ public class Player : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
+    private void Start()
+    {
+        bodyColor = transform.Find("Model").GetComponent<SpriteRenderer>().color;
+    }
     //player move function
     public void Move(float horizontal, float vertical)
     {
@@ -88,7 +94,7 @@ public class Player : MonoBehaviour
     {
         //spawn projectile, set it's trajectory
         Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
-        clone.velocity = 9 * aimDirection;
+        clone.GetComponent<DemoProjectile>().init(9 * aimDirection);
     }
 
     public void AimInDirection(Vector3 direction)
@@ -105,5 +111,45 @@ public class Player : MonoBehaviour
 
         //set animator Directon
         animator.SetInteger("Direction", (int)Utilities.VectorToDirection(direction.x, direction.z));
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "EnemyProjectile")
+        {
+            Damaged();
+            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
+        }
+    }
+
+    public void Damaged()
+    {
+        StartCoroutine(DamagedCoroutine(0.5f));
+    }
+
+
+    //coroutine for when player is damaged, colors the player red for some time
+    IEnumerator DamagedCoroutine(float duration)
+    {
+        float colorIntensity = 10;
+
+        var modelRenderer = transform.Find("Model").GetComponent<SpriteRenderer>();
+        var handRenderer = transform.Find("Hand").GetComponentInChildren<SpriteRenderer>();
+        
+        modelRenderer.color = new Color(bodyColor.r, bodyColor.g - colorIntensity, bodyColor.b - colorIntensity);
+        handRenderer.color = new Color(bodyColor.r, bodyColor.g - colorIntensity, bodyColor.b - colorIntensity);
+
+        yield return new WaitForSeconds(duration);
+        
+        modelRenderer.color = bodyColor;
+        handRenderer.color = bodyColor;
+    }
+
+    private void Knockback(Vector3 direction, float power)
+    {
+        //normalize the vector, just to be sure
+        direction.Normalize();
+        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
+        agent.SetDestination(new Vector3(direction.x, 0, direction.z) + transform.position);
     }
 }

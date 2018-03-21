@@ -12,6 +12,7 @@ public class CameraEffects : MonoBehaviour {
     }
     IEnumerator CameraShakeRoutine(float duration, float magnitude)
     {
+        Vector3 originalPos = transform.localPosition;
         Vector3 leftPos = new Vector3(transform.localPosition.x - magnitude, transform.localPosition.y, transform.localPosition.z);
         Vector3 rightPos = new Vector3(transform.localPosition.x + magnitude, transform.localPosition.y, transform.localPosition.z);
         bool posToggle = false;
@@ -29,7 +30,7 @@ public class CameraEffects : MonoBehaviour {
             yield return new WaitForSeconds(0.05f);
             duration -= 0.05f;
         }
-        transform.localPosition = Vector3.zero;
+        transform.localPosition = originalPos;
     }
 
 	// Use this for initialization

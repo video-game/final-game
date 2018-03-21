@@ -23,6 +23,7 @@ public class BomberEnemy : MonoBehaviour
 
 	private NavMeshAgent agent;
 	private Animator animator;
+	private DamageTakenCanvas damageTakenCanvas;
 
 	private bool inAttackDistance;
 
@@ -30,6 +31,7 @@ public class BomberEnemy : MonoBehaviour
 	{
 		agent = GetComponent<NavMeshAgent>();
 		animator = transform.GetComponentInChildren<Animator>();
+		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
 	}
 
 	private void Start()
@@ -73,6 +75,11 @@ public class BomberEnemy : MonoBehaviour
 				}
 				else
 					agent.isStopped = true;
+
+                if (distance < 0.1)
+                {
+                    die();
+                }
 			}
 
 			// Wait for updatePathInterval seconds before looking again
@@ -85,13 +92,26 @@ public class BomberEnemy : MonoBehaviour
 		if (other.transform.tag == "Player")
 			health = 0;
 		else if (other.transform.tag == "PlayerProjectile")
+		{
 			health -= 10;
+			damageTakenCanvas.InitializeDamageText(10.ToString());
+		}
 	}
 
 	private void die()
 	{
 		explode();
-		Destroy(gameObject);
+		damageTakenCanvas.Orphan();
+        var effects = Camera.main.GetComponent<CameraEffects>();
+        if(effects != null)
+        {
+            effects.ShakeCamera(0.2f, 0.05f);
+        }
+
+        var tombstone = Instantiate(GameManager.Instance.Tombstone);
+        tombstone.transform.position = transform.position;
+
+        Destroy(gameObject);
 	}
 
 	private void explode()
@@ -106,7 +126,7 @@ public class BomberEnemy : MonoBehaviour
 				
 				var direction = new Vector3(x, 0, z).normalized;
 				var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-				clone.velocity = 7.5f * direction;
+				clone.GetComponent<DemoProjectile>().init( 7.5f * direction);
 			}
 		}
 	}

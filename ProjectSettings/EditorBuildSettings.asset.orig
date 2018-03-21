@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/MainMenu.unity
+    guid: b24abad6388647444b8fe46f91fa5e1a
+  - enabled: 0
+    path: Assets/Scenes/OverWorld.unity
+    guid: 4f61bdfee9347b7499627acfeb86126b
+  - enabled: 0
+    path: Assets/Scenes/TemplateScene.unity
+    guid: ff4a2d5f80d2cd14cb3cac22f95118ed
+  - enabled: 1
+<<<<<<< HEAD
+    path: Assets/Scenes/NavMeshExample.unity
+    guid: 8e056e35f39deae4bbfa3a5f18a971bd
+=======
+    path: Assets/Scenes/Overworld scene.unity
+    guid: c4324107391bd0a4d8e07ac08a1aa0aa
+>>>>>>> master
