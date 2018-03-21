@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class UINewGame : UIMenu
 {
+    private void OnEnable()
+    {
+        GameManager.Instance.SetPlayerCount(1);    
+    }
+
     public void StartGameButton()
     {
         //todo: clean game state
