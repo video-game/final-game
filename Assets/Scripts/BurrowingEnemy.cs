@@ -101,7 +101,7 @@ public class BurrowingEnemy : MonoBehaviour {
                 Vector3 playerPosition = GameManager.Instance.player[0].transform.position;
                 Vector3 fleeDirection = (transform.position - playerPosition).normalized;
 
-                agent.SetDestination(fleeDirection);
+                agent.SetDestination(transform.position + fleeDirection);
             }
 
         }
