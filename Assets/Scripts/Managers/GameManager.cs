@@ -11,6 +11,9 @@ public class GameManager : SingletonMB<GameManager>
     public delegate void GameOverDelegate(bool isGameOver);
     public GameOverDelegate OnGameOver;
 
+    public GameObject playerPrefab;
+    public List<GameObject> playerModelPrefab;
+
     //how many players
     public int playerCount;
 
@@ -37,6 +40,14 @@ public class GameManager : SingletonMB<GameManager>
     public override void CopyValues(GameManager copy)
     {
         playerCount = copy.playerCount;
+        playerPrefab = copy.playerPrefab;
+        playerModelPrefab = copy.playerModelPrefab;
+        paused = copy.paused;
+    }
+
+    public void SetPlayerCount(int count)
+    {
+        playerCount = count;
     }
 
     //a function that pauses the game, stops gameTime shows the pauseScreen;
@@ -54,18 +65,57 @@ public class GameManager : SingletonMB<GameManager>
     public void EndGame()
     {
         gameOver = true;
-        Time.timeScale = 0;
+
         if (OnGameOver != null)
         {
             OnGameOver(gameOver);
         }
     }
 
-
     private void Start()
     {
-        player.AddRange(GameObject.FindObjectsOfType<Player>());  
+        if (paused)
+        {
+            PauseGame();
+        }
+        SpawnPlayers();
+    }
+
+
+    private void SpawnPlayers()
+    {
+        player = new List<Player>();
+
+        if (LevelManager.Instance.StartLocation.Count > 0)
+        {
+            for (int i = 0; i < playerCount; i++)
+            {
+                player.Add(Instantiate(playerPrefab, LevelManager.Instance.StartLocation[0]).GetComponent<Player>());
+                player[i].Init(playerModelPrefab[i]);
+                player[i].OnPlayerDeath += CheckGameStatus;
+            }
+        }
+
+        UIManager.Instance.InstantiatePlayerHud(player);
+
         if (cursorTexture)
             Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+    }
+
+    private void CheckGameStatus()
+    {
+        int dead = 0;
+        for (int i = 0; i < player.Count; i++)
+        {
+            if (!player[i].Alive)
+            {
+                dead++;
+            }
+        }
+
+        if(dead == player.Count)
+        {
+            EndGame();
+        }
     }
 }

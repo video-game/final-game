@@ -7,7 +7,7 @@ public class UIMainMenu : UIMenu
     public void NewGameButton()
     {
         //todo: clean game state
-        SceneLoader.Instance.Load("OverWorld");
+        UIManager.Instance.OpenMenu("New Game");
     }
 
     public void SettingsButton()

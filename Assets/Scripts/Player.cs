@@ -2,8 +2,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Player : MonoBehaviour
+public class Player : Unit
 {
+    public delegate void PlayerDelegate();
+    public PlayerDelegate OnPlayerDeath;
+
     [SerializeField]
     private float speed;
 
@@ -20,7 +23,6 @@ public class Player : MonoBehaviour
     private Rigidbody demoProjectile; // prefab
 
     private Animator animator;
-    private Rigidbody body;
     private Transform hand;
 
     private bool dashOnCooldown;
@@ -36,17 +38,24 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+
+    }
+
+    public void Init(GameObject model)
+    {
+        GameObject m = Instantiate(model, transform);
+        m.name = "Model";
         animator = GetComponentInChildren<Animator>();
-        body = GetComponentInChildren<Rigidbody>();
         hand = transform.Find("Hand");
         projectileSpawn = hand.GetChild(0).transform;
         agent = GetComponent<NavMeshAgent>();
+
+        bodyColor = m.GetComponent<SpriteRenderer>().color;
+
+        maxHealth = 100;
+        currentHealth = maxHealth;
     }
 
-    private void Start()
-    {
-        bodyColor = transform.Find("Model").GetComponent<SpriteRenderer>().color;
-    }
     //player move function
     public void Move(float horizontal, float vertical)
     {
@@ -114,6 +123,7 @@ public class Player : MonoBehaviour
         {
             Damaged();
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
+            ChangeHealth(-10);
         }
     }
 
@@ -146,5 +156,12 @@ public class Player : MonoBehaviour
         direction.Normalize();
         agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
         agent.SetDestination(new Vector3(direction.x, 0, direction.z) + transform.position);
+    }
+
+    protected override void Dead()
+    {
+        base.Dead();
+
+        OnPlayerDeath();
     }
 }

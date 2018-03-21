@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicEnemy : MonoBehaviour {
+public class BasicEnemy : Enemy
+{
 
     [SerializeField]
     private float playerCheckTime;
@@ -73,9 +74,9 @@ public class BasicEnemy : MonoBehaviour {
         animator.SetBool("IsRunning", agent.velocity != Vector3.zero);
 
         //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
-        Vector3 playerPosition = GameManager.Instance.player[0].transform.position;
+        Vector3 playerPosition = GetClosestPlayer();
 
-        if (inAttackDistance)
+        if (playerPosition != null && inAttackDistance)
         {
             shootTimer += Time.deltaTime;
             if(shootTimer > shootSpeed)
@@ -106,7 +107,7 @@ public class BasicEnemy : MonoBehaviour {
         }
 
         playerCheckTimer += Time.deltaTime;
-        if (playerCheckTimer > playerCheckTime)
+        if (playerPosition != null && playerCheckTimer > playerCheckTime)
         {
             playerCheckTimer = 0;
             NavMeshPath path = new UnityEngine.AI.NavMeshPath();

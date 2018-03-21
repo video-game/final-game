@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BurrowingEnemy : MonoBehaviour {
+public class BurrowingEnemy : Enemy {
 
     [SerializeField]
     private float playerCheckTime;
@@ -103,7 +103,7 @@ public class BurrowingEnemy : MonoBehaviour {
             //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
             if (playerCheckTimer > playerCheckTime)
             {
-                Vector3 playerPosition = GameManager.Instance.player[0].transform.position;
+                Vector3 playerPosition = GetClosestPlayer();
                 Vector3 fleeDirection = (transform.position - playerPosition).normalized;
 
                 agent.SetDestination(transform.position + fleeDirection);
@@ -119,7 +119,7 @@ public class BurrowingEnemy : MonoBehaviour {
             {
                 playerCheckTimer = 0;
                 //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
-                Vector3 playerPosition = GameManager.Instance.player[0].transform.position;
+                Vector3 playerPosition = GetClosestPlayer();
                 NavMeshPath path = new UnityEngine.AI.NavMeshPath();
 
                 //calculate the distance of path to player

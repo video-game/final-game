@@ -12,6 +12,12 @@ public class UIManager : SingletonMB<UIManager>
     //UIContainer will be the parent of all the menus
     public GameObject UIContainer;
 
+    //HudContainer will be the parent of all huds.
+    public GameObject HudContainer;
+
+    //a references list of player huds.
+    public List<PHud> playerHud;
+
     //A property that returns if the current menu can be paused over
     public bool AllowPause { get { return openMenu.Count != 0 ? openMenu.Peek().allowPause : true; } }
 
@@ -25,8 +31,18 @@ public class UIManager : SingletonMB<UIManager>
     {
         for (int i = 0; i < menu.Count; i++)
         {
-            menu[i].instance = Instantiate(menu[i].prefab, UIContainer.transform).GetComponent<UIMenu>() as UIMenu;
+            menu[i].instance = Instantiate(menu[i].prefab, UIContainer.transform).GetComponent<UIMenu>();
             menu[i].instance.Init(menu[i].name);
+        }
+    }
+
+    //instantiate all the prefabs and initialize if need be.
+    public void InstantiatePlayerHud(List<Player> player)
+    {
+        for (int i = 0; i < player.Count; i++)
+        {
+            playerHud[i].instance = Instantiate(playerHud[i].prefab, HudContainer.transform).GetComponent<PlayerHud>();
+            playerHud[i].instance.Init(player[i]);
         }
     }
 
@@ -94,3 +110,12 @@ public class Menu{
     [System.NonSerialized]
     public UIMenu instance;
 }
+
+[System.Serializable]
+public class PHud
+{
+    public GameObject prefab;
+    [System.NonSerialized]
+    public PlayerHud instance;
+}
+
