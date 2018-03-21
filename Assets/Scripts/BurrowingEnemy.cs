@@ -29,12 +29,14 @@ public class BurrowingEnemy : MonoBehaviour {
     public float health;
 
     Animator animator;
+	private DamageTakenCanvas damageTakenCanvas;
 
     private bool burrowed = false;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = transform.GetComponentInChildren<Animator>();
+		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -43,6 +45,7 @@ public class BurrowingEnemy : MonoBehaviour {
         {
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
             health -= 10;
+            damageTakenCanvas.InitializeDamageText(10.ToString());
 
             Burrow();
 
@@ -50,6 +53,8 @@ public class BurrowingEnemy : MonoBehaviour {
             {
                 var tombstone = Instantiate(GameManager.Instance.Tombstone);
                 tombstone.transform.position = transform.position;
+
+                damageTakenCanvas.Orphan();
                 Destroy(this.gameObject);
             }
         }
