@@ -7,7 +7,7 @@ public class UIMainMenu : UIMenu
     public void NewGameButton()
     {
         //todo: clean game state
-        SceneLoader.Instance.Load("OverWorld");
+        SceneLoader.Instance.Load("NavMeshExample");
     }
 
     public void SettingsButton()

@@ -4,8 +4,6 @@ using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
-    public GameObject model;
-
     [SerializeField]
     private float speed;
 
@@ -34,6 +32,11 @@ public class Player : MonoBehaviour
     Transform projectileSpawn;
 
     private void Awake()
+    {
+
+    }
+
+    public void Init(GameObject model)
     {
         GameObject m = Instantiate(model, transform);
         m.name = "Model";

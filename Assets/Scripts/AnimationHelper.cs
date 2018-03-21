@@ -18,14 +18,12 @@ public class AnimationHelper : MonoBehaviour {
     [ExecuteInEditMode]
     public void Walk(Utilities.Direction direction)
     {
-        Debug.Log(direction);
         sR.sprite = walk[(int)direction];
     }
 
     [ExecuteInEditMode]
     public void Idle(Utilities.Direction direction)
     {
-        Debug.Log(direction);
         sR.sprite = idle[(int)direction];
     }
 
