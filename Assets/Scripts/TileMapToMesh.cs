@@ -108,7 +108,8 @@ public class TileMapToMesh : MonoBehaviour {
             MeshCollider mC = meshContainer.AddComponent<MeshCollider>();
             mC.sharedMesh = mesh;
             //on a flat mesh, unity gives a convex mesh a width of .05f .. which allows us to hit it with a raycast.
-            mC.convex = true;
+            //nvm .. this causes other issues.
+            //mC.convex = true;
             if(physicsMaterial != null)
             {
                 mC.material = physicsMaterial;
