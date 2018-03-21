@@ -14,15 +14,12 @@ public class BurrowingEnemy : Enemy {
     //How close should the enemy be to start following the player
     [SerializeField]
     private float attackDistance;
-    //How far does the player have to be for the agent to give up
-    [SerializeField]
-    private float stopAttackDistance;
     //enemy should stop at an arm's length.
     //This variable controls that.
     [SerializeField]
     private float stopDistance;
 
-    private bool inAttackDistance = false;
+    private bool attacking;
 
     public GameObject bullet;
 
@@ -46,6 +43,7 @@ public class BurrowingEnemy : Enemy {
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
             health -= 10;
             damageTakenCanvas.InitializeDamageText(10.ToString());
+            attacking = true;
 
             Burrow();
 
@@ -126,16 +124,10 @@ public class BurrowingEnemy : Enemy {
                 agent.CalculatePath(playerPosition, path);
                 float distance = Utilities.PathDistance(path);
                 if (attackDistance > distance)
-                {
-                    inAttackDistance = true;
-                }
-                else if (stopAttackDistance < distance)
-                {
-                    inAttackDistance = false;
-                }
+                    attacking = true;
 
                 //If enemy is aggro, move towards him and try to shoot him (if he isn't behind a wall).
-                if (inAttackDistance)
+                if (attacking)
                 {
                     agent.SetDestination(playerPosition);
 
