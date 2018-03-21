@@ -22,6 +22,10 @@ public class BasicEnemy : MonoBehaviour {
     [SerializeField]
     private float stopDistance;
 
+    [SerializeField]
+    private float shootSpeed;
+    private float shootTimer;
+
     private bool inAttackDistance = false;
 
     public GameObject bullet;
@@ -64,12 +68,43 @@ public class BasicEnemy : MonoBehaviour {
     {
         animator.SetBool("IsRunning", agent.velocity != Vector3.zero);
 
+        //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
+        Vector3 playerPosition = GameManager.Instance.player[0].transform.position;
+
+        if (inAttackDistance)
+        {
+            shootTimer += Time.deltaTime;
+            if(shootTimer > shootSpeed)
+            {
+                shootTimer = 0;
+
+                Vector3 zeroedPos = new Vector3(transform.position.x, 0, transform.position.z);
+
+                GameObject clone = Instantiate(bullet, new Vector3(transform.position.x, 0, transform.position.z), bullet.transform.rotation);
+                clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 4);
+
+                //TODO make this work
+                //for some reason raycasting on the mesh doesn't work so we just have to make it shoot at blockades I guess
+
+                //The NavMeshAgent tends to set the y value to something not quite 0,
+                //and the environment mesh is only exactly at y=0.
+                //So we must fix this by raycasting a y zeroed vector.
+                /*
+                RaycastHit hit;
+                Debug.DrawRay(zeroedPos, (playerPosition - zeroedPos), Color.red, playerCheckTime);
+                
+                if (Physics.Raycast(zeroedPos, (playerPosition - zeroedPos), out hit))
+                {
+                    Debug.Log("hit something! " + hit.transform);
+                }
+                */
+            }
+        }
+
         playerCheckTimer += Time.deltaTime;
         if (playerCheckTimer > playerCheckTime)
         {
             playerCheckTimer = 0;
-            //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
-            Vector3 playerPosition = GameManager.Instance.player[0].transform.position;
             NavMeshPath path = new UnityEngine.AI.NavMeshPath();
 
             //calculate the distance of path to player
@@ -89,13 +124,7 @@ public class BasicEnemy : MonoBehaviour {
             {
                 agent.SetDestination(playerPosition);
 
-                Vector3 zeroedPos = new Vector3(transform.position.x, 0, transform.position.z);
-
-                GameObject clone = Instantiate(bullet, new Vector3(transform.position.x, 0, transform.position.z), bullet.transform.rotation);
-                clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 4);
-
-
-                if(agent.remainingDistance < stopDistance)
+                if (agent.remainingDistance < stopDistance)
                 {
                     agent.isStopped = true;
                 }
@@ -103,22 +132,6 @@ public class BasicEnemy : MonoBehaviour {
                 {
                     agent.isStopped = false;
                 }
-
-                //TODO make this work
-                //for some reason raycasting on the mesh doesn't work so we just have to make it shoot at blockades I guess
-
-                //The NavMeshAgent tends to set the y value to something not quite 0,
-                //and the environment mesh is only exactly at y=0.
-                //So we must fix this by raycasting a y zeroed vector.
-                /*
-                RaycastHit hit;
-                Debug.DrawRay(zeroedPos, (playerPosition - zeroedPos), Color.red, playerCheckTime);
-                
-                if (Physics.Raycast(zeroedPos, (playerPosition - zeroedPos), out hit))
-                {
-                    Debug.Log("hit something! " + hit.transform);
-                }
-                */
             }
         }
 	}
