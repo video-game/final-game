@@ -28,6 +28,8 @@ public class GameManager : SingletonMB<GameManager>
     private bool gameOver;
     public bool GameOver { get { return gameOver; } }
 
+    //Very crappy solution, works for now.
+    public GameObject Tombstone;
 
     public override void CopyValues(GameManager copy)
     {

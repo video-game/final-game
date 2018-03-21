@@ -3,8 +3,6 @@ using UnityEngine.AI;
 public class Utilities
 {
     public enum Direction { Left, Right, Up, Down }
-
-    private bool cameraShaking = false;
     //This is probably inefficient as heck, works though.
     public static float PathDistance(NavMeshPath path)
     {

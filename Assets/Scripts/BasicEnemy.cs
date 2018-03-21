@@ -44,6 +44,9 @@ public class BasicEnemy : MonoBehaviour {
             health -= 10;
             if(health < 1)
             {
+                var tombstone = Instantiate(GameManager.Instance.Tombstone);
+                tombstone.transform.position = transform.position;
+
                 Destroy(this.gameObject);
             }
         }

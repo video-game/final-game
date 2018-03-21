@@ -101,6 +101,10 @@ public class BomberEnemy : MonoBehaviour
         {
             effects.ShakeCamera(0.2f, 0.05f);
         }
+
+        var tombstone = Instantiate(GameManager.Instance.Tombstone);
+        tombstone.transform.position = transform.position;
+
         Destroy(gameObject);
 	}
 

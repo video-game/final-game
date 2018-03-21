@@ -48,6 +48,8 @@ public class BurrowingEnemy : MonoBehaviour {
 
             if(health < 1)
             {
+                var tombstone = Instantiate(GameManager.Instance.Tombstone);
+                tombstone.transform.position = transform.position;
                 Destroy(this.gameObject);
             }
         }
