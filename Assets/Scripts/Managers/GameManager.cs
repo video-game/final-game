@@ -65,7 +65,7 @@ public class GameManager : SingletonMB<GameManager>
     public void EndGame()
     {
         gameOver = true;
-        Time.timeScale = 0;
+
         if (OnGameOver != null)
         {
             OnGameOver(gameOver);
@@ -92,6 +92,7 @@ public class GameManager : SingletonMB<GameManager>
             {
                 player.Add(Instantiate(playerPrefab, LevelManager.Instance.StartLocation[0]).GetComponent<Player>());
                 player[i].Init(playerModelPrefab[i]);
+                player[i].OnPlayerDeath += CheckGameStatus;
             }
         }
 
@@ -99,5 +100,22 @@ public class GameManager : SingletonMB<GameManager>
 
         if (cursorTexture)
             Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
+    }
+
+    private void CheckGameStatus()
+    {
+        int dead = 0;
+        for (int i = 0; i < player.Count; i++)
+        {
+            if (!player[i].Alive)
+            {
+                dead++;
+            }
+        }
+
+        if(dead == player.Count)
+        {
+            EndGame();
+        }
     }
 }
