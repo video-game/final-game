@@ -42,6 +42,7 @@ public class GameManager : SingletonMB<GameManager>
         playerCount = copy.playerCount;
         playerPrefab = copy.playerPrefab;
         playerModelPrefab = copy.playerModelPrefab;
+        paused = copy.paused;
     }
 
     //a function that pauses the game, stops gameTime shows the pauseScreen;
@@ -68,6 +69,10 @@ public class GameManager : SingletonMB<GameManager>
 
     private void Start()
     {
+        if (paused)
+        {
+            PauseGame();
+        }
         SpawnPlayers();
     }
 
@@ -84,6 +89,8 @@ public class GameManager : SingletonMB<GameManager>
                 player[i].Init(playerModelPrefab[i]);
             }
         }
+
+        UIManager.Instance.InstantiatePlayerHud(player);
 
         if (cursorTexture)
             Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
