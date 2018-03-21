@@ -23,6 +23,7 @@ public class BomberEnemy : MonoBehaviour
 
 	private NavMeshAgent agent;
 	private Animator animator;
+	private DamageTakenCanvas damageTakenCanvas;
 
 	private bool inAttackDistance;
 
@@ -30,6 +31,7 @@ public class BomberEnemy : MonoBehaviour
 	{
 		agent = GetComponent<NavMeshAgent>();
 		animator = transform.GetComponentInChildren<Animator>();
+		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
 	}
 
 	private void Start()
@@ -85,12 +87,16 @@ public class BomberEnemy : MonoBehaviour
 		if (other.transform.tag == "Player")
 			health = 0;
 		else if (other.transform.tag == "PlayerProjectile")
+		{
 			health -= 10;
+			damageTakenCanvas.InitializeDamageText(10.ToString());
+		}
 	}
 
 	private void die()
 	{
 		explode();
+		damageTakenCanvas.Orphan();
 		Destroy(gameObject);
 	}
 
