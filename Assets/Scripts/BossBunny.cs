@@ -19,14 +19,32 @@ public class BossBunny : MonoBehaviour
 	private Rigidbody demoProjectile;
 
 	private NavMeshAgent agent;
-    //private Animator animator;
+    private Animator animator;
+	private DamageTakenCanvas damageTakenCanvas;
 
 	private bool inRange, active;
 
+    [SerializeField]
+    private GameObject tombstone;
+
+    //How much time should pass until the bunny starts moving in another direction
+    [SerializeField]
+    private float movementDecisionTime;
+    private float MDTimer = 0;
+
+    //How far the bunny should be able to walk from its original spot
+    [SerializeField]
+    private float movementRadius;
+    private Vector3 originalPos;
+
+    private Color bodyColor;
 	private void Awake()
 	{
-		agent = GetComponent<NavMeshAgent>();
-        //animator = transform.GetComponentInChildren<Animator>();
+        bodyColor = transform.Find("Model - X Rotation at 90").GetComponent<SpriteRenderer>().color;
+        agent = GetComponent<NavMeshAgent>();
+        animator = transform.GetComponentInChildren<Animator>();
+        originalPos = transform.position;
+		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
 	}
 
 	private void Start()
@@ -36,7 +54,11 @@ public class BossBunny : MonoBehaviour
 
 	private void Update()
 	{
-        //animator.SetBool("IsRunning", inRange);
+        
+        animator.SetBool("IsWalking", agent.velocity != Vector3.zero);
+
+        MDTimer += Time.deltaTime;
+        
         if(inRange && !active)
         {
             active = true;
@@ -48,8 +70,18 @@ public class BossBunny : MonoBehaviour
 	}
 
 	private IEnumerator AttackPlayer() {
-        while(true)
+        Vector3 newPos = originalPos + new Vector3(Random.Range(0, movementRadius), 0, Random.Range(0, movementRadius));
+        agent.SetDestination(newPos);
+        while (true)
         {
+
+            if (MDTimer > movementDecisionTime)
+            {
+                MDTimer = 0;
+                newPos = originalPos + new Vector3(Random.Range(0, movementRadius), 0, Random.Range(0, movementRadius));
+                agent.SetDestination(newPos);
+            }
+
             switch (Random.Range(0, 2))
             {
                 case 0:
@@ -76,7 +108,7 @@ public class BossBunny : MonoBehaviour
 
                     var direction = new Vector3(x, 0, z).normalized;
                     var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-                    clone.velocity = 7.5f * direction;
+                    clone.GetComponent<DemoProjectile>().init(7.5f * direction);
                 }
             }
             yield return new WaitForSeconds(0.5f);
@@ -114,7 +146,7 @@ public class BossBunny : MonoBehaviour
             for (int arm = 1; arm <= 360; arm+= 360/6){
 			    var direction = new Vector3(Mathf.Cos(angle + arm * Mathf.Deg2Rad), 0, Mathf.Sin(angle + arm * Mathf.Deg2Rad));
 			    var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-			    clone.velocity = 7.5f * direction;
+			    clone.GetComponent<DemoProjectile>().init( 7.5f * direction);
             }
             yield return new WaitForSeconds(0.1f);
 		}
@@ -123,11 +155,39 @@ public class BossBunny : MonoBehaviour
 	private void OnCollisionEnter(Collision other)
 	{
 		if (other.transform.tag == "PlayerProjectile")
-			health -= 10;
+        {
+            Damaged();
+            health -= 10;
+            damageTakenCanvas.InitializeDamageText(10.ToString());
+        }
 	}
 
 	private void die()
 	{
+        var tombs = Instantiate(tombstone);
+        tombs.transform.position = transform.position;
 		Destroy(gameObject);
 	}
+
+    public void Damaged()
+    {
+        animator.SetBool("IsHurt", true);
+        StartCoroutine(DamagedCoroutine(0.4f));
+    }
+
+
+    //coroutine for when player is damaged, colors the player red for some time
+    IEnumerator DamagedCoroutine(float duration)
+    {
+        float colorIntensity = 10;
+
+        var modelRenderer = transform.Find("Model - X Rotation at 90").GetComponent<SpriteRenderer>();
+
+        modelRenderer.color = new Color(bodyColor.r, bodyColor.g - colorIntensity, bodyColor.b - colorIntensity);
+
+        yield return new WaitForSeconds(duration);
+
+        animator.SetBool("IsHurt", false);
+        modelRenderer.color = bodyColor;
+    }
 }
