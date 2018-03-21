@@ -4,6 +4,9 @@ using UnityEngine.AI;
 
 public class Player : Unit
 {
+    public delegate void PlayerDelegate();
+    public PlayerDelegate OnPlayerDeath;
+
     [SerializeField]
     private float speed;
 
@@ -153,5 +156,12 @@ public class Player : Unit
         direction.Normalize();
         agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
         agent.SetDestination(new Vector3(direction.x, 0, direction.z) + transform.position);
+    }
+
+    protected override void Dead()
+    {
+        base.Dead();
+
+        OnPlayerDeath();
     }
 }
