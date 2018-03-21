@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BomberEnemy : MonoBehaviour
+public class BomberEnemy : Enemy
 {
 	[SerializeField]
 	private float health;
@@ -56,9 +56,9 @@ public class BomberEnemy : MonoBehaviour
 			// If player exists
 			if (GameManager.Instance.player != null && GameManager.Instance.player.Count > 0)
 			{
-				var playerPosition = GameManager.Instance.player[0].transform.position;
+                Vector3 playerPosition = GetClosestPlayer();
 
-				var path = new NavMeshPath();
+                var path = new NavMeshPath();
 				agent.CalculatePath(playerPosition, path);
 
 				var distance = Utilities.PathDistance(path);

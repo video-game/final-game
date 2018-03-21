@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BossBunny : MonoBehaviour
+public class BossBunny : Enemy
 {
 	[SerializeField]
 	private float health;
@@ -124,9 +124,9 @@ public class BossBunny : MonoBehaviour
 			// If player exists
 			if (GameManager.Instance.player != null && GameManager.Instance.player.Count > 0)
 			{
-				var playerPosition = GameManager.Instance.player[0].transform.position;
+                Vector3 playerPosition = GetClosestPlayer();
 
-				var path = new NavMeshPath();
+                var path = new NavMeshPath();
 				agent.CalculatePath(playerPosition, path);
 
 				var distance = Utilities.PathDistance(path);
