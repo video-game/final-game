@@ -48,14 +48,33 @@ public class InputManager : SingletonMB<InputManager> {
                 }
 
                 //if player i is pressing down his "Shoot" button.
-                if (Input.GetKeyDown(playerControl[i].Shoot))
+                if ((!playerControl[i].joystick && Input.GetKeyDown(playerControl[i].Shoot)) || (playerControl[i].joystick && playerControl[i].shootReady  && Input.GetAxis("Shoot") > .8f ))
                 {
                     GameManager.Instance.player[i].Shoot();
+
+                    if (playerControl[i].joystick)
+                    {
+                        playerControl[i].shootReady = false;
+                    }
                 }
                 //if player i is pressing down his "Dash" button.
-                if (playerControl[i].Moving && Input.GetKeyDown(playerControl[i].Dash))
+                if ((!playerControl[i].joystick && playerControl[i].Moving && Input.GetKeyDown(playerControl[i].Dash)) || (playerControl[i].joystick && playerControl[i].dashReady && Input.GetAxis("Dash") > .8f))
                 {
                     GameManager.Instance.player[i].Dash();
+
+                    if (playerControl[i].joystick)
+                    {
+                        playerControl[i].dashReady = false;
+                    }
+                }
+
+                if (playerControl[i].joystick && !playerControl[i].shootReady && Input.GetAxis("Shoot") < .8f)
+                {
+                    playerControl[i].shootReady = true;
+                }
+                if (playerControl[i].joystick && !playerControl[i].dashReady && Input.GetAxis("Dash") < .8f)
+                {
+                    playerControl[i].dashReady = true;
                 }
             }
         }
@@ -68,6 +87,10 @@ public class PlayerControl
 {
     const float moveValue = 0.5f;
 
+    public bool joystick;
+    public bool shootReady = true;
+    public bool dashReady = true;
+
     //player inputs to listen to. //todo support gamepads
     public KeyCode MoveUp, MoveDown, MoveLeft, MoveRight, Shoot, Dash, Ability1, Ability2, Ability3;
 
@@ -75,8 +98,8 @@ public class PlayerControl
     public bool Moving {
         get
         {
-            return (Input.GetKey(MoveUp) || Input.GetKey(MoveDown) ||
-                   Input.GetKey(MoveLeft) || Input.GetKey(MoveRight));
+            return (!joystick && (Input.GetKey(MoveUp) || Input.GetKey(MoveDown) ||
+                   Input.GetKey(MoveLeft) || Input.GetKey(MoveRight))) || (joystick && (Mathf.Abs(Input.GetAxis("Horizontal")) > .2f || Mathf.Abs(Input.GetAxis("Vertical")) > .2f));
         }
     }
 
@@ -85,8 +108,8 @@ public class PlayerControl
     {
         get
         {
-            return (Input.GetKeyUp(MoveUp) || Input.GetKeyUp(MoveDown) ||
-                   Input.GetKeyUp(MoveLeft) || Input.GetKeyUp(MoveRight));
+            return (!joystick && (Input.GetKeyUp(MoveUp) || Input.GetKeyUp(MoveDown) ||
+                   Input.GetKeyUp(MoveLeft) || Input.GetKeyUp(MoveRight))) || (joystick && (Mathf.Abs(Input.GetAxis("Horizontal")) < .2f || Mathf.Abs(Input.GetAxis("Vertical")) < .2f)); ;
         }
     }
 
@@ -96,13 +119,18 @@ public class PlayerControl
         get
         {
             float val = 0;
-            if (Input.GetKey(MoveLeft))
+            if (!joystick && Input.GetKey(MoveLeft))
             {
                 val = -moveValue;
             }
-            else if (Input.GetKey(MoveRight))
+            else if (!joystick && Input.GetKey(MoveRight))
             {
                 val = moveValue;
+            }
+            else if(joystick && Mathf.Abs(Input.GetAxis("Horizontal")) > .2f)
+            {
+                val = Input.GetAxis("Horizontal");
+                val = val < 0 ? -moveValue : moveValue;
             }
             return val;
         }
@@ -114,24 +142,50 @@ public class PlayerControl
         get
         {
             float val = 0;
-            if (Input.GetKey(MoveDown))
+            if (!joystick && Input.GetKey(MoveDown))
             {
                 val = -moveValue;
             }
-            else if (Input.GetKey(MoveUp))
+            else if (!joystick && Input.GetKey(MoveUp))
             {
                 val = moveValue;
+            }
+            else if (joystick && Mathf.Abs(Input.GetAxis("Vertical")) > .2f)
+            {
+                val = Input.GetAxis("Vertical");
+                val = val < 0 ? -moveValue : moveValue;
             }
             return val;
         }
     }
+
+    float hor2 = 0;
+    float ver2 = 0;
 
     //get player aim target.
     private Vector3 Aim{
         get
         {
             //todo support gamepads.
-            return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (!joystick)
+            {
+                return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+            else
+            {
+                if(Mathf.Abs(Input.GetAxis("Horizontal2")) > .05f)
+                {
+                    hor2 = Input.GetAxis("Horizontal2");
+                }
+                if (Mathf.Abs(Input.GetAxis("Vertical2")) > .05f)
+                {
+                    ver2 = Input.GetAxis("Vertical2");
+                }
+
+                Vector3 pos = GameManager.Instance.player[1].transform.position;
+                pos = new Vector3(pos.x + hor2, 0, pos.z + ver2);
+                return pos;
+            }
         }
     }
 
