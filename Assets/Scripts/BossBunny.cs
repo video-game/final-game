@@ -21,7 +21,7 @@ public class BossBunny : MonoBehaviour
 	private NavMeshAgent agent;
     //private Animator animator;
 
-	private bool inRange;
+	private bool inRange, active;
 
 	private void Awake()
 	{
@@ -32,12 +32,16 @@ public class BossBunny : MonoBehaviour
 	private void Start()
 	{
 		StartCoroutine(CheckPlayerRange());
-		StartCoroutine(AttackPlayer());
 	}
 
 	private void Update()
 	{
         //animator.SetBool("IsRunning", inRange);
+        if(inRange && !active)
+        {
+            active = true;
+            StartCoroutine(AttackPlayer());
+        }
 
         if (health <= 0)
 			die();
