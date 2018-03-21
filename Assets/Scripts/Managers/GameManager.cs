@@ -31,6 +31,9 @@ public class GameManager : SingletonMB<GameManager>
     //Very crappy solution, works for now.
     public GameObject Tombstone;
 
+    [SerializeField]
+    private Texture2D cursorTexture;
+
     public override void CopyValues(GameManager copy)
     {
         playerCount = copy.playerCount;
@@ -61,6 +64,8 @@ public class GameManager : SingletonMB<GameManager>
 
     private void Start()
     {
-        player.AddRange(GameObject.FindObjectsOfType<Player>());   
+        player.AddRange(GameObject.FindObjectsOfType<Player>());  
+        if (cursorTexture)
+            Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);
     }
 }

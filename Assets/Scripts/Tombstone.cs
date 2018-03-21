@@ -6,8 +6,11 @@ public class Tombstone : MonoBehaviour {
 
     SpriteRenderer renderer;
     public Sprite[] sprites;
+
+    [SerializeField]
     int hitsToBreak = 2;
     int hits = 0;
+
     private void Awake()
     {
         renderer = GetComponent<SpriteRenderer>();
@@ -17,10 +20,13 @@ public class Tombstone : MonoBehaviour {
     {
         if(collision.gameObject.tag == "PlayerProjectile")
         {
-            hits++;
-            renderer.sprite = sprites[hits];
+            if((float)++hits/(float)hitsToBreak >= 0.5f)
+            {
+                renderer.sprite = sprites[1];
+            }
             if (hitsToBreak == hits)
             {
+                renderer.sprite = sprites[2];
                 GetComponent<Collider>().enabled = false;
             }
         }
