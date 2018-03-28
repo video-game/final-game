@@ -118,6 +118,7 @@ MonoBehaviour:
   dashCooldown: 0.5
   demoProjectile: {fileID: 54506367409316654, guid: 88c7430dde931484fa6d7f7afdc4b1ac,
     type: 2}
+  damageRecoveryTime: 0.5
 --- !u!136 &136418734726154906
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -151,7 +152,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!212 &212548282088991788
 SpriteRenderer:
   m_ObjectHideFlags: 1

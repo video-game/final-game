@@ -71,7 +71,8 @@ public class BasicEnemy : Enemy
 
     void Update ()
     {
-        animator.SetBool("IsRunning", agent.velocity != Vector3.zero);
+        animator.SetBool("IsWalking", agent.velocity != Vector3.zero);
+        animator.SetInteger("Direction", (int)Utilities.VectorToDirection(agent.velocity.x, agent.velocity.z));
 
         //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
         Vector3 playerPosition = GetClosestPlayer();

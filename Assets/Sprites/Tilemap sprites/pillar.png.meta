@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 34590e92550cd634ba8f25030fb3a2da
-timeCreated: 1521568065
+guid: 9b78e8a40d6094247bf504f3a87131ea
+timeCreated: 1522264357
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -87,6 +87,26 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
   - buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
