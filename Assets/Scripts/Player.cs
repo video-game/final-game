@@ -36,6 +36,9 @@ public class Player : Unit
 
     Transform projectileSpawn;
 
+    private bool dashing; //for stopping other movement during dashing
+    private Vector3 dashVelocity;
+
     private void Awake()
     {
 
@@ -54,18 +57,28 @@ public class Player : Unit
 
         maxHealth = 100;
         currentHealth = maxHealth;
+
+        dashing = false;
     }
 
     //player move function
     public void Move(float horizontal, float vertical)
     {
-        isWalking = (horizontal != 0 || vertical != 0);
-        animator.SetBool("IsWalking", isWalking);
+        if (dashing)
+        {
+            agent.velocity = dashVelocity;
+            Debug.Log("velocity: " + agent.velocity + " dash velocity: " + dashVelocity);
+        }
+        else
+        {
+            isWalking = (horizontal != 0 || vertical != 0);
+            animator.SetBool("IsWalking", isWalking);
 
-        //set destination right infront of player. (player navMeshAgent has high acceleration)
-        //good way of thinking about it, is like tying a hotdog on a stick to a dog.
-        Vector3 movePos = new Vector3(transform.position.x + horizontal, 0, transform.position.z + vertical);
-        agent.SetDestination(movePos);
+            //set destination right infront of player. (player navMeshAgent has high acceleration)
+            //good way of thinking about it, is like tying a hotdog on a stick to a dog.
+            Vector3 movePos = new Vector3(transform.position.x + horizontal, 0, transform.position.z + vertical);
+            agent.SetDestination(movePos);
+        }
     }
 
     //player dash function
@@ -73,6 +86,7 @@ public class Player : Unit
     {
         if (!dashOnCooldown)
         {
+            dashVelocity = agent.velocity.normalized * dashSpeed;
             StartCoroutine(DashCoroutine());
             if (dashCooldown > 0f)
                 StartCoroutine(DashCooldown());
@@ -81,10 +95,11 @@ public class Player : Unit
 
     private IEnumerator DashCoroutine()
     {
-        Vector3 currentDirection = agent.velocity.normalized;
-        agent.velocity = new Vector3(currentDirection.x, 0, currentDirection.z) * dashSpeed;
+        dashing = true;
+        agent.ResetPath();
         yield return new WaitForSeconds(dashDuration);
-        agent.velocity = Vector2.zero;
+        //agent.velocity = Vector3.zero;
+        dashing = false;
     }
 
     private IEnumerator DashCooldown()
