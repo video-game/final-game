@@ -39,6 +39,10 @@ public class Player : Unit
     private bool dashing; //for stopping other movement during dashing
     private Vector3 dashVelocity;
 
+    [SerializeField]
+    private float damageRecoveryTime;
+    private bool invincible;
+
     private void Awake()
     {
 
@@ -59,6 +63,7 @@ public class Player : Unit
         currentHealth = maxHealth;
 
         dashing = false;
+        invincible = false;
     }
 
     //player move function
@@ -98,7 +103,6 @@ public class Player : Unit
         dashing = true;
         agent.ResetPath();
         yield return new WaitForSeconds(dashDuration);
-        //agent.velocity = Vector3.zero;
         dashing = false;
     }
 
@@ -136,15 +140,26 @@ public class Player : Unit
     {
         if(collision.gameObject.tag == "EnemyProjectile")
         {
-            Damaged();
-            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
-            ChangeHealth(-10);
+            Damaged(-10, collision.gameObject.GetComponent<DemoProjectile>().velocity);
         }
     }
 
-    public void Damaged()
+    public void Damaged(int damage, Vector3 damageDirection)
     {
-        StartCoroutine(DamagedCoroutine(0.5f));
+        int damageAbs = Mathf.Abs(damage);
+        if (!invincible)
+        {
+            ChangeHealth(damage);
+
+            StartCoroutine(DamagedCoroutine(damageRecoveryTime));
+        }
+        //figured it would be clever to have a constant to 
+        //translate amount of damage taken to screen shake magnitude
+        float damageToShakeRatio = 0.0025f;
+        Camera.main.GetComponent<CameraEffects>().ShakeCamera(0.05f, damageAbs * damageToShakeRatio);
+
+        Knockback(damageDirection, damageAbs);
+
     }
 
 
@@ -159,8 +174,10 @@ public class Player : Unit
         modelRenderer.color = new Color(bodyColor.r, bodyColor.g - colorIntensity, bodyColor.b - colorIntensity);
         handRenderer.color = new Color(bodyColor.r, bodyColor.g - colorIntensity, bodyColor.b - colorIntensity);
 
+        invincible = true;
         yield return new WaitForSeconds(duration);
-        
+        invincible = false;
+
         modelRenderer.color = bodyColor;
         handRenderer.color = bodyColor;
     }
@@ -169,8 +186,8 @@ public class Player : Unit
     {
         //normalize the vector, just to be sure
         direction.Normalize();
+        agent.ResetPath();
         agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
-        agent.SetDestination(new Vector3(direction.x, 0, direction.z) + transform.position);
     }
 
     protected override void Dead()
