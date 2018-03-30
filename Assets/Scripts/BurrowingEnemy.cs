@@ -9,26 +9,25 @@ public class BurrowingEnemy : Enemy {
     private float playerCheckTime;
     private float playerCheckTimer = 0;
 
-    NavMeshAgent agent;
+    private NavMeshAgent agent;
 
     //How close should the enemy be to start following the player
     [SerializeField]
     private float attackDistance;
+
     //enemy should stop at an arm's length.
     //This variable controls that.
     [SerializeField]
     private float stopDistance;
 
-    private bool attacking;
-
     public GameObject bullet;
 
-    public float health;
+    private bool attacking;
+    private bool burrowed = false;
 
-    Animator animator;
+    private Animator animator;
 	private DamageTakenCanvas damageTakenCanvas;
 
-    private bool burrowed = false;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -38,23 +37,14 @@ public class BurrowingEnemy : Enemy {
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "PlayerProjectile")
+        if (collision.gameObject.tag == "PlayerProjectile")
         {
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
-            health -= 10;
+            ChangeHealth(-10);
             damageTakenCanvas.InitializeDamageText(10.ToString());
             attacking = true;
 
             Burrow();
-
-            if(health < 1)
-            {
-                var tombstone = Instantiate(GameManager.Instance.Tombstone);
-                tombstone.transform.position = transform.position;
-
-                damageTakenCanvas.Orphan();
-                Destroy(this.gameObject);
-            }
         }
     }
 

@@ -6,10 +6,6 @@ using UnityEngine.AI;
 public class BomberEnemy : Enemy
 {
 	[SerializeField]
-	private float health;
-	public float Health { get { return health; } }
-
-	[SerializeField]
 	private float attackDistance;
 
 	[SerializeField]
@@ -29,6 +25,8 @@ public class BomberEnemy : Enemy
 		agent = GetComponent<NavMeshAgent>();
 		animator = transform.GetComponentInChildren<Animator>();
 		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
+
+		OnDeath += die;
 	}
 
 	private void Start()
@@ -38,9 +36,6 @@ public class BomberEnemy : Enemy
 
 	private void Update()
 	{
-		if (health <= 0)
-			die();
-
 		animator.SetBool("IsRunning", agent.velocity != Vector3.zero);
 	}
 
@@ -75,10 +70,10 @@ public class BomberEnemy : Enemy
 	private void OnCollisionEnter(Collision other)
 	{
 		if (other.transform.tag == "Player")
-			health = 0;
+			ChangeHealth(-maxHealth);
 		else if (other.transform.tag == "PlayerProjectile")
 		{
-			health -= 10;
+			ChangeHealth(-10);
 			damageTakenCanvas.InitializeDamageText(10.ToString());
 
 			attacking = true;
@@ -98,7 +93,6 @@ public class BomberEnemy : Enemy
         tombstone.transform.position = transform.position;
 
 		damageTakenCanvas.Orphan();
-        Destroy(gameObject);
 	}
 
 	private void explode()

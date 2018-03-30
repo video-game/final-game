@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Enemy : Unit
 {
+    public List<Drop> Drops;
+
+    public Enemy()
+    {
+        OnDeath += RollDrops;
+    }
 
     protected Vector3 GetClosestPlayer()
     {
@@ -26,5 +32,16 @@ public class Enemy : Unit
         }
 
         return min;
+    }
+
+    private void RollDrops()
+    {
+        foreach (var drop in Drops)
+        {
+            var roll = Random.value;
+
+            if (roll <= drop.Chance)
+                Instantiate(drop.Pickup, transform.position, drop.Pickup.transform.rotation);
+        }
     }
 }

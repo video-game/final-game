@@ -171,9 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82708103514f6a342ae7e306d6231f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 15
+  maxHealth: 20
+  currentHealth: 20
+  Drops:
+  - Chance: 0.1
+    Pickup: {fileID: 114739717447332650, guid: 7cb37e7ceb071cf4c9a369ddb09048b2, type: 2}
   attackDistance: 10
-  stopDistance: 12
   updatePathInterval: 0.5
   demoProjectile: {fileID: 54506367409316654, guid: c0473aedfbb28ae49ba1ae5313119407,
     type: 2}
