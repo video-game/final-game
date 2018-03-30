@@ -46,6 +46,10 @@ public class Player : Unit
     private bool invincible;
     private bool KOd;
 
+    [SerializeField]
+    private int maxKoHealth;
+    private int currentKoHealth;
+
     private void Awake()
     {
 
@@ -74,20 +78,26 @@ public class Player : Unit
     public void Move(float horizontal, float vertical)
     {
         if(!KOd)
-        if (dashing)
         {
-            agent.velocity = dashVelocity;
-            Debug.Log("velocity: " + agent.velocity + " dash velocity: " + dashVelocity);
+            if (dashing)
+            {
+                agent.velocity = dashVelocity;
+                Debug.Log("velocity: " + agent.velocity + " dash velocity: " + dashVelocity);
+            }
+            else
+            {
+                isWalking = (horizontal != 0 || vertical != 0);
+                animator.SetBool("IsWalking", isWalking);
+
+                //set destination right infront of player. (player navMeshAgent has high acceleration)
+                //good way of thinking about it, is like tying a hotdog on a stick to a dog.
+                Vector3 movePos = new Vector3(transform.position.x + horizontal, 0, transform.position.z + vertical);
+                agent.SetDestination(movePos);
+            }
         }
         else
         {
-            isWalking = (horizontal != 0 || vertical != 0);
-            animator.SetBool("IsWalking", isWalking);
-
-            //set destination right infront of player. (player navMeshAgent has high acceleration)
-            //good way of thinking about it, is like tying a hotdog on a stick to a dog.
-            Vector3 movePos = new Vector3(transform.position.x + horizontal, 0, transform.position.z + vertical);
-            agent.SetDestination(movePos);
+            //Revive();
         }
     }
 
@@ -167,6 +177,27 @@ public class Player : Unit
 
     }
 
+    public override void ChangeHealth(int value)
+    {
+        if(!KOd)
+        {
+            base.ChangeHealth(value);
+        }
+        else
+        {
+            currentKoHealth = (currentKoHealth + value) < 0 ? 0 : (currentKoHealth + value) > maxKoHealth ? maxKoHealth : (currentKoHealth + value);
+            if (OnHealthChange != null)
+            {
+                OnHealthChange(currentKoHealth, maxKoHealth);
+            }
+
+            if(currentKoHealth == 0)
+            {
+                base.Dead();
+                OnPlayerDeath();
+            }
+        }
+    }
 
     //coroutine for when player is damaged, colors the player red for some time
     IEnumerator DamagedCoroutine(float duration)
@@ -195,14 +226,24 @@ public class Player : Unit
         agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
     }
 
+    //base onHealthChanged calls this function when it runs out of health
+    //so in this case it's a bit of a misnomer. Player gets KOed here.
     protected override void Dead()
     {
         animator.SetBool("KOd", true);
         KOd = true;
-
+        
+        currentKoHealth = maxKoHealth;
         OnPlayerKO();
-        //base.Dead();
+        OnHealthChange(maxKoHealth, maxKoHealth);
+    }
 
-        //OnPlayerDeath();
+    private void Revive()
+    {
+        animator.SetBool("KOd", false);
+        KOd = false;
+        
+        OnPlayerRevive();
+        ChangeHealth(maxHealth / 3);
     }
 }

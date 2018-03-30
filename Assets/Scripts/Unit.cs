@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour {
     protected bool alive = true;
     public bool Alive { get { return alive; } }
 
-    public void ChangeHealth(int value)
+    public virtual void ChangeHealth(int value)
     {
         currentHealth = (currentHealth + value) < 0 ? 0 : (currentHealth + value) > maxHealth ? maxHealth : (currentHealth + value);
 

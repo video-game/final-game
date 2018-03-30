@@ -119,6 +119,7 @@ MonoBehaviour:
   demoProjectile: {fileID: 54506367409316654, guid: 88c7430dde931484fa6d7f7afdc4b1ac,
     type: 2}
   damageRecoveryTime: 0.5
+  maxKoHealth: 70
 --- !u!136 &136418734726154906
 CapsuleCollider:
   m_ObjectHideFlags: 1
