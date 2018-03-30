@@ -68,6 +68,12 @@ public class InputManager : SingletonMB<InputManager> {
                     }
                 }
 
+                //if player i is pressing the action button
+                if(Input.GetKeyDown(playerControl[i].Action))
+                {
+                    GameManager.Instance.player[i].Interact();
+                }
+
                 if (playerControl[i].joystick && !playerControl[i].shootReady && Input.GetAxisRaw("Shoot") < 1f)
                 {
                     playerControl[i].shootReady = true;
@@ -92,7 +98,7 @@ public class PlayerControl
     public bool dashReady = true;
 
     //player inputs to listen to. //todo support gamepads
-    public KeyCode MoveUp, MoveDown, MoveLeft, MoveRight, Shoot, Dash, Ability1, Ability2, Ability3;
+    public KeyCode MoveUp, MoveDown, MoveLeft, MoveRight, Shoot, Dash, Ability1, Ability2, Ability3, Action;
 
     //check if player is moving.
     public bool Moving {

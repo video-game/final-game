@@ -44,7 +44,7 @@ public class Player : Unit
     [SerializeField]
     private float damageRecoveryTime;
     private bool invincible;
-    private bool KOd;
+    public bool KOd;
 
     [SerializeField]
     private int maxKoHealth;
@@ -94,10 +94,6 @@ public class Player : Unit
                 Vector3 movePos = new Vector3(transform.position.x + horizontal, 0, transform.position.z + vertical);
                 agent.SetDestination(movePos);
             }
-        }
-        else
-        {
-            //Revive();
         }
     }
 
@@ -226,16 +222,43 @@ public class Player : Unit
         agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
     }
 
+    //When the player's action button is pressed
+    //the interact function is called.
+    //Used to speak to villagers/revive teammate.
+    public void Interact()
+    {
+        //check if any KOed players are in a 1 unit radius
+        foreach(var player in GameManager.Instance.player)
+        {
+            if(player != this && Vector3.Distance(transform.position, player.transform.position) < 1)
+            {
+                if(player.KOd)
+                {
+                    player.Revive();
+                }
+            }
+        }
+    }
+
     //base onHealthChanged calls this function when it runs out of health
-    //so in this case it's a bit of a misnomer. Player gets KOed here.
+    //if there is more than 1 player, it's a bit of a misnomer. 
+    //Player gets KOed if there are 2 players, otherwise he just dies.
     protected override void Dead()
     {
-        animator.SetBool("KOd", true);
-        KOd = true;
-        
-        currentKoHealth = maxKoHealth;
-        OnPlayerKO();
-        OnHealthChange(maxKoHealth, maxKoHealth);
+        if(GameManager.Instance.player.Count > 1)
+        {
+            animator.SetBool("KOd", true);
+            KOd = true;
+
+            currentKoHealth = maxKoHealth;
+            OnPlayerKO();
+            OnHealthChange(maxKoHealth, maxKoHealth);
+        }
+        else
+        {
+            base.Dead();
+            OnPlayerDeath();
+        }
     }
 
     private void Revive()
