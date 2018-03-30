@@ -6,6 +6,8 @@ public class Player : Unit
 {
     public delegate void PlayerDelegate();
     public PlayerDelegate OnPlayerDeath;
+    public PlayerDelegate OnPlayerKO;
+    public PlayerDelegate OnPlayerRevive;
 
     [SerializeField]
     private float speed;
@@ -42,6 +44,7 @@ public class Player : Unit
     [SerializeField]
     private float damageRecoveryTime;
     private bool invincible;
+    private bool KOd;
 
     private void Awake()
     {
@@ -64,11 +67,13 @@ public class Player : Unit
 
         dashing = false;
         invincible = false;
+        KOd = false;
     }
 
     //player move function
     public void Move(float horizontal, float vertical)
     {
+        if(!KOd)
         if (dashing)
         {
             agent.velocity = dashVelocity;
@@ -192,8 +197,12 @@ public class Player : Unit
 
     protected override void Dead()
     {
-        base.Dead();
+        animator.SetBool("KOd", true);
+        KOd = true;
 
-        OnPlayerDeath();
+        OnPlayerKO();
+        //base.Dead();
+
+        //OnPlayerDeath();
     }
 }

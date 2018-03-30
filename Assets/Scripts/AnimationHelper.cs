@@ -9,6 +9,7 @@ public class AnimationHelper : MonoBehaviour {
 
     public List<Sprite> idle;
     public List<Sprite> walk;
+    public List<Sprite> ko;
 
     private void Start()
     {
@@ -27,4 +28,9 @@ public class AnimationHelper : MonoBehaviour {
         sR.sprite = idle[(int)direction];
     }
 
+    [ExecuteInEditMode]
+    public void KO(int state)
+    {
+        sR.sprite = ko[state];
+    }
 }
