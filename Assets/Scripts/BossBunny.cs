@@ -159,6 +159,11 @@ public class BossBunny : Enemy
             Damaged();
             health -= 10;
             damageTakenCanvas.InitializeDamageText(10.ToString());
+            if (!active)
+            {
+                active = true;
+                StartCoroutine(AttackPlayer());
+            }
         }
 	}
 

@@ -15,9 +15,6 @@ public class BasicEnemy : Enemy
     //How close should the enemy be to start following the player
     [SerializeField]
     private float attackDistance;
-    //How far does the player have to be for the agent to give up
-    [SerializeField]
-    private float stopAttackDistance;
     //enemy should stop at an arm's length.
     //This variable controls that.
     [SerializeField]
@@ -27,7 +24,7 @@ public class BasicEnemy : Enemy
     private float shootSpeed;
     private float shootTimer;
 
-    private bool inAttackDistance = false;
+    private bool attacking;
 
     public GameObject bullet;
 
@@ -50,6 +47,7 @@ public class BasicEnemy : Enemy
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
             health -= 10;
             damageTakenCanvas.InitializeDamageText(10.ToString());
+            attacking = true;
             if(health < 1)
             {
                 var tombstone = Instantiate(GameManager.Instance.Tombstone);
@@ -76,7 +74,7 @@ public class BasicEnemy : Enemy
         //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
         Vector3 playerPosition = GetClosestPlayer();
 
-        if (playerPosition != null && inAttackDistance)
+        if (playerPosition != null && attacking)
         {
             shootTimer += Time.deltaTime;
             if(shootTimer > shootSpeed)
@@ -116,16 +114,10 @@ public class BasicEnemy : Enemy
             agent.CalculatePath(playerPosition, path);
             float distance = Utilities.PathDistance(path);
             if (attackDistance > distance)
-            {
-                inAttackDistance = true;
-            }
-            else if (stopAttackDistance < distance)
-            {
-                inAttackDistance = false;
-            }
+                attacking = true;
 
             //If enemy is aggro, move towards him and try to shoot him (if he isn't behind a wall).
-            if (inAttackDistance)
+            if (attacking)
             {
                 agent.SetDestination(playerPosition);
 
