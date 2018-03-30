@@ -158,12 +158,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f625270be3e219b4f8a0bdb58de4c7e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 30
+  currentHealth: 30
+  Drops:
+  - Chance: 0.1
+    Pickup: {fileID: 114739717447332650, guid: 7cb37e7ceb071cf4c9a369ddb09048b2, type: 2}
   playerCheckTime: 0.3
   attackDistance: 6
-  stopAttackDistance: 8
   stopDistance: 2
   bullet: {fileID: 1775384306581496, guid: c0473aedfbb28ae49ba1ae5313119407, type: 2}
-  health: 30
 --- !u!114 &114947556180678782
 MonoBehaviour:
   m_ObjectHideFlags: 1

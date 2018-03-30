@@ -5,16 +5,16 @@ using UnityEngine.AI;
 
 public class BasicEnemy : Enemy
 {
-
     [SerializeField]
     private float playerCheckTime;
     private float playerCheckTimer = 0;
 
-    NavMeshAgent agent;
+    private NavMeshAgent agent;
 
     //How close should the enemy be to start following the player
     [SerializeField]
     private float attackDistance;
+
     //enemy should stop at an arm's length.
     //This variable controls that.
     [SerializeField]
@@ -24,13 +24,11 @@ public class BasicEnemy : Enemy
     private float shootSpeed;
     private float shootTimer;
 
-    private bool attacking;
-
     public GameObject bullet;
 
-    public float health;
+    private bool attacking;
 
-    Animator animator;
+    private Animator animator;
     private DamageTakenCanvas damageTakenCanvas;
 
     private void Start()
@@ -42,20 +40,12 @@ public class BasicEnemy : Enemy
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "PlayerProjectile")
+        if (collision.gameObject.tag == "PlayerProjectile")
         {
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
-            health -= 10;
+            ChangeHealth(-10);
             damageTakenCanvas.InitializeDamageText(10.ToString());
             attacking = true;
-            if(health < 1)
-            {
-                var tombstone = Instantiate(GameManager.Instance.Tombstone);
-                tombstone.transform.position = transform.position;
-
-                damageTakenCanvas.Orphan();
-                Destroy(this.gameObject);
-            }
         }
     }
 
@@ -132,6 +122,4 @@ public class BasicEnemy : Enemy
             }
         }
 	}
-
-    
 }
