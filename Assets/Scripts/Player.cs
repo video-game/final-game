@@ -23,6 +23,8 @@ public class Player : Unit
 
     [SerializeField]
     private Rigidbody demoProjectile; // prefab
+    private PlayerProjectile projectileScript; //its script
+    private bool fireOnDelay;
 
     private Animator animator;
     private Transform hand;
@@ -70,9 +72,11 @@ public class Player : Unit
         maxHealth = 100;
         currentHealth = maxHealth;
 
+        projectileScript = demoProjectile.GetComponent<PlayerProjectile>();
         dashing = false;
         invincible = false;
         KOd = false;
+        fireOnDelay = false;
     }
 
     //player move function
@@ -131,11 +135,39 @@ public class Player : Unit
         dashOnCooldown = false;
     }
 
+    //If a projectile should only fire once per trigger press
     public void Shoot()
     {
-        //spawn projectile, set it's trajectory
-        Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
-        clone.GetComponent<DemoProjectile>().init(9 * aimDirection);
+        if(!projectileScript.continuousFire && !fireOnDelay)
+        {
+            //spawn projectile, set it's trajectory
+            Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
+            var cloneScript = clone.GetComponent<PlayerProjectile>();
+            cloneScript.init(9 * aimDirection);
+
+            StartCoroutine(ShootDelay(cloneScript.shootDelay));
+        }
+    }
+
+    //If a projectile should fire continuously with delay
+    public void ShootContinuous()
+    {
+        if (projectileScript.continuousFire && !fireOnDelay)
+        {
+            //spawn projectile, set it's trajectory
+            Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
+            var cloneScript = clone.GetComponent<PlayerProjectile>();
+            cloneScript.init(9 * aimDirection);
+
+            StartCoroutine(ShootDelay(cloneScript.shootDelay));
+        }
+    }
+
+    private IEnumerator ShootDelay(float delay)
+    {
+        fireOnDelay = true;
+        yield return new WaitForSeconds(delay);
+        fireOnDelay = false;
     }
 
     public void AimInDirection(Vector3 direction)

@@ -18,7 +18,7 @@ public class DemoProjectile : MonoBehaviour
 
     private Animator anim;
 
-    public void init(Vector3 vel)
+    public virtual void init(Vector3 vel)
     {
         velocity = vel;
         GetComponent<Rigidbody>().velocity = velocity;

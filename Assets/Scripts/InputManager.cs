@@ -47,7 +47,7 @@ public class InputManager : SingletonMB<InputManager> {
                     GameManager.Instance.player[i].Move(playerControl[i].Horizontal, playerControl[i].Vertical);
                 }
 
-                //if player i is pressing down his "Shoot" button.
+                //if player i pressed down his "Shoot" button once.
                 if ((!playerControl[i].joystick && Input.GetKeyDown(playerControl[i].Shoot)) || (playerControl[i].joystick && playerControl[i].shootReady  && Input.GetAxisRaw("Shoot") == 1f ))
                 {
                     GameManager.Instance.player[i].Shoot();
@@ -57,6 +57,14 @@ public class InputManager : SingletonMB<InputManager> {
                         playerControl[i].shootReady = false;
                     }
                 }
+
+                //if player is holding his "Shoot" button
+                //if player i pressed down his "Shoot" button once.
+                if ((!playerControl[i].joystick && Input.GetKey(playerControl[i].Shoot)) || (playerControl[i].joystick && Input.GetAxisRaw("Shoot") == 1f))
+                {
+                    GameManager.Instance.player[i].ShootContinuous();
+                }
+
                 //if player i is pressing down his "Dash" button.
                 if ((!playerControl[i].joystick && playerControl[i].Moving && Input.GetKeyDown(playerControl[i].Dash)) || (playerControl[i].joystick && playerControl[i].dashReady && Input.GetAxisRaw("Dash") == 1f))
                 {
