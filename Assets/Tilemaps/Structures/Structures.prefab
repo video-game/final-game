@@ -144,7 +144,7 @@ Tilemap:
   - first: {x: 14, y: -7, z: 0}
     second:
       m_TileIndex: 14
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 10
       m_ObjectToInstantiate: {fileID: 0}
@@ -306,7 +306,7 @@ Tilemap:
   - first: {x: -5, y: -1, z: 0}
     second:
       m_TileIndex: 18
-      m_TileSpriteIndex: 14
+      m_TileSpriteIndex: 18
       m_TileMatrixIndex: 0
       m_TileColorIndex: 10
       m_ObjectToInstantiate: {fileID: 0}
@@ -499,8 +499,8 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 9beaf119555d5274e85131a9c5245eef, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 21300014, guid: ffe1a4e79de0e294595ef3da8919100b, type: 3}
   - m_RefCount: 1
@@ -520,19 +520,21 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: ffe1a4e79de0e294595ef3da8919100b, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: c7dffe3e93bbe86409bfb0884b36a67c, type: 3}
+    m_Data: {fileID: 21300000, guid: dc476c853a3b7204b850507eda0fa44d, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: 21300026, guid: 6c5caf14d6e40fc46934ade71fb754ca, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: 21300020, guid: 6c5caf14d6e40fc46934ade71fb754ca, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300006, guid: 6c5caf14d6e40fc46934ade71fb754ca, type: 3}
+    m_Data: {fileID: 21300000, guid: 9beaf119555d5274e85131a9c5245eef, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: 6c5caf14d6e40fc46934ade71fb754ca, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300004, guid: 6c5caf14d6e40fc46934ade71fb754ca, type: 3}
   - m_RefCount: 7
     m_Data: {fileID: 21300018, guid: 6c5caf14d6e40fc46934ade71fb754ca, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300006, guid: 6c5caf14d6e40fc46934ade71fb754ca, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 35
     m_Data:
@@ -620,17 +622,17 @@ Tilemap:
   - serializedVersion: 1
     m_DirtyIndex: 1
   - serializedVersion: 1
+    m_DirtyIndex: 18
+  - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 12
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 23
+    m_DirtyIndex: 46
   - serializedVersion: 1
-    m_DirtyIndex: 1
+    m_DirtyIndex: 0
   - serializedVersion: 1
-    m_DirtyIndex: 9
-  - serializedVersion: 1
-    m_DirtyIndex: 10
+    m_DirtyIndex: 0
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1

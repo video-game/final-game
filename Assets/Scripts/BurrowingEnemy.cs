@@ -6,6 +6,9 @@ using UnityEngine.AI;
 public class BurrowingEnemy : Enemy {
 
     [SerializeField]
+    private float burrowTime = 1;
+
+    [SerializeField]
     private float playerCheckTime;
     private float playerCheckTimer = 0;
 
@@ -41,7 +44,7 @@ public class BurrowingEnemy : Enemy {
         burrowed = true;
         GetComponent<Collider>().enabled = false;
         animator.SetBool("IsBurrowed", true);
-        StartCoroutine(BurrowCoroutine(2));
+        StartCoroutine(BurrowCoroutine(burrowTime));
     }
 
     IEnumerator BurrowCoroutine(float duration)

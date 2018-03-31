@@ -65,9 +65,11 @@ public class Enemy : Unit
     {
         if (collision.gameObject.tag == "PlayerProjectile")
         {
+            int damage = collision.gameObject.GetComponent<DemoProjectile>().damage;
+
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
-            ChangeHealth(-10);
-            damageTakenCanvas.InitializeDamageText(10.ToString());
+            ChangeHealth(damage);
+            damageTakenCanvas.InitializeDamageText(damage.ToString());
             attacking = true;
         }
     }
