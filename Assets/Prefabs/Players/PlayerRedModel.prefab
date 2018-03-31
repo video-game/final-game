@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 95150134040779724}
   - component: {fileID: 54538466094240130}
   - component: {fileID: 114043371965385416}
+  - component: {fileID: 96000984853570250}
   m_Layer: 8
   m_Name: PlayerRedModel
   m_TagString: Player
@@ -75,6 +76,93 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!96 &96000984853570250
+TrailRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805136030995804}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -882625671
+  m_SortingLayer: 3
+  m_SortingOrder: -1
+  m_Time: 0.3
+  m_Parameters:
+    serializedVersion: 2
+    widthMultiplier: 0.2
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 0.46323532, b: 0.46323532, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 0.41960785}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 31997
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 1
+    textureMode: 1
+    generateLightingData: 0
+  m_MinVertexDistance: 0.05
+  m_Autodestruct: 0
 --- !u!114 &114043371965385416
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,9 +184,7 @@ MonoBehaviour:
   - {fileID: 21300010, guid: 51a12923e9e19c748bbd359d3dcf3fdc, type: 3}
   - {fileID: 21300014, guid: 51a12923e9e19c748bbd359d3dcf3fdc, type: 3}
   - {fileID: 21300006, guid: 51a12923e9e19c748bbd359d3dcf3fdc, type: 3}
-  ko:
-  - {fileID: 21300002, guid: 6d3329e66ccd454419e74fb9b1693e03, type: 3}
-  - {fileID: 21300000, guid: 6d3329e66ccd454419e74fb9b1693e03, type: 3}
+  ko: []
 --- !u!212 &212593970748717022
 SpriteRenderer:
   m_ObjectHideFlags: 1

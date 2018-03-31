@@ -82,7 +82,6 @@ public class Player : Unit
             if (dashing)
             {
                 agent.velocity = dashVelocity;
-                Debug.Log("velocity: " + agent.velocity + " dash velocity: " + dashVelocity);
             }
             else
             {
@@ -112,9 +111,16 @@ public class Player : Unit
     private IEnumerator DashCoroutine()
     {
         dashing = true;
+        TrailRenderer tRenderer = transform.Find("Model").GetComponent<TrailRenderer>();
+        tRenderer.time = 0.3f;
+        tRenderer.enabled = true;
         agent.ResetPath();
         yield return new WaitForSeconds(dashDuration);
+        tRenderer.time = 0.1f;
         dashing = false;
+
+        yield return new WaitForSeconds(0.1f);
+        tRenderer.enabled = false;
     }
 
     private IEnumerator DashCooldown()
