@@ -67,7 +67,7 @@ public class Enemy : Unit
         {
             int damage = collision.gameObject.GetComponent<DemoProjectile>().damage;
 
-            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
+            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, Mathf.Abs(damage));
             ChangeHealth(damage);
             damageTakenCanvas.InitializeDamageText(damage.ToString());
             attacking = true;
@@ -76,9 +76,9 @@ public class Enemy : Unit
 
     private void Knockback(Vector3 direction, float power)
     {
+        agent.ResetPath();
         //normalize the vector, just to be sure
         direction = direction.normalized;
         agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
-        agent.SetDestination((new Vector3(direction.x, 0, direction.z) + transform.position));
     }
 }
