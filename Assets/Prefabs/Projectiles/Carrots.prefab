@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 54506367409316654}
   - component: {fileID: 135392441643877968}
   - component: {fileID: 114234769912864348}
+  - component: {fileID: 114897763974268326}
   m_Layer: 11
   m_Name: Carrots
   m_TagString: EnemyProjectile
@@ -69,7 +70,7 @@ Animator:
   m_GameObject: {fileID: 1775384306581496}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2fa38b54c9a03254da01c4242d55d6dc, type: 2}
+  m_Controller: {fileID: 9100000, guid: bf3d105af0b7b144cbc164779020270a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -112,6 +113,20 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 10
   spriteList: []
+--- !u!114 &114897763974268326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1775384306581496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fa7bb475d78f47a7139e99cfc7d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion:
+  - {fileID: 21300002, guid: 645f2b3621766274883712dd3ce9f2b9, type: 3}
+  - {fileID: 21300004, guid: 645f2b3621766274883712dd3ce9f2b9, type: 3}
 --- !u!135 &135392441643877968
 SphereCollider:
   m_ObjectHideFlags: 1

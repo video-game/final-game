@@ -44,6 +44,7 @@ public class Player : Unit
     [SerializeField]
     private float damageRecoveryTime;
     private bool invincible;
+    [HideInInspector]
     public bool KOd;
 
     [SerializeField]

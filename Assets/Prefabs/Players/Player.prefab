@@ -112,13 +112,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7397dee21119954b9889d61340a3967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
+  currentHealth: 0
   speed: 3.5
   dashSpeed: 12
   dashDuration: 0.15
   dashCooldown: 0.5
   demoProjectile: {fileID: 54506367409316654, guid: 88c7430dde931484fa6d7f7afdc4b1ac,
     type: 2}
-  damageRecoveryTime: 0.5
+  damageRecoveryTime: 0.3
+  KOd: 0
   maxKoHealth: 70
 --- !u!136 &136418734726154906
 CapsuleCollider:

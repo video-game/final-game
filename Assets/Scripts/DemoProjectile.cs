@@ -12,6 +12,9 @@ public class DemoProjectile : MonoBehaviour
 
     [SerializeField]
     Sprite[] spriteList;
+
+    private Animator anim;
+
     public void init(Vector3 vel)
     {
         velocity = vel;
@@ -27,10 +30,24 @@ public class DemoProjectile : MonoBehaviour
 	private void Awake()
 	{
         Destroy(gameObject, lifetime);
-	}
+
+        //somewhere, init is not being called
+        //so I guess we set animator here
+        anim = GetComponent<Animator>();
+    }
 
 	public void OnCollisionEnter(Collision other)
     {
-		Destroy(gameObject);
+         Explode();
 	}
+    
+    //This will trigger an explosion in the animator (duh).
+    //The animator will take care of actually destroying it
+    //after the animation is finished.
+    private void Explode()
+    {
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Collider>().enabled = false;
+        anim.SetTrigger("explode");
+    }
 }
