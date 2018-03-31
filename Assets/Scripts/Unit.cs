@@ -7,7 +7,13 @@ public class Unit : MonoBehaviour {
     public delegate void StatChangeDelegate(int current, int max);
     public StatChangeDelegate OnHealthChange;
 
+    public delegate void OnDeathDelegate();
+    public OnDeathDelegate OnDeath;
+
+    [SerializeField]
     protected int maxHealth;
+
+    [SerializeField]
     protected int currentHealth;
 
     protected bool alive = true;
@@ -15,16 +21,14 @@ public class Unit : MonoBehaviour {
 
     public virtual void ChangeHealth(int value)
     {
-        currentHealth = (currentHealth + value) < 0 ? 0 : (currentHealth + value) > maxHealth ? maxHealth : (currentHealth + value);
-
-        Debug.Log(currentHealth);
+        currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
 
         if (OnHealthChange != null)
         {
             OnHealthChange(currentHealth, maxHealth);
         }
 
-        if(currentHealth == 0)
+        if (currentHealth == 0)
         {
             Dead();
         }
@@ -33,10 +37,13 @@ public class Unit : MonoBehaviour {
     protected virtual void Dead()
     {
         alive = false;
+
+        if (OnDeath != null)
+            OnDeath();
+
         var tombstone = Instantiate(GameManager.Instance.Tombstone);
         tombstone.transform.position = transform.position;
 
         this.gameObject.SetActive(false);
     }
-
 }

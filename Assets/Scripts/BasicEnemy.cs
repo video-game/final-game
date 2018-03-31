@@ -5,19 +5,16 @@ using UnityEngine.AI;
 
 public class BasicEnemy : Enemy
 {
-
     [SerializeField]
     private float playerCheckTime;
     private float playerCheckTimer = 0;
 
-    NavMeshAgent agent;
+    private NavMeshAgent agent;
 
     //How close should the enemy be to start following the player
     [SerializeField]
     private float attackDistance;
-    //How far does the player have to be for the agent to give up
-    [SerializeField]
-    private float stopAttackDistance;
+
     //enemy should stop at an arm's length.
     //This variable controls that.
     [SerializeField]
@@ -27,13 +24,11 @@ public class BasicEnemy : Enemy
     private float shootSpeed;
     private float shootTimer;
 
-    private bool inAttackDistance = false;
-
     public GameObject bullet;
 
-    public float health;
+    private bool attacking;
 
-    Animator animator;
+    private Animator animator;
     private DamageTakenCanvas damageTakenCanvas;
 
     private void Start()
@@ -45,19 +40,12 @@ public class BasicEnemy : Enemy
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "PlayerProjectile")
+        if (collision.gameObject.tag == "PlayerProjectile")
         {
             Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
-            health -= 10;
+            ChangeHealth(-10);
             damageTakenCanvas.InitializeDamageText(10.ToString());
-            if(health < 1)
-            {
-                var tombstone = Instantiate(GameManager.Instance.Tombstone);
-                tombstone.transform.position = transform.position;
-
-                damageTakenCanvas.Orphan();
-                Destroy(this.gameObject);
-            }
+            attacking = true;
         }
     }
 
@@ -77,7 +65,7 @@ public class BasicEnemy : Enemy
         //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
         Vector3 playerPosition = GetClosestPlayer();
 
-        if (playerPosition != null && inAttackDistance)
+        if (playerPosition != null && attacking)
         {
             shootTimer += Time.deltaTime;
             if(shootTimer > shootSpeed)
@@ -117,16 +105,10 @@ public class BasicEnemy : Enemy
             agent.CalculatePath(playerPosition, path);
             float distance = Utilities.PathDistance(path);
             if (attackDistance > distance)
-            {
-                inAttackDistance = true;
-            }
-            else if (stopAttackDistance < distance)
-            {
-                inAttackDistance = false;
-            }
+                attacking = true;
 
             //If enemy is aggro, move towards him and try to shoot him (if he isn't behind a wall).
-            if (inAttackDistance)
+            if (attacking)
             {
                 agent.SetDestination(playerPosition);
 
@@ -141,6 +123,4 @@ public class BasicEnemy : Enemy
             }
         }
 	}
-
-    
 }
