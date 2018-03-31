@@ -9,8 +9,6 @@ public class BasicEnemy : Enemy
     private float playerCheckTime;
     private float playerCheckTimer = 0;
 
-    private NavMeshAgent agent;
-
     //How close should the enemy be to start following the player
     [SerializeField]
     private float attackDistance;
@@ -25,37 +23,6 @@ public class BasicEnemy : Enemy
     private float shootTimer;
 
     public GameObject bullet;
-
-    private bool attacking;
-
-    private Animator animator;
-    private DamageTakenCanvas damageTakenCanvas;
-
-    private void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        animator = transform.GetComponentInChildren<Animator>();
-		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "PlayerProjectile")
-        {
-            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
-            ChangeHealth(-10);
-            damageTakenCanvas.InitializeDamageText(10.ToString());
-            attacking = true;
-        }
-    }
-
-    private void Knockback(Vector3 direction, float power)
-    {
-        //normalize the vector, just to be sure
-        direction = direction.normalized;
-        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
-        agent.SetDestination((new Vector3(direction.x, 0, direction.z) + transform.position));
-    }
 
     void Update ()
     {

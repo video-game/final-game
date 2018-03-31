@@ -14,17 +14,9 @@ public class BomberEnemy : Enemy
 	[SerializeField]
 	private Rigidbody demoProjectile;
 
-	private NavMeshAgent agent;
-	private Animator animator;
-	private DamageTakenCanvas damageTakenCanvas;
-
-	private bool attacking;
-
-	private void Awake()
+	public override void Awake()
 	{
-		agent = GetComponent<NavMeshAgent>();
-		animator = transform.GetComponentInChildren<Animator>();
-		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
+        base.Awake();
 
 		OnDeath += die;
 	}

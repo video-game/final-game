@@ -158,7 +158,8 @@ public class Player : Unit
     {
         if(collision.gameObject.tag == "EnemyProjectile")
         {
-            Damaged(-10, collision.gameObject.GetComponent<DemoProjectile>().velocity);
+            var stats = collision.gameObject.GetComponent<DemoProjectile>();
+            Damaged(stats.damage, collision.gameObject.GetComponent<DemoProjectile>().velocity);
         }
     }
 

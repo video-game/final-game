@@ -18,10 +18,6 @@ public class BossBunny : Enemy
 	[SerializeField]
 	private Rigidbody demoProjectile;
 
-	private NavMeshAgent agent;
-    private Animator animator;
-	private DamageTakenCanvas damageTakenCanvas;
-
 	private bool inRange, active;
 
     [SerializeField]
@@ -38,21 +34,20 @@ public class BossBunny : Enemy
     private Vector3 originalPos;
 
     private Color bodyColor;
-	private void Awake()
+
+	public override void Awake()
 	{
+        base.Awake();
         bodyColor = transform.Find("Model - X Rotation at 90").GetComponent<SpriteRenderer>().color;
-        agent = GetComponent<NavMeshAgent>();
-        animator = transform.GetComponentInChildren<Animator>();
         originalPos = transform.position;
-		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
-	}
+    }
 
-	private void Start()
-	{
-		StartCoroutine(CheckPlayerRange());
-	}
+    private void Start()
+    {
+        StartCoroutine(CheckPlayerRange());
+    }
 
-	private void Update()
+    private void Update()
 	{
         
         animator.SetBool("IsWalking", agent.velocity != Vector3.zero);

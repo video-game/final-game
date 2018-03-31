@@ -9,8 +9,6 @@ public class BurrowingEnemy : Enemy {
     private float playerCheckTime;
     private float playerCheckTimer = 0;
 
-    private NavMeshAgent agent;
-
     //How close should the enemy be to start following the player
     [SerializeField]
     private float attackDistance;
@@ -21,12 +19,8 @@ public class BurrowingEnemy : Enemy {
     private float stopDistance;
 
     public GameObject bullet;
-
-    private bool attacking;
+    
     private bool burrowed = false;
-
-    private Animator animator;
-	private DamageTakenCanvas damageTakenCanvas;
 
     private void Start()
     {
@@ -35,25 +29,10 @@ public class BurrowingEnemy : Enemy {
 		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
     }
 
-    public void OnCollisionEnter(Collision collision)
+    public override void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "PlayerProjectile")
-        {
-            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
-            ChangeHealth(-10);
-            damageTakenCanvas.InitializeDamageText(10.ToString());
-            attacking = true;
-
-            Burrow();
-        }
-    }
-
-    private void Knockback(Vector3 direction, float power)
-    {
-        //normalize the vector, just to be sure
-        direction = direction.normalized;
-        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
-        agent.SetDestination((new Vector3(direction.x, 0, direction.z) + transform.position));
+        base.OnCollisionEnter(collision);
+        Burrow();
     }
 
     private void Burrow()

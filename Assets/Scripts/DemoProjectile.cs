@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DemoProjectile : MonoBehaviour
 {
+
+    public int damage = -10;
+
     [HideInInspector]
     public Vector3 velocity;
 

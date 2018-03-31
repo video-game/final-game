@@ -1,10 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : Unit
 {
     public List<Drop> Drops;
+
+    protected NavMeshAgent agent;
+
+    protected bool attacking;
+    
+    protected DamageTakenCanvas damageTakenCanvas;
+
+    protected Animator animator;
+
+    public virtual void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        animator = transform.GetComponentInChildren<Animator>();
+        damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
+    }
 
     public Enemy()
     {
@@ -43,5 +59,24 @@ public class Enemy : Unit
             if (roll <= drop.Chance)
                 Instantiate(drop.Pickup, transform.position, drop.Pickup.transform.rotation);
         }
+    }
+
+    public virtual void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "PlayerProjectile")
+        {
+            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, 10);
+            ChangeHealth(-10);
+            damageTakenCanvas.InitializeDamageText(10.ToString());
+            attacking = true;
+        }
+    }
+
+    private void Knockback(Vector3 direction, float power)
+    {
+        //normalize the vector, just to be sure
+        direction = direction.normalized;
+        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
+        agent.SetDestination((new Vector3(direction.x, 0, direction.z) + transform.position));
     }
 }
