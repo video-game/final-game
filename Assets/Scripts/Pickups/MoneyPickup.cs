@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class moneyPickup : Pickup {
+public class MoneyPickup : Pickup {
 
 	protected override void Effect()
     {
