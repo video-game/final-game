@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
     
-    public int basicEnemies = 5;
-
-    public GameObject basicEnemy;
-
-    public int moleEnemies;
-    public GameObject mole;
-
-    public int bombers;
-    public GameObject bomber;
+    [System.Serializable]
+    public class EnemySpawnInfo
+    {
+        public int enemyCount;
+        public GameObject enemy;
+    }
+    
+    public EnemySpawnInfo[] enemies;
 
     public Texture debugTexture;
 	// Use this for initialization
@@ -53,47 +52,23 @@ public class EnemySpawner : MonoBehaviour {
     public void Spawn()
     {
         Vector3 scale = transform.localScale;
-
-        int basicEnemyCount = basicEnemies * GameManager.Instance.player.Count;
-        for(int i = 0; i < basicEnemyCount; i++)
+        foreach(var enemyType in enemies)
         {
-            Vector3 randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));
-            while(PositionObstructed(randPos))
+            int adjustedEnemyCount = enemyType.enemyCount * GameManager.Instance.playerCount;
+
+            Debug.Log("enemyCount: " + adjustedEnemyCount);
+            for (int i = 0; i < adjustedEnemyCount; i++)
             {
-                randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));
+                Vector3 randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));
+                while (PositionObstructed(randPos))
+                {
+                    randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));
+                }
+
+                GameObject clone = Instantiate(enemyType.enemy);
+                clone.transform.position = randPos;
+                clone.transform.SetParent(transform);
             }
-
-            GameObject clone = Instantiate(basicEnemy);
-            clone.transform.position = randPos;
-            clone.transform.SetParent(transform);
-        }
-
-        int moleEnemyCount = moleEnemies * GameManager.Instance.player.Count;
-        for (int i = 0; i < moleEnemyCount; i++)
-        {
-            Vector3 randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));
-            while (PositionObstructed(randPos))
-            {
-                randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));
-            }
-
-            GameObject clone = Instantiate(mole);
-            clone.transform.position = randPos;
-            clone.transform.SetParent(transform);
-        }
-
-        int bomberEnemyCount = bombers * GameManager.Instance.player.Count;
-        for (int i = 0; i < bomberEnemyCount; i++)
-        {
-            Vector3 randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));
-            while (PositionObstructed(randPos))
-            {
-                randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));
-            }
-
-            GameObject clone = Instantiate(bomber);
-            clone.transform.position = randPos;
-            clone.transform.SetParent(transform);
         }
     }
 }

@@ -51,10 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9638ee104872f4baf8b8df27f8ea12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicEnemies: 0
-  basicEnemy: {fileID: 1480074238854560, guid: ca7f7af4bc3ef634f99774315a85f244, type: 2}
-  moleEnemies: 0
-  mole: {fileID: 1328978720677094, guid: 1cf218f4ad0e0724781bb8dae695076e, type: 2}
-  bombers: 0
-  bomber: {fileID: 1806030712664482, guid: 58bad971058c77443a462b499aba63ef, type: 2}
+  enemies:
+  - enemyCount: 0
+    enemy: {fileID: 1480074238854560, guid: ca7f7af4bc3ef634f99774315a85f244, type: 2}
+  - enemyCount: 0
+    enemy: {fileID: 1806030712664482, guid: 58bad971058c77443a462b499aba63ef, type: 2}
+  - enemyCount: 0
+    enemy: {fileID: 1328978720677094, guid: 1cf218f4ad0e0724781bb8dae695076e, type: 2}
   debugTexture: {fileID: 2800000, guid: 13464f658db7c594ea176875157bc3e7, type: 3}
