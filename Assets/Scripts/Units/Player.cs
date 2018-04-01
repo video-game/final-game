@@ -26,13 +26,10 @@ public class Player : Unit
     private PlayerProjectile projectileScript; //its script
     private bool fireOnDelay;
 
-    private Animator animator;
     private Transform hand;
 
     private bool dashOnCooldown;
     private bool isWalking;
-
-    private NavMeshAgent agent;
 
     private Vector3 aimDirection;
 
@@ -53,11 +50,6 @@ public class Player : Unit
     private int maxKoHealth;
     private int currentKoHealth;
 
-    private void Awake()
-    {
-
-    }
-
     public void Init(GameObject model)
     {
         GameObject m = Instantiate(model, transform);
@@ -68,9 +60,6 @@ public class Player : Unit
         agent = GetComponent<NavMeshAgent>();
 
         bodyColor = m.GetComponent<SpriteRenderer>().color;
-
-        maxHealth = 100;
-        currentHealth = maxHealth;
 
         projectileScript = demoProjectile.GetComponent<PlayerProjectile>();
         dashing = false;
@@ -215,21 +204,18 @@ public class Player : Unit
 
     public override void ChangeHealth(int value)
     {
-        if(!KOd)
-        {
+        if (!KOd)
             base.ChangeHealth(value);
-        }
         else
         {
-            currentKoHealth = (currentKoHealth + value) < 0 ? 0 : (currentKoHealth + value) > maxKoHealth ? maxKoHealth : (currentKoHealth + value);
-            if (OnHealthChange != null)
-            {
-                OnHealthChange(currentKoHealth, maxKoHealth);
-            }
+            currentKoHealth = Mathf.Clamp(currentKoHealth + value, 0, maxKoHealth);
 
-            if(currentKoHealth == 0)
+            if (OnHealthChange != null)
+                OnHealthChange(currentKoHealth, maxKoHealth);
+
+            if (currentKoHealth == 0)
             {
-                base.Dead();
+                base.Die();
                 OnPlayerDeath();
             }
         }
@@ -252,14 +238,6 @@ public class Player : Unit
 
         modelRenderer.color = bodyColor;
         handRenderer.color = bodyColor;
-    }
-
-    private void Knockback(Vector3 direction, float power)
-    {
-        //normalize the vector, just to be sure
-        direction.Normalize();
-        agent.ResetPath();
-        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
     }
 
     //When the player's action button is pressed
@@ -299,9 +277,9 @@ public class Player : Unit
     //base onHealthChanged calls this function when it runs out of health
     //if there is more than 1 player, it's a bit of a misnomer. 
     //Player gets KOed if there are 2 players, otherwise he just dies.
-    protected override void Dead()
+    protected override void Die()
     {
-        if(GameManager.Instance.player.Count > 1)
+        if (GameManager.Instance.player.Count > 1)
         {
             animator.SetBool("KOd", true);
             KOd = true;
@@ -312,7 +290,7 @@ public class Player : Unit
         }
         else
         {
-            base.Dead();
+            base.Die();
             OnPlayerDeath();
         }
     }

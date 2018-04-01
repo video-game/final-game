@@ -23,6 +23,8 @@ public class PlayerHud : MonoBehaviour {
         p.OnPlayerRevive += playerRevive;
 
         KOd = false;
+
+        UpdateHealth(p.CurrentHealth, p.MaxHealth);
     }
 
     private void UpdateHealth(int current, int max)

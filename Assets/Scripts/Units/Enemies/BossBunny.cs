@@ -6,10 +6,6 @@ using UnityEngine.AI;
 public class BossBunny : Enemy
 {
 	[SerializeField]
-	private float health;
-	public float Health { get { return health; } }
-
-	[SerializeField]
 	private float range;
 
 	[SerializeField]
@@ -19,9 +15,6 @@ public class BossBunny : Enemy
 	private Rigidbody demoProjectile;
 
 	private bool inRange, active;
-
-    [SerializeField]
-    private GameObject tombstone;
 
     //How much time should pass until the bunny starts moving in another direction
     [SerializeField]
@@ -35,9 +28,10 @@ public class BossBunny : Enemy
 
     private Color bodyColor;
 
-	public override void Awake()
+	protected override void Awake()
 	{
         base.Awake();
+
         bodyColor = transform.Find("Model - X Rotation at 90").GetComponent<SpriteRenderer>().color;
         originalPos = transform.position;
     }
@@ -59,9 +53,6 @@ public class BossBunny : Enemy
             active = true;
             StartCoroutine(AttackPlayer());
         }
-
-        if (health <= 0)
-			die();
 	}
 
 	private IEnumerator AttackPlayer() {
@@ -147,13 +138,14 @@ public class BossBunny : Enemy
 		}
     }
 
-	private void OnCollisionEnter(Collision other)
+	protected override void OnCollisionEnter(Collision other)
 	{
+        base.OnCollisionEnter(other);
+        
 		if (other.transform.tag == "PlayerProjectile")
         {
             Damaged();
-            health -= 10;
-            damageTakenCanvas.InitializeDamageText(10.ToString());
+
             if (!active)
             {
                 active = true;
@@ -162,19 +154,11 @@ public class BossBunny : Enemy
         }
 	}
 
-	private void die()
-	{
-        var tombs = Instantiate(tombstone);
-        tombs.transform.position = transform.position;
-		Destroy(gameObject);
-	}
-
     public void Damaged()
     {
         animator.SetBool("IsHurt", true);
         StartCoroutine(DamagedCoroutine(0.4f));
     }
-
 
     //coroutine for when player is damaged, colors the player red for some time
     IEnumerator DamagedCoroutine(float duration)

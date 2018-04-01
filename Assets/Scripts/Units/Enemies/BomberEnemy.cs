@@ -14,11 +14,11 @@ public class BomberEnemy : Enemy
 	[SerializeField]
 	private Rigidbody demoProjectile;
 
-	public override void Awake()
+	protected override void Awake()
 	{
-        base.Awake();
-
-		OnDeath += die;
+		base.Awake();
+		
+		OnDeath += explode;
 	}
 
 	private void Start()
@@ -59,32 +59,12 @@ public class BomberEnemy : Enemy
 		}
 	}
 
-	public override void OnCollisionEnter(Collision other)
+	protected override void OnCollisionEnter(Collision other)
 	{
+		base.OnCollisionEnter(other);
+		
 		if (other.transform.tag == "Player")
 			ChangeHealth(-maxHealth);
-		else if (other.transform.tag == "PlayerProjectile")
-		{
-			ChangeHealth(-10);
-			damageTakenCanvas.InitializeDamageText(10.ToString());
-
-			attacking = true;
-		}
-	}
-
-	// Called in grandparent Unit.Dead() method
-	private void die()
-	{
-		explode();
-
-        var effects = Camera.main.GetComponent<CameraEffects>();
-        if (effects != null)
-            effects.ShakeCamera(0.2f, 0.05f);
-
-        var tombstone = Instantiate(GameManager.Instance.Tombstone);
-        tombstone.transform.position = transform.position;
-
-		damageTakenCanvas.Orphan();
 	}
 
 	private void explode()
@@ -102,5 +82,9 @@ public class BomberEnemy : Enemy
 				clone.GetComponent<DemoProjectile>().init(7.5f * direction);
 			}
 		}
+
+        var effects = Camera.main.GetComponent<CameraEffects>();
+        if (effects != null)
+            effects.ShakeCamera(0.2f, 0.05f);
 	}
 }
