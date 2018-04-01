@@ -272,7 +272,7 @@ public class Player : Unit
         {
             if(player != this && Vector3.Distance(transform.position, player.transform.position) < 1)
             {
-                if(player.KOd)
+                if(player.KOd && player.isActiveAndEnabled)
                 {
                     if(GameManager.Instance.resourceHud.UpdateRevives(-1))
                     {

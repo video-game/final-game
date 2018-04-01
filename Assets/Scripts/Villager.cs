@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Villager : MonoBehaviour {
 
@@ -17,12 +18,20 @@ public class Villager : MonoBehaviour {
     private Sprite interactImage;
 
     private bool someoneInRange;
+
+    [SerializeField]
+    private Transform dialogueBox;
+    [SerializeField]
+    private Transform image;
 	// Use this for initialization
 	void Awake () {
         someoneInRange = false;
         itemDropped = false;
         sRenderer = GetComponent<SpriteRenderer>();
-	}
+
+        dialogueBox = transform.Find("UIElements").Find("DialogueBox");
+        image = transform.Find("UIElements").Find("Image");
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -55,9 +64,9 @@ public class Villager : MonoBehaviour {
         StopCoroutine(DialogueFadeOut());
 
         yield return new WaitForSeconds(0.2f);
-        transform.Find("DialogueBox").gameObject.SetActive(true);
+        dialogueBox.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
-        transform.Find("Image").gameObject.SetActive(true);
+        image.gameObject.SetActive(true);
     }
     private IEnumerator DialogueFadeOut()
     {
@@ -65,8 +74,8 @@ public class Villager : MonoBehaviour {
         StopCoroutine(DialogueFadeIn());
 
         yield return new WaitForSeconds(0.2f);
-        transform.Find("Image").gameObject.SetActive(false);
-        transform.Find("DialogueBox").gameObject.SetActive(false);
+        image.gameObject.SetActive(false);
+        dialogueBox.gameObject.SetActive(false);
     }
     protected Vector3 GetClosestPlayer()
     {
@@ -101,7 +110,7 @@ public class Villager : MonoBehaviour {
         }
         if(interactImage != null)
         {
-            transform.Find("Image").GetComponent<SpriteRenderer>().sprite = interactImage;
+            image.GetComponent<Image>().sprite = interactImage;
         }
     }
 
