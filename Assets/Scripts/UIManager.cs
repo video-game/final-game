@@ -18,6 +18,7 @@ public class UIManager : SingletonMB<UIManager>
     //a references list of player huds.
     public List<PHud> playerHud;
 
+    public RHud resourceHud;
     //A property that returns if the current menu can be paused over
     public bool AllowPause { get { return openMenu.Count != 0 ? openMenu.Peek().allowPause : true; } }
 
@@ -44,6 +45,12 @@ public class UIManager : SingletonMB<UIManager>
             playerHud[i].instance = Instantiate(playerHud[i].prefab, HudContainer.transform).GetComponent<PlayerHud>();
             playerHud[i].instance.Init(player[i]);
         }
+    }
+
+    public void InstantiateResourceHud()
+    {
+        resourceHud.instance = Instantiate(resourceHud.prefab, HudContainer.transform).GetComponent<ResourceHud>();
+        resourceHud.instance.Init(0,3);
     }
 
     //Hide but don't close the current open menu.
@@ -117,5 +124,13 @@ public class PHud
     public GameObject prefab;
     [System.NonSerialized]
     public PlayerHud instance;
+}
+
+[System.Serializable]
+public class RHud
+{
+    public GameObject prefab;
+    [System.NonSerialized]
+    public ResourceHud instance;
 }
 

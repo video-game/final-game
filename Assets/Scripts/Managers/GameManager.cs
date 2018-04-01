@@ -37,6 +37,8 @@ public class GameManager : SingletonMB<GameManager>
     //Very crappy solution, works for now.
     public GameObject Tombstone;
 
+    [HideInInspector]
+    public ResourceHud resourceHud;
     public override void CopyValues(GameManager copy)
     {
         playerCount = copy.playerCount;
@@ -79,6 +81,7 @@ public class GameManager : SingletonMB<GameManager>
             PauseGame();
         }
         SpawnPlayers();
+        UIManager.Instance.InstantiateResourceHud();
     }
 
 

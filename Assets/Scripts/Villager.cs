@@ -4,32 +4,70 @@ using UnityEngine;
 
 public class Villager : MonoBehaviour {
 
-    private SpriteRenderer renderer;
+    private SpriteRenderer sRenderer;
     [SerializeField]
     private Sprite[] directions;
     [SerializeField]
     private float viewDistance;
+    [SerializeField]
+    private GameObject itemDrop;
+    private bool itemDropped;
+
+    [SerializeField]
+    private Sprite interactImage;
+
+    private bool someoneInRange;
 	// Use this for initialization
 	void Awake () {
-        renderer = GetComponent<SpriteRenderer>();
+        someoneInRange = false;
+        itemDropped = false;
+        sRenderer = GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         Vector3 playerPos = GetClosestPlayer();
 
-        if (Vector3.Distance(transform.position, playerPos) < viewDistance)
+        if (InRange(playerPos))
         {
+            //Look towards nearest player
             Vector3 directionVector = playerPos - transform.position;
-            renderer.sprite = directions[(int)Utilities.VectorToDirection(directionVector.x, directionVector.z)];
+            sRenderer.sprite = directions[(int)Utilities.VectorToDirection(directionVector.x, directionVector.z)];
+            if(!someoneInRange)
+            {
+                StartCoroutine(DialogueFadeIn());
+            }
         }
         else
         {
             //not really sure if it's bad to set the sprite every frame for villager (i'm hoping no)
-            renderer.sprite = directions[3];
+            sRenderer.sprite = directions[3];
+            if (someoneInRange)
+            {
+                StartCoroutine(DialogueFadeOut());
+            }
         }
 	}
 
+    private IEnumerator DialogueFadeIn()
+    {
+        someoneInRange = true;
+        StopCoroutine(DialogueFadeOut());
+
+        yield return new WaitForSeconds(0.2f);
+        transform.Find("DialogueBox").gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        transform.Find("Image").gameObject.SetActive(true);
+    }
+    private IEnumerator DialogueFadeOut()
+    {
+        someoneInRange = false;
+        StopCoroutine(DialogueFadeIn());
+
+        yield return new WaitForSeconds(0.2f);
+        transform.Find("Image").gameObject.SetActive(false);
+        transform.Find("DialogueBox").gameObject.SetActive(false);
+    }
     protected Vector3 GetClosestPlayer()
     {
         Vector3 min = new Vector3(0, 0, 0);
@@ -51,5 +89,24 @@ public class Villager : MonoBehaviour {
         }
 
         return min;
+    }
+
+    public virtual void Interact()
+    {
+        if(itemDrop != null && !itemDropped)
+        {
+            itemDropped = true;
+            GameObject drop = Instantiate(itemDrop);
+            drop.transform.position = new Vector3(transform.position.x , transform.position.y, transform.position.z - 1);
+        }
+        if(interactImage != null)
+        {
+            transform.Find("Image").GetComponent<SpriteRenderer>().sprite = interactImage;
+        }
+    }
+
+    public bool InRange(Vector3 playerPos)
+    {
+        return Vector3.Distance(transform.position, playerPos) < viewDistance;
     }
 }

@@ -55,8 +55,6 @@ public class EnemySpawner : MonoBehaviour {
         foreach(var enemyType in enemies)
         {
             int adjustedEnemyCount = enemyType.enemyCount * GameManager.Instance.playerCount;
-
-            Debug.Log("enemyCount: " + adjustedEnemyCount);
             for (int i = 0; i < adjustedEnemyCount; i++)
             {
                 Vector3 randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));

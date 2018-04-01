@@ -59,7 +59,7 @@ public class BomberEnemy : Enemy
 		}
 	}
 
-	private void OnCollisionEnter(Collision other)
+	public override void OnCollisionEnter(Collision other)
 	{
 		if (other.transform.tag == "Player")
 			ChangeHealth(-maxHealth);

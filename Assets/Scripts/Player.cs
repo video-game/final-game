@@ -274,8 +274,24 @@ public class Player : Unit
             {
                 if(player.KOd)
                 {
-                    player.Revive();
+                    if(GameManager.Instance.resourceHud.UpdateRevives(-1))
+                    {
+                        player.Revive();
+                        return;
+                    }
                 }
+            }
+        }
+
+        //This is a ludicrously bad idea as it forces a parent gameObject for villagers
+        //But time constraints force bad coding habits
+        foreach(Transform villager in GameObject.Find("Villagers").transform)
+        {
+            Villager vScript = villager.GetComponent<Villager>();
+            if(vScript.InRange(transform.position))
+            {
+                vScript.Interact();
+                return;
             }
         }
     }
