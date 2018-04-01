@@ -19,11 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4949010885779918}
-  - component: {fileID: 114739717447332650}
+  - component: {fileID: 114995733709477572}
   - component: {fileID: 212329816132954524}
   - component: {fileID: 54789585451499324}
   - component: {fileID: 135216154263279976}
-  - component: {fileID: 114594121474295730}
   m_Layer: 0
   m_Name: Money
   m_TagString: Untagged
@@ -38,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1077089531820028}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 32.23, y: -1, z: 73.78195}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -59,7 +58,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114594121474295730
+--- !u!114 &114995733709477572
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -68,17 +67,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c96186f15299e1498772768adefb223, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114739717447332650
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1077089531820028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e507eafb4bdabfa48be2bebff10745cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &135216154263279976
