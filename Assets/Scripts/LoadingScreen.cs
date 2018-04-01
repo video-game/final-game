@@ -20,9 +20,12 @@ public class LoadingScreen : MonoBehaviour
     //progress is from 0 to 1.
     public void SetPercentage(float progress)
     {
-        if (!loadingBarPanel.activeInHierarchy)
-        {
-            loadingBarPanel.SetActive(true);
+        if (loadingBarPanel != null)
+        { 
+            if (!loadingBarPanel.activeInHierarchy)
+            {
+                loadingBarPanel.SetActive(true);
+            }
         }
 
         LoadingBar.value = progress;

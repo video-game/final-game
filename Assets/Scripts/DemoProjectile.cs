@@ -7,6 +7,7 @@ public class DemoProjectile : MonoBehaviour
 
     public int damage = -10;
 
+    public float speed = 1;
     [HideInInspector]
     public Vector3 velocity;
 
@@ -20,7 +21,7 @@ public class DemoProjectile : MonoBehaviour
 
     public virtual void init(Vector3 vel)
     {
-        velocity = vel;
+        velocity = vel * speed;
         GetComponent<Rigidbody>().velocity = velocity;
 
         //Temporary fix for the bunny projectiles

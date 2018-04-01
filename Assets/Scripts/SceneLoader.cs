@@ -16,7 +16,6 @@ public class SceneLoader : SingletonMB<SceneLoader>
 
     IEnumerator LoadScene(string scene)
     {
-
         if (scene == "" || !Application.CanStreamedLevelBeLoaded(scene))
         {
             Debug.LogWarning(scene == "" ? "Scene must have a name" : "Scene does not exist in build settings");
