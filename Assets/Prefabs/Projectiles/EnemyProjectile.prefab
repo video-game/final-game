@@ -19,11 +19,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4993170194353842}
+  - component: {fileID: 114036228575005632}
   - component: {fileID: 212190184215990882}
   - component: {fileID: 95921973940960514}
+  - component: {fileID: 114491772149956114}
   - component: {fileID: 54506367409316654}
   - component: {fileID: 135392441643877968}
-  - component: {fileID: 114036228575005632}
   m_Layer: 11
   m_Name: EnemyProjectile
   m_TagString: EnemyProjectile
@@ -68,7 +69,7 @@ Animator:
   m_GameObject: {fileID: 1775384306581496}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ba941cca5cec8344d964b5bcf9264025, type: 2}
+  m_Controller: {fileID: 9100000, guid: bf3d105af0b7b144cbc164779020270a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -87,8 +88,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3797e2e5ea47f64781c9a0f09aeb509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: -7
+  speed: 1
   velocity: {x: 0, y: 0, z: 0}
-  lifetime: 3
+  lifetime: 10
+  spriteList: []
+--- !u!114 &114491772149956114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1775384306581496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 050fa7bb475d78f47a7139e99cfc7d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion:
+  - {fileID: 21300000, guid: 645f2b3621766274883712dd3ce9f2b9, type: 3}
+  - {fileID: 21300006, guid: 645f2b3621766274883712dd3ce9f2b9, type: 3}
 --- !u!135 &135392441643877968
 SphereCollider:
   m_ObjectHideFlags: 1

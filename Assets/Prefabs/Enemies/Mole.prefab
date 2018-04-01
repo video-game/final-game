@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4394548091533366}
+  - component: {fileID: 114646851623669744}
   - component: {fileID: 195618926705918984}
   - component: {fileID: 135184753960464396}
-  - component: {fileID: 114646851623669744}
   m_Layer: 10
   m_Name: Mole
   m_TagString: Untagged
@@ -163,6 +163,7 @@ MonoBehaviour:
   Drops:
   - Chance: 0.1
     Pickup: {fileID: 114739717447332650, guid: 7cb37e7ceb071cf4c9a369ddb09048b2, type: 2}
+  burrowTime: 1
   playerCheckTime: 0.3
   attackDistance: 6
   stopDistance: 2
