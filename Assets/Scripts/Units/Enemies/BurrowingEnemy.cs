@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BurrowingEnemy : Enemy {
-
+public class BurrowingEnemy : Enemy
+{
     [SerializeField]
     private float burrowTime = 1;
 
@@ -32,10 +32,16 @@ public class BurrowingEnemy : Enemy {
 		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
     }
 
-    public override void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
         base.OnCollisionEnter(collision);
-        Burrow();
+
+        if (collision.gameObject.tag == "PlayerProjectile")
+        {
+            var projectile = collision.gameObject.GetComponent<DemoProjectile>();
+            Knockback(projectile.velocity, Mathf.Abs(projectile.damage));        
+            Burrow();
+        }
     }
 
     private void Burrow()
@@ -108,19 +114,9 @@ public class BurrowingEnemy : Enemy {
                     GameObject clone = Instantiate(bullet, new Vector3(transform.position.x, 0, transform.position.z), bullet.transform.rotation);
                     clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 4);
 
-
-                    if (agent.remainingDistance < stopDistance)
-                    {
-                        agent.isStopped = true;
-                    }
-                    else
-                    {
-                        agent.isStopped = false;
-                    }
+                    agent.isStopped = (agent.remainingDistance < stopDistance);
                 }
             }
         }
-	}
-
-    
+	} 
 }

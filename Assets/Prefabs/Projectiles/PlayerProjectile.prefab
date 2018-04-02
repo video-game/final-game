@@ -107,7 +107,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 10
   spriteList: []
-  continuousFire: 0
+  continuousFire: 1
   shootDelay: 0.1
 --- !u!135 &135392441643877968
 SphereCollider:

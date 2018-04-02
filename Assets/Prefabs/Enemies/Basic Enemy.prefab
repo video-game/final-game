@@ -159,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   currentHealth: 50
+  tombstone: {fileID: 1006454588332714, guid: e89ff18785fb2c149b5a8d8287ccb621, type: 2}
   Drops:
   - Chance: 0.1
     Pickup: {fileID: 114739717447332650, guid: 7cb37e7ceb071cf4c9a369ddb09048b2, type: 2}

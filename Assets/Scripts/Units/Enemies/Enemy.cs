@@ -3,28 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : Unit
+public abstract class Enemy : Unit
 {
-    public List<Drop> Drops;
+    // Delegate that is called just before object is destroyed
+    protected delegate void OnDeathDelegate();
+    protected OnDeathDelegate OnDeath;
 
-    protected NavMeshAgent agent;
-
+    [SerializeField]
+    protected List<Drop> Drops;
     protected bool attacking;
-    
-    protected DamageTakenCanvas damageTakenCanvas;
 
-    protected Animator animator;
-
-    public virtual void Awake()
+    protected virtual void OnCollisionEnter(Collision collision)
     {
-        agent = GetComponent<NavMeshAgent>();
-        animator = transform.GetComponentInChildren<Animator>();
-        damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
-    }
+        if (collision.gameObject.tag == "PlayerProjectile")
+        {
+            int damage = collision.gameObject.GetComponent<DemoProjectile>().damage;
 
-    public Enemy()
-    {
-        OnDeath += RollDrops;
+            ChangeHealth(damage);
+            damageTakenCanvas.InitializeDamageText(damage.ToString());
+            attacking = true;
+        }
     }
 
     protected Vector3 GetClosestPlayer()
@@ -50,8 +48,10 @@ public class Enemy : Unit
         return min;
     }
 
-    private void RollDrops()
+    protected override void Die()
     {
+        base.Die();
+
         foreach (var drop in Drops)
         {
             var roll = Random.value;
@@ -59,26 +59,11 @@ public class Enemy : Unit
             if (roll <= drop.Chance)
                 Instantiate(drop.Pickup, transform.position, drop.Pickup.transform.rotation);
         }
-    }
 
-    public virtual void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "PlayerProjectile")
-        {
-            int damage = collision.gameObject.GetComponent<DemoProjectile>().damage;
+        if (OnDeath != null)
+            OnDeath();
 
-            Knockback(collision.gameObject.GetComponent<DemoProjectile>().velocity, Mathf.Abs(damage));
-            ChangeHealth(damage);
-            damageTakenCanvas.InitializeDamageText(damage.ToString());
-            attacking = true;
-        }
-    }
-
-    private void Knockback(Vector3 direction, float power)
-    {
-        agent.ResetPath();
-        //normalize the vector, just to be sure
-        direction = direction.normalized;
-        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
+		damageTakenCanvas.Orphan();
+        Destroy(gameObject);
     }
 }
