@@ -6,5 +6,4 @@ public class PlayerProjectile : DemoProjectile {
 
     public bool continuousFire;
     public float shootDelay;
-    public float accuracy = 1;
 }

@@ -8,6 +8,8 @@ public class Player : Unit
     public PlayerDelegate OnPlayerDeath;
     public PlayerDelegate OnPlayerKO;
     public PlayerDelegate OnPlayerRevive;
+    public PlayerDelegate OnPlayerLvlUp;
+    public StatChangeDelegate OnExperienceGained;
 
     [SerializeField]
     private float speed;
@@ -55,14 +57,16 @@ public class Player : Unit
     private int experience = 0;
     public int Experience { get { return experience; } }
 
-    private int nextLevel = 100;
+    public int nextLevel = 100;
 
     public void GrantExperience(int amount)
     {
         experience += amount;
-
+        
         if (experience >= nextLevel)
             levelUp();
+
+        OnExperienceGained(experience, nextLevel);
     }
 
     private void levelUp()

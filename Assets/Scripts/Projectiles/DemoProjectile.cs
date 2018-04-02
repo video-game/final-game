@@ -8,7 +8,9 @@ public class DemoProjectile : MonoBehaviour
     public GameObject Shooter { get { return shooter; } }
 
     public int damage = -10;
-
+    
+    //How inaccurate the projectile should be on a scale from 0 to 1
+    public float inaccuracy = 0;
     public float speed = 1;
     [HideInInspector]
     public Vector3 velocity;
@@ -24,7 +26,15 @@ public class DemoProjectile : MonoBehaviour
     public virtual void init(Vector3 vel, GameObject shooter)
     {
         this.shooter = shooter;
-        
+
+        //Set the direction according to original velocity + accuracy
+        float accuracyToDeg = (inaccuracy * 180);
+        float randomAngle = Random.Range(-accuracyToDeg, accuracyToDeg);
+        Debug.Log("rotation: " + randomAngle);
+        Quaternion randomRotation = Quaternion.AngleAxis(randomAngle, Vector3.up);
+        vel = randomRotation * vel;
+        vel = new Vector3(vel.x, 0, vel.z);
+        vel.Normalize();
         velocity = vel * speed;
         GetComponent<Rigidbody>().velocity = velocity;
 

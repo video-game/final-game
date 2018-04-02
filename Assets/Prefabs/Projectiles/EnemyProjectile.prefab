@@ -89,7 +89,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: -7
-  speed: 1
+  inaccuracy: 0
+  speed: 7
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 10
   spriteList: []
