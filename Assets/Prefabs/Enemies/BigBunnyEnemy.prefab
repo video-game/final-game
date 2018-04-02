@@ -161,12 +161,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 500
   currentHealth: 500
+  tombstone: {fileID: 1006454588332714, guid: 110e283940e11f94e910cd02bbbc050f, type: 2}
   Drops: []
+  experienceAward: 100
   range: 10
   updatePathInterval: 0.5
   demoProjectile: {fileID: 54506367409316654, guid: 011bb92c7398599448bf479b1f389787,
     type: 2}
-  tombstone: {fileID: 1006454588332714, guid: 110e283940e11f94e910cd02bbbc050f, type: 2}
   movementDecisionTime: 10
   movementRadius: 3
 --- !u!114 &114858633606841144

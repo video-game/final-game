@@ -177,6 +177,7 @@ MonoBehaviour:
   Drops:
   - Chance: 0.1
     Pickup: {fileID: 114739717447332650, guid: 7cb37e7ceb071cf4c9a369ddb09048b2, type: 2}
+  experienceAward: 5
   attackDistance: 10
   updatePathInterval: 0.5
   demoProjectile: {fileID: 54506367409316654, guid: c0473aedfbb28ae49ba1ae5313119407,

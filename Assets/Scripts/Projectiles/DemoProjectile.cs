@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DemoProjectile : MonoBehaviour
 {
+    private GameObject shooter;
+    public GameObject Shooter { get { return shooter; } }
 
     public int damage = -10;
 
@@ -19,8 +21,10 @@ public class DemoProjectile : MonoBehaviour
 
     private Animator anim;
 
-    public virtual void init(Vector3 vel)
+    public virtual void init(Vector3 vel, GameObject shooter)
     {
+        this.shooter = shooter;
+        
         velocity = vel * speed;
         GetComponent<Rigidbody>().velocity = velocity;
 

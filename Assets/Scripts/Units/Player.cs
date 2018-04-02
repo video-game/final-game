@@ -42,13 +42,42 @@ public class Player : Unit
 
     [SerializeField]
     private float damageRecoveryTime;
-    private bool invincible;
     [HideInInspector]
     public bool KOd;
 
     [SerializeField]
     private int maxKoHealth;
     private int currentKoHealth;
+
+    private int level = 1;
+    public int Level { get { return level; } }
+
+    private int experience = 0;
+    public int Experience { get { return experience; } }
+
+    private int nextLevel = 100;
+
+    public void GrantExperience(int amount)
+    {
+        experience += amount;
+
+        if (experience >= nextLevel)
+            levelUp();
+    }
+
+    private void levelUp()
+    {
+        level++;
+        experience -= nextLevel;
+        if (experience < 0)
+            experience = 0;
+        nextLevel = (int)(nextLevel * (1 + (level / 10f)));
+        Debug.Log("Level up! You are now level " + level + "! XP until next level: " + nextLevel);
+
+        // Temporary
+        maxHealth += 10;
+        ChangeHealth(maxHealth);
+    }
 
     public void Init(GameObject model)
     {
@@ -62,10 +91,6 @@ public class Player : Unit
         bodyColor = m.GetComponent<SpriteRenderer>().color;
 
         projectileScript = demoProjectile.GetComponent<PlayerProjectile>();
-        dashing = false;
-        invincible = false;
-        KOd = false;
-        fireOnDelay = false;
     }
 
     //player move function
@@ -132,7 +157,7 @@ public class Player : Unit
             //spawn projectile, set it's trajectory
             Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
             var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.init(9 * aimDirection);
+            cloneScript.init(9 * aimDirection, gameObject);
 
             StartCoroutine(ShootDelay(cloneScript.shootDelay));
         }
@@ -146,7 +171,7 @@ public class Player : Unit
             //spawn projectile, set it's trajectory
             Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
             var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.init(9 * aimDirection);
+            cloneScript.init(9 * aimDirection, gameObject);
 
             StartCoroutine(ShootDelay(cloneScript.shootDelay));
         }
@@ -177,29 +202,25 @@ public class Player : Unit
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "EnemyProjectile")
-        {
-            var stats = collision.gameObject.GetComponent<DemoProjectile>();
-            Damaged(stats.damage, collision.gameObject.GetComponent<DemoProjectile>().velocity);
-        }
+        if (collision.gameObject.tag == "EnemyProjectile")
+            Hit(collision.gameObject.GetComponent<DemoProjectile>());
     }
 
-    public void Damaged(int damage, Vector3 damageDirection)
+    protected override void Hit(DemoProjectile projectile)
     {
-        int damageAbs = Mathf.Abs(damage);
+        base.Hit(projectile);
+
         if (!invincible)
         {
-            ChangeHealth(damage);
-
             StartCoroutine(DamagedCoroutine(damageRecoveryTime));
+
+            //figured it would be clever to have a constant to 
+            //translate amount of damage taken to screen shake magnitude
+            float damageToShakeRatio = 0.0025f;
+            Camera.main.GetComponent<CameraEffects>().ShakeCamera(0.05f, projectile.damage * damageToShakeRatio);
+
+            Knockback(projectile.velocity, Mathf.Abs(projectile.damage));
         }
-        //figured it would be clever to have a constant to 
-        //translate amount of damage taken to screen shake magnitude
-        float damageToShakeRatio = 0.0025f;
-        Camera.main.GetComponent<CameraEffects>().ShakeCamera(0.05f, damageAbs * damageToShakeRatio);
-
-        Knockback(damageDirection, damageAbs);
-
     }
 
     public override void ChangeHealth(int value)

@@ -24,7 +24,14 @@ public class BasicEnemy : Enemy
 
     public GameObject bullet;
 
-    void Update ()
+    protected override void Hit(DemoProjectile projectile)
+    {
+        base.Hit(projectile);
+
+        Knockback(projectile.velocity, Mathf.Abs(projectile.damage));        
+    }
+
+    void Update()
     {
         animator.SetBool("IsWalking", agent.velocity != Vector3.zero);
         animator.SetInteger("Direction", (int)Utilities.VectorToDirection(agent.velocity.x, agent.velocity.z));
@@ -42,7 +49,7 @@ public class BasicEnemy : Enemy
                 Vector3 zeroedPos = new Vector3(transform.position.x, 0, transform.position.z);
 
                 GameObject clone = Instantiate(bullet, new Vector3(transform.position.x, 0, transform.position.z), bullet.transform.rotation);
-                clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 4);
+                clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 4, gameObject);
 
                 //TODO make this work
                 //for some reason raycasting on the mesh doesn't work so we just have to make it shoot at blockades I guess

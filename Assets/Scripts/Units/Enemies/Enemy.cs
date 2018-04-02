@@ -12,15 +12,14 @@ public abstract class Enemy : Unit
     [SerializeField]
     protected List<Drop> Drops;
     protected bool attacking;
+    [SerializeField]
+    protected int experienceAward;
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "PlayerProjectile")
         {
-            int damage = collision.gameObject.GetComponent<DemoProjectile>().damage;
-
-            ChangeHealth(damage);
-            damageTakenCanvas.InitializeDamageText(damage.ToString());
+            Hit(collision.gameObject.GetComponent<DemoProjectile>());
             attacking = true;
         }
     }
@@ -51,6 +50,10 @@ public abstract class Enemy : Unit
     protected override void Die()
     {
         base.Die();
+
+        // If the last attacker was a player
+        if (lastAttacker != null && lastAttacker.GetComponent<Player>() != null)
+            lastAttacker.GetComponent<Player>().GrantExperience(experienceAward);
 
         foreach (var drop in Drops)
         {

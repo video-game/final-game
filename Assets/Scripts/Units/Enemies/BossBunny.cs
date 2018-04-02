@@ -94,7 +94,7 @@ public class BossBunny : Enemy
 
                     var direction = new Vector3(x, 0, z).normalized;
                     var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-                    clone.GetComponent<DemoProjectile>().init(7.5f * direction);
+                    clone.GetComponent<DemoProjectile>().init(7.5f * direction, gameObject);
                 }
             }
             yield return new WaitForSeconds(0.5f);
@@ -132,7 +132,7 @@ public class BossBunny : Enemy
             for (int arm = 1; arm <= 360; arm+= 360/6){
 			    var direction = new Vector3(Mathf.Cos(angle + arm * Mathf.Deg2Rad), 0, Mathf.Sin(angle + arm * Mathf.Deg2Rad));
 			    var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-			    clone.GetComponent<DemoProjectile>().init( 7.5f * direction);
+			    clone.GetComponent<DemoProjectile>().init( 7.5f * direction, gameObject);
             }
             yield return new WaitForSeconds(0.1f);
 		}

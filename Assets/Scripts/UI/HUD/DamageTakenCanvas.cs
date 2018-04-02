@@ -16,7 +16,7 @@ public class DamageTakenCanvas : MonoBehaviour
 		transform.SetParent(null);
 	}
 
-	public void InitializeDamageText(string text)
+	public void InitializeDamageText(int value)
 	{
 		var clone = Instantiate(
 			damageTakenTextPrefab,
@@ -25,8 +25,11 @@ public class DamageTakenCanvas : MonoBehaviour
 			GetComponentInChildren<Canvas>().transform
 		);
 
+		var text = clone.GetComponent<TextMeshProUGUI>();
+		text.color = (value > 0) ? Color.green : Color.red;
+		text.text = value.ToString();
+
 		clone.GetComponent<RectTransform>().localRotation = Quaternion.identity;
-		clone.GetComponent<TextMeshProUGUI>().text = text;
 
 		Destroy(clone.gameObject, 2);
 	}

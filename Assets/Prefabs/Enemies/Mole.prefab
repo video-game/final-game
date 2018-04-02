@@ -164,6 +164,7 @@ MonoBehaviour:
   Drops:
   - Chance: 0.1
     Pickup: {fileID: 114739717447332650, guid: 7cb37e7ceb071cf4c9a369ddb09048b2, type: 2}
+  experienceAward: 15
   burrowTime: 1
   playerCheckTime: 0.3
   attackDistance: 6
