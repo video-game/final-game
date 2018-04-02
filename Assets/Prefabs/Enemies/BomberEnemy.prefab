@@ -42,9 +42,9 @@ GameObject:
   - component: {fileID: 195437888505572248}
   - component: {fileID: 54967448135610698}
   - component: {fileID: 135661646579730880}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BomberEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,6 +9,7 @@ public class ProjectileAnimationHelper : MonoBehaviour {
 
     public List<Sprite> explosion;
 
+    public bool rotate = true;
     private void Start()
     {
         sR = GetComponent<SpriteRenderer>();
@@ -17,7 +18,8 @@ public class ProjectileAnimationHelper : MonoBehaviour {
     [ExecuteInEditMode]
     public void Rotate(float degrees)
     {
-        transform.Rotate(new Vector3(0, 0, degrees));
+        if (rotate)
+            transform.Rotate(new Vector3(0, 0, degrees));
     }
 
     [ExecuteInEditMode]

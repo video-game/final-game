@@ -30,7 +30,6 @@ public class DemoProjectile : MonoBehaviour
         //Set the direction according to original velocity + accuracy
         float accuracyToDeg = (inaccuracy * 180);
         float randomAngle = Random.Range(-accuracyToDeg, accuracyToDeg);
-        Debug.Log("rotation: " + randomAngle);
         Quaternion randomRotation = Quaternion.AngleAxis(randomAngle, Vector3.up);
         vel = randomRotation * vel;
         vel = new Vector3(vel.x, 0, vel.z);
@@ -38,8 +37,12 @@ public class DemoProjectile : MonoBehaviour
         velocity = vel * speed;
         GetComponent<Rigidbody>().velocity = velocity;
 
+        float rot = Quaternion.LookRotation(velocity).eulerAngles.y;
+        //rotate the projectile towards its direction
+        transform.rotation = Quaternion.Euler(new Vector3(90, rot, 0));
+
         //Temporary fix for the bunny projectiles
-        if(spriteList.Length != 0)
+        if (spriteList.Length != 0)
         {
             GetComponent<SpriteRenderer>().sprite = spriteList[Random.Range(0, spriteList.Length)];
         }
@@ -54,7 +57,7 @@ public class DemoProjectile : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-	public void OnCollisionEnter(Collision other)
+	public virtual void OnCollisionEnter(Collision other)
     {
          Explode();
 	}
