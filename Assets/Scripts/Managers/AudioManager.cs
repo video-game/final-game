@@ -21,12 +21,10 @@ public class AudioManager : SingletonMB<AudioManager>
     public bool loopMusicList;
     public bool loopCurrentMusic;
 
-    private AudioSource SFXSource;
     private AudioSource MusicSource;
 
     private void Start()
     {
-        SFXSource = gameObject.AddComponent<AudioSource>();
         MusicSource = gameObject.AddComponent<AudioSource>();
 
         if (playOnStart)
@@ -138,7 +136,7 @@ public class AudioManager : SingletonMB<AudioManager>
         float maxPitchDifference = pitchVariance * temp.pitch;
         float variance = UnityEngine.Random.Range(direction != PitchDirection.Down ? -maxPitchDifference : 0, direction != PitchDirection.Up ? +maxPitchDifference : 0);
         Debug.Log(temp.pitch + variance);
-        temp.pitch = temp.pitch + variance;
+        temp.pitch = Mathf.Clamp(temp.pitch + variance, .3f, 3f);
         temp.Play();
         yield return new WaitForSeconds(a.clip.length);
         Destroy(temp);
