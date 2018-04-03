@@ -209,14 +209,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a28c2bd8e6338e44af91c3333034268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 200
-  currentHealth: 200
+  maxHealth: 150
+  currentHealth: 150
   tombstone: {fileID: 1006454588332714, guid: e89ff18785fb2c149b5a8d8287ccb621, type: 2}
   Drops: []
   experienceAward: 30
-  playerCheckTime: 0.5
+  playerCheckTime: 0.2
   attackDistance: 7
-  attackRecharge: 0.5
+  attackRecharge: 0.8
   bullet: {fileID: 1775384306581496, guid: 1b41eae0702f882448fec7e58239cd80, type: 2}
 --- !u!114 &114947556180678782
 MonoBehaviour:
@@ -252,7 +252,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.4
-  m_Speed: 4.5
+  m_Speed: 6
   m_Acceleration: 120
   avoidancePriority: 50
   m_AngularSpeed: 0
