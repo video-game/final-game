@@ -150,11 +150,10 @@ public class SharedItem
 
     public bool ChangeMoney(int amount)
     {
-        money += Mathf.Clamp(money, 0, int.MaxValue);
         if (money + amount >= 0 || amount > 0)
         {
             money += amount;
-            money += Mathf.Clamp(money, 0, int.MaxValue);
+            money = Mathf.Clamp(money, 0, int.MaxValue);
 
             if(OnMoneyChange != null)
             {

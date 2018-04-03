@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MoneyPickup : Pickup {
+    public int amount = 10;
 
 	protected override void Effect()
     {
-        player.item.ChangeMoney(10);
+        player.item.ChangeMoney(amount);
     }
 }

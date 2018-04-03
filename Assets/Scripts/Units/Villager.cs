@@ -13,17 +13,17 @@ public class Villager : MonoBehaviour, INTERACTABLE
     private float viewDistance;
     [SerializeField]
     private GameObject itemDrop;
-    private bool itemDropped;
+    protected bool itemDropped;
 
     [SerializeField]
     private Sprite interactImage;
 
-    private bool someoneInRange;
+    protected bool someoneInRange;
 
     [SerializeField]
     private Transform dialogueBox;
     [SerializeField]
-    private Transform image;
+    protected Transform image;
 	// Use this for initialization
 	void Awake () {
         someoneInRange = false;
@@ -105,14 +105,19 @@ public class Villager : MonoBehaviour, INTERACTABLE
     {
         if(itemDrop != null && !itemDropped)
         {
-            itemDropped = true;
-            GameObject drop = Instantiate(itemDrop);
-            drop.transform.position = new Vector3(transform.position.x , transform.position.y, transform.position.z - 1);
+            Drop();
         }
-        else if(interactImage != null && image.GetComponent<Image>())
+        if(interactImage != null && image.GetComponent<Image>())
         {
             image.GetComponent<Image>().sprite = interactImage;
         }
+    }
+
+    protected virtual void Drop()
+    {
+        itemDropped = true;
+        GameObject drop = Instantiate(itemDrop);
+        drop.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
     }
 
     public bool InRange(Vector3 playerPos)
