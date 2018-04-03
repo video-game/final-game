@@ -34,9 +34,6 @@ public class GameManager : SingletonMB<GameManager>
     [SerializeField]
     private Texture2D cursorTexture;
 
-    //Very crappy solution, works for now.
-    public GameObject Tombstone;
-
     public GameObject EnemyContainer;
     public GameObject NPCContainer;
     public GameObject PlayerContainer;
