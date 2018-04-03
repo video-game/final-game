@@ -47,14 +47,6 @@ public abstract class Enemy : Unit
         return min;
     }
 
-    protected bool HasLineOfSight(Vector3 target)
-    {
-        NavMeshHit dummy;
-        bool blocked = NavMesh.Raycast(transform.position, target, out dummy, NavMesh.GetAreaFromName("Movable"));
-        Debug.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), blocked ? Color.red : Color.green);
-        return !blocked;
-    }
-
     protected override void Die()
     {
         base.Die();

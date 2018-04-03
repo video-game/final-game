@@ -81,4 +81,12 @@ public abstract class Unit : MonoBehaviour
             agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
         }
     }
+
+    protected bool HasLineOfSight(Vector3 target)
+    {
+        NavMeshHit dummy;
+        bool blocked = NavMesh.Raycast(transform.position, target, out dummy, NavMesh.GetAreaFromName("Movable"));
+        Debug.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), blocked ? Color.red : Color.green);
+        return !blocked;
+    }
 }
