@@ -50,7 +50,7 @@ public abstract class Unit : MonoBehaviour
             Die();
     }
 
-    protected virtual void Hit(DemoProjectile projectile)
+    protected virtual void Hit(Projectile projectile)
     {
         if (!invincible)
         {

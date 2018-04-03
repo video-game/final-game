@@ -24,7 +24,7 @@ public class BasicEnemy : Enemy
 
     public GameObject bullet;
 
-    protected override void Hit(DemoProjectile projectile)
+    protected override void Hit(Projectile projectile)
     {
         base.Hit(projectile);
 
@@ -39,7 +39,7 @@ public class BasicEnemy : Enemy
         //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.
         Vector3 playerPosition = GetClosestPlayer();
 
-        if (playerPosition != null && attacking)
+        if (playerPosition != Vector3.zero && attacking)
         {
             shootTimer += Time.deltaTime;
             if(shootTimer > shootSpeed)
@@ -49,7 +49,7 @@ public class BasicEnemy : Enemy
                 Vector3 zeroedPos = new Vector3(transform.position.x, 0, transform.position.z);
 
                 GameObject clone = Instantiate(bullet, new Vector3(transform.position.x, 0, transform.position.z), bullet.transform.rotation);
-                clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 4, gameObject);
+                clone.GetComponent<Projectile>().Init((playerPosition - zeroedPos).normalized * 4, gameObject);
 
                 //TODO make this work
                 //for some reason raycasting on the mesh doesn't work so we just have to make it shoot at blockades I guess
@@ -70,7 +70,7 @@ public class BasicEnemy : Enemy
         }
 
         playerCheckTimer += Time.deltaTime;
-        if (playerPosition != null && playerCheckTimer > playerCheckTime)
+        if (playerPosition != Vector3.zero && playerCheckTimer > playerCheckTime)
         {
             playerCheckTimer = 0;
             NavMeshPath path = new UnityEngine.AI.NavMeshPath();

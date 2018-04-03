@@ -23,18 +23,18 @@ public class PlayerHud : MonoBehaviour {
     public void Init(Player p)
     {
         player = p;
-        p.OnHealthChange += UpdateHealth;
-        p.OnPlayerKO += PlayerKO;
-        p.OnPlayerRevive += PlayerRevive;
-        p.OnExperienceGained += UpdateExperience;
-        p.OnPlayerLvlUp += LevelUp;
+        player.OnHealthChange += UpdateHealth;
+        player.OnPlayerKO += PlayerKO;
+        player.OnPlayerRevive += PlayerRevive;
+        player.OnExperienceGained += UpdateExperience;
+        player.OnPlayerLvlUp += LevelUp;
 
         KOd = false;
 
         levelText.text = level.ToString();
 
-        UpdateExperience(p.Experience, p.nextLevel);
-        UpdateHealth(p.CurrentHealth, p.MaxHealth);
+        UpdateExperience(player.Experience, player.nextLevel);
+        UpdateHealth(player.CurrentHealth, player.MaxHealth);
     }
 
     private void UpdateHealth(int current, int max)
