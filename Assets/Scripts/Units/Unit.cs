@@ -74,8 +74,11 @@ public abstract class Unit : MonoBehaviour
 
     protected void Knockback(Vector3 direction, float power)
     {
-        agent.ResetPath();
-        direction = direction.normalized;
-        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
+        if (alive)
+        {
+            agent.ResetPath();
+            direction = direction.normalized;
+            agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
+        }
     }
 }

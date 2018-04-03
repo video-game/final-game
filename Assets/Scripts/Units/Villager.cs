@@ -108,7 +108,7 @@ public class Villager : MonoBehaviour {
             GameObject drop = Instantiate(itemDrop);
             drop.transform.position = new Vector3(transform.position.x , transform.position.y, transform.position.z - 1);
         }
-        if(interactImage != null)
+        else if(interactImage != null && image.GetComponent<Image>())
         {
             image.GetComponent<Image>().sprite = interactImage;
         }
