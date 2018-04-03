@@ -74,7 +74,7 @@ public class Ape : Enemy {
         agent.velocity = Vector3.zero;
 
         animator.SetBool("Attacking", true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         animator.SetBool("Attacking", false);
 
         Vector3 zeroedPos = new Vector3(transform.position.x, 0, transform.position.z);

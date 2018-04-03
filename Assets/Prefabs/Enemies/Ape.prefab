@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4394548091533366}
+  - component: {fileID: 114645365096186030}
   - component: {fileID: 195618926705918984}
   - component: {fileID: 135184753960464396}
-  - component: {fileID: 114741304616714164}
   m_Layer: 10
   m_Name: Ape
   m_TagString: Enemy
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114741304616714164
+--- !u!114 &114645365096186030
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -206,21 +206,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1328978720677094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af6e41caa6799924eb14ac41a0352937, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a28c2bd8e6338e44af91c3333034268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 100
   tombstone: {fileID: 1006454588332714, guid: e89ff18785fb2c149b5a8d8287ccb621, type: 2}
-  Drops:
-  - Chance: 0.1
-    Pickup: {fileID: 114739717447332650, guid: 7cb37e7ceb071cf4c9a369ddb09048b2, type: 2}
+  Drops: []
   experienceAward: 30
   playerCheckTime: 0.5
   attackDistance: 7
-  stopDistance: 1
-  shootSpeed: 1
-  bullet: {fileID: 1775384306581496, guid: e157e8f2023645044858a0171cd44557, type: 2}
+  attackRecharge: 0.5
+  bullet: {fileID: 1775384306581496, guid: 1b41eae0702f882448fec7e58239cd80, type: 2}
 --- !u!114 &114947556180678782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,7 +252,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.4
-  m_Speed: 2
+  m_Speed: 4.5
   m_Acceleration: 120
   avoidancePriority: 50
   m_AngularSpeed: 0
