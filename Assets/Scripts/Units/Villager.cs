@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Villager : MonoBehaviour {
+public class Villager : MonoBehaviour, INTERACTABLE
+{
 
     private SpriteRenderer sRenderer;
     [SerializeField]
@@ -100,7 +101,7 @@ public class Villager : MonoBehaviour {
         return min;
     }
 
-    public virtual void Interact()
+    public virtual void Interaction()
     {
         if(itemDrop != null && !itemDropped)
         {

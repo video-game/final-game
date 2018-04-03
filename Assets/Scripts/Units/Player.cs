@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Player : Unit
+public class Player : Unit, INTERACTABLE
 {
     public delegate void PlayerDelegate();
     public PlayerDelegate OnPlayerDeath;
@@ -58,6 +59,26 @@ public class Player : Unit
     public int Experience { get { return experience; } }
 
     public int nextLevel = 100;
+
+
+    private List<INTERACTABLE> InteractList = new List<INTERACTABLE>();
+
+    private void OnTriggerEnter(Collider other)
+    {
+        INTERACTABLE temp = other.GetComponent<INTERACTABLE>();
+        if (temp != null)
+        {
+            InteractList.Add(temp);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        INTERACTABLE temp = other.GetComponent<INTERACTABLE>();
+        if (temp != null)
+        {
+            InteractList.Remove(temp);
+        }
+    }
 
     public void GrantExperience(int amount)
     {
@@ -278,30 +299,20 @@ public class Player : Unit
     //Used to speak to villagers/revive teammate.
     public void Interact()
     {
-        //check if any KOed players are in a 1 unit radius
-        foreach(var player in GameManager.Instance.player)
+        if(InteractList.Count > 0)
         {
-            if(player != this && Vector3.Distance(transform.position, player.transform.position) < 1)
-            {
-                if(player.KOd && player.isActiveAndEnabled)
-                {
-                    if(GameManager.Instance.resourceHud.UpdateRevives(-1))
-                    {
-                        player.Revive();
-                        return;
-                    }
-                }
-            }
+            InteractList[0].Interaction();
         }
+    
+    }
 
-        //This is a ludicrously bad idea as it forces a parent gameObject for villagers
-        //But time constraints force bad coding habits
-        foreach(Transform villager in GameObject.Find("Villagers").transform)
+    public void Interaction()
+    {
+        if (KOd)
         {
-            Villager vScript = villager.GetComponent<Villager>();
-            if(vScript.InRange(transform.position))
+            if (GameManager.Instance.resourceHud.UpdateRevives(-1))
             {
-                vScript.Interact();
+                Revive();
                 return;
             }
         }
