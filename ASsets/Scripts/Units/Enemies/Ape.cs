@@ -26,6 +26,7 @@ public class Ape : Enemy {
     {
         attackRechargeTimer = attackRecharge;
     }
+
     void Update()
     {
         if (recharging)
@@ -65,6 +66,14 @@ public class Ape : Enemy {
                 agent.SetDestination(playerPosition);
             }
         }
+    }
+
+    protected override void Hit(DemoProjectile projectile)
+    {
+        base.Hit(projectile);
+
+        // Knockback power 20% of damage
+        Knockback(projectile.velocity, Mathf.Abs(projectile.damage / 5));
     }
 
     private IEnumerator MoveStop(Vector3 playerPos)

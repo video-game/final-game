@@ -24,6 +24,13 @@ public class BasicEnemy : Enemy
 
     public GameObject bullet;
 
+    protected override void Hit(DemoProjectile projectile)
+    {
+        base.Hit(projectile);
+
+        Knockback(projectile.velocity, Mathf.Abs(projectile.damage));
+    }
+
     void Update()
     {
         animator.SetBool("IsWalking", agent.velocity != Vector3.zero);
