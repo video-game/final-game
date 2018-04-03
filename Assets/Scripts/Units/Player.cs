@@ -61,6 +61,9 @@ public class Player : Unit, INTERACTABLE
     public int nextLevel = 100;
 
 
+    public SharedItem item;
+
+
     private List<INTERACTABLE> InteractList = new List<INTERACTABLE>();
 
     private void OnTriggerEnter(Collider other)
@@ -124,6 +127,8 @@ public class Player : Unit, INTERACTABLE
         bodyColor = m.GetComponent<SpriteRenderer>().color;
 
         projectileScript = demoProjectile.GetComponent<PlayerProjectile>();
+
+        item = GameManager.Instance.sharedItems;
     }
 
     //player move function
@@ -299,18 +304,19 @@ public class Player : Unit, INTERACTABLE
     //Used to speak to villagers/revive teammate.
     public void Interact()
     {
-        if(InteractList.Count > 0)
+        for(int i = 0; i < InteractList.Count; i++)
         {
-            InteractList[0].Interaction();
+            InteractList[i].Interaction();
         }
     
     }
 
+    //when another player interacts with you.
     public void Interaction()
     {
         if (KOd)
         {
-            if (GameManager.Instance.resourceHud.UpdateRevives(-1))
+            if (item.ChangeRevives(-1))
             {
                 Revive();
                 return;

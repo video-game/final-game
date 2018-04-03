@@ -47,10 +47,10 @@ public class UIManager : SingletonMB<UIManager>
         }
     }
 
-    public void InstantiateResourceHud()
+    public void InstantiateResourceHud(int money, int revives)
     {
         resourceHud.instance = Instantiate(resourceHud.prefab, HudContainer.transform).GetComponent<ResourceHud>();
-        resourceHud.instance.Init(0,3);
+        resourceHud.instance.Init(money, revives);
     }
 
     //Hide but don't close the current open menu.

@@ -21,6 +21,8 @@ public class GameManager : SingletonMB<GameManager>
     [HideInInspector]
     public List<Player> player;
 
+    public SharedItem sharedItems;
+
     //a private bool to see if the game is paused
     //it is then escaped as a property (but only for get)
     private bool paused;
@@ -81,8 +83,9 @@ public class GameManager : SingletonMB<GameManager>
         {
             PauseGame();
         }
+        sharedItems = new SharedItem(0, 3);
         SpawnPlayers();
-        UIManager.Instance.InstantiateResourceHud();
+        UIManager.Instance.InstantiateResourceHud(sharedItems.Money, sharedItems.Revives);
     }
 
 
@@ -123,4 +126,59 @@ public class GameManager : SingletonMB<GameManager>
             EndGame();
         }
     }
+}
+
+
+public class SharedItem
+{
+    public delegate void ValueChangeDelegate(int value);
+    public ValueChangeDelegate OnMoneyChange;
+    public ValueChangeDelegate OnReviveChange;
+
+    int revives;
+    public int Revives { get { return revives; } }
+
+    int money;
+    public int Money { get { return money; } }
+
+
+    public SharedItem(int m, int r)
+    {
+        money = m;
+        revives = r;
+    }
+
+    public bool ChangeMoney(int amount)
+    {
+        money += Mathf.Clamp(money, 0, int.MaxValue);
+        if (money + amount >= 0 || amount > 0)
+        {
+            money += amount;
+            money += Mathf.Clamp(money, 0, int.MaxValue);
+
+            if(OnMoneyChange != null)
+            {
+                OnMoneyChange(money);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public bool ChangeRevives(int amount)
+    {
+        if (revives + amount >= 0 || amount > 0)
+        {
+            revives += amount;
+            revives = Mathf.Clamp(revives, 0, 20);
+
+            if(OnReviveChange != null)
+            {
+                OnReviveChange(revives);
+            }
+            return true;
+        }
+        return false;
+    }
+
 }
