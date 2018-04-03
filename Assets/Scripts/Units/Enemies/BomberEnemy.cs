@@ -18,7 +18,7 @@ public class BomberEnemy : Enemy
 	{
 		base.Awake();
 		
-		OnDeath += explode;
+		OnDeath += Explode;
 	}
 
 	private void Start()
@@ -67,7 +67,7 @@ public class BomberEnemy : Enemy
 			ChangeHealth(-maxHealth);
 	}
 
-	private void explode()
+	private void Explode()
 	{
 		// Fire projectiles in 8 directions (Left, Down, Right, Up, and between)
 		for (int x = -1; x <= 1; x++)
@@ -79,7 +79,7 @@ public class BomberEnemy : Enemy
 				
 				var direction = new Vector3(x, 0, z).normalized;
 				var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-				clone.GetComponent<DemoProjectile>().init(7.5f * direction, gameObject);
+				clone.GetComponent<Projectile>().Init(7.5f * direction, gameObject);
 			}
 		}
 

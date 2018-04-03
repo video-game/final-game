@@ -64,8 +64,7 @@ public class EnemySpawner : MonoBehaviour {
                 }
 
                 Debug.DrawRay(randPos, Vector3.up * 20, Color.red, 20);
-                GameObject clone = Instantiate(enemyType.enemy);
-                clone.GetComponent<UnityEngine.AI.NavMeshAgent>().Warp(randPos);
+                GameObject clone = Instantiate(enemyType.enemy, randPos, Quaternion.identity);
                 clone.transform.SetParent(transform);
             }
         }
