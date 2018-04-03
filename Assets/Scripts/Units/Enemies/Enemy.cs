@@ -15,6 +15,12 @@ public abstract class Enemy : Unit
     [SerializeField]
     protected int experienceAward;
 
+    protected override void Hit(DemoProjectile projectile)
+    {
+        base.Hit(projectile);
+
+        Knockback(projectile.velocity, Mathf.Abs(projectile.damage));
+    }
     protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "PlayerProjectile")
