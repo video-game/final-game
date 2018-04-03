@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour {
     {
         RaycastHit hit;
         
-        if (Physics.SphereCast(new Vector3(position.x , 10, position.z), 1.5f, Vector3.down * 25, out hit))
+        if (Physics.SphereCast(new Vector3(position.x , 10, position.z), 1f, Vector3.down * 25, out hit))
         {
             if(hit.collider.name == "Mesh Container")
                 return true;
@@ -63,8 +63,9 @@ public class EnemySpawner : MonoBehaviour {
                     randPos = new Vector3(transform.position.x + Random.Range(-scale.x / 2f, scale.x / 2f), 0, transform.position.z + Random.Range(-scale.z / 2f, scale.z / 2f));
                 }
 
+                Debug.DrawRay(randPos, Vector3.up * 20, Color.red, 20);
                 GameObject clone = Instantiate(enemyType.enemy);
-                clone.transform.position = randPos;
+                clone.GetComponent<UnityEngine.AI.NavMeshAgent>().Warp(randPos);
                 clone.transform.SetParent(transform);
             }
         }

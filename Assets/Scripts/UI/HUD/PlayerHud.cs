@@ -13,17 +13,27 @@ public class PlayerHud : MonoBehaviour {
     public UnityEngine.UI.Slider koSlider;
     public TextMeshProUGUI koText;
 
+    public UnityEngine.UI.Slider experienceSlider;
+    public TextMeshProUGUI experienceText;
+    public TextMeshProUGUI levelText;
+
     private bool KOd;
 
+    int level = 1;
     public void Init(Player p)
     {
         player = p;
         p.OnHealthChange += UpdateHealth;
         p.OnPlayerKO += playerKO;
         p.OnPlayerRevive += playerRevive;
+        p.OnExperienceGained += UpdateExperience;
+        p.OnPlayerLvlUp += LevelUp;
 
         KOd = false;
 
+        levelText.text = level.ToString();
+
+        UpdateExperience(p.Experience, p.nextLevel);
         UpdateHealth(p.CurrentHealth, p.MaxHealth);
     }
 
@@ -34,6 +44,12 @@ public class PlayerHud : MonoBehaviour {
 
         text.text = current + " / " + max;
         slider.value = (float)current / max;
+    }
+
+    private void UpdateExperience(int current, int max)
+    {
+        experienceText.text = current + " / " + max;
+        experienceSlider.value = (float)current / max;
     }
 
     private void playerKO()
@@ -48,5 +64,11 @@ public class PlayerHud : MonoBehaviour {
         KOd = false;
         healthSlider.gameObject.SetActive(true);
         koSlider.gameObject.SetActive(false);
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        levelText.text = level.ToString();
     }
 }

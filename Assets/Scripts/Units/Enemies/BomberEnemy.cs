@@ -79,7 +79,7 @@ public class BomberEnemy : Enemy
 				
 				var direction = new Vector3(x, 0, z).normalized;
 				var clone = Instantiate(demoProjectile, transform.position, demoProjectile.transform.rotation);
-				clone.GetComponent<DemoProjectile>().init(7.5f * direction);
+				clone.GetComponent<DemoProjectile>().init(7.5f * direction, gameObject);
 			}
 		}
 

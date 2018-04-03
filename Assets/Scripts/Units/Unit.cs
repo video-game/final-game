@@ -19,12 +19,16 @@ public abstract class Unit : MonoBehaviour
     protected bool alive = true;
     public bool Alive { get { return alive; } }
 
+    protected bool invincible;
+
     [SerializeField]
     protected GameObject tombstone;
     
     protected NavMeshAgent agent;
     protected DamageTakenCanvas damageTakenCanvas;
     protected Animator animator;
+
+    protected GameObject lastAttacker;
 
     protected virtual void Awake()
     {
@@ -35,6 +39,8 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void ChangeHealth(int value)
     {
+        damageTakenCanvas.InitializeDamageText(value);
+
         currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
 
         if (OnHealthChange != null)
@@ -42,6 +48,15 @@ public abstract class Unit : MonoBehaviour
 
         if (currentHealth == 0)
             Die();
+    }
+
+    protected virtual void Hit(DemoProjectile projectile)
+    {
+        if (!invincible)
+        {
+            ChangeHealth(projectile.damage);
+            lastAttacker = projectile.Shooter;
+        }
     }
 
     protected virtual void Die()

@@ -26,7 +26,8 @@ public class DynamicCamera : MonoBehaviour {
     {
         if(GameManager.Instance.player.Count != 0)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, GetCenterPoint() + offset, ref velocity, smoothTime);
+            transform.position = Vector3.SmoothDamp(transform.position, GetCenterPoint(), ref velocity, smoothTime);
+            transform.position = transform.position + offset;
             if (camZoom)
             {
                 cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, GetOptimalCameraSize(), Time.deltaTime * 2);
