@@ -266,6 +266,15 @@ public class Player : Unit, INTERACTABLE
 
     public override void ChangeHealth(int value)
     {
+        if(value > 0)
+        {
+            AudioManager.Instance.PlayAudioClip("Heal", 20f);
+        }
+        else
+        {
+            AudioManager.Instance.PlayAudioClip("PlayerDamage", 20f);
+        }
+
         if (!KOd)
             base.ChangeHealth(value);
         else

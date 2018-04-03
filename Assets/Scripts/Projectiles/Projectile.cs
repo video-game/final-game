@@ -55,7 +55,7 @@ public class Projectile : MonoBehaviour
         }
 
         if(projectileAudio != "")
-            AudioManager.Instance.PlayAudioClip(projectileAudio);
+            AudioManager.Instance.PlayAudioClip(projectileAudio, 10f);
     }
 
 	private void Awake()

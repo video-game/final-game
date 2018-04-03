@@ -80,7 +80,7 @@ MonoBehaviour:
     loop: 0
   - name: Step
     clip: {fileID: 8300000, guid: 5e387d0096bfbe24b9f06fafc3d3bfd2, type: 3}
-    volume: 0.317
+    volume: 0.195
     pitch: 1.01
     loop: 0
   - name: Teleport
@@ -100,8 +100,8 @@ MonoBehaviour:
     loop: 0
   - name: LevelUp
     clip: {fileID: 8300000, guid: 5a96e7eeeaaa4864b85b94ecbffac4db, type: 3}
-    volume: 0.317
-    pitch: 1.01
+    volume: 0.232
+    pitch: 1.15
     loop: 0
   - name: Heal
     clip: {fileID: 8300000, guid: 2944cb14c472ad74e818e5f980d031ba, type: 3}
@@ -120,7 +120,7 @@ MonoBehaviour:
     loop: 0
   - name: DefaultWeapon
     clip: {fileID: 8300000, guid: 03c13b6e04b311e4690fa55338d78936, type: 3}
-    volume: 0.243
+    volume: 0.14
     pitch: 0.9
     loop: 0
   - name: HeavyShot
@@ -132,6 +132,16 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c31f302cc047deb4fa42a1f3fdb74815, type: 3}
     volume: 0.243
     pitch: 1.59
+    loop: 0
+  - name: NinjaStar
+    clip: {fileID: 8300000, guid: 0c9c95bd2bc3f3742994fffd246f7a74, type: 3}
+    volume: 0.243
+    pitch: 1.07
+    loop: 0
+  - name: PlayerDamage
+    clip: {fileID: 8300000, guid: 5dbadf186d4fb1242a3447fa50aa894e, type: 3}
+    volume: 0.243
+    pitch: 1.05
     loop: 0
   musicClip: []
   loopMusicList: 0
