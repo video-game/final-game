@@ -47,6 +47,7 @@ public class AudioManager : SingletonMB<AudioManager>
             {
                 musicPlaying = musicClip[musicPlayingIndex];
                 MusicSource.clip = musicPlaying.clip;
+                MusicSource.volume = musicPlaying.volume;
                 MusicSource.Play();
                 //wait til the end of the clip
                 yield return new WaitForSeconds(musicPlaying.clip.length);
@@ -65,7 +66,8 @@ public class AudioManager : SingletonMB<AudioManager>
     public void StopMusic()
     {
         MusicSource.Stop();
-        StopCoroutine(playMusicCoroutine);
+        if(playMusicCoroutine != null)
+            StopCoroutine(playMusicCoroutine);
         playMusicCoroutine = null;
     }
 
@@ -135,7 +137,6 @@ public class AudioManager : SingletonMB<AudioManager>
         a.AttachAudio(temp);
         float maxPitchDifference = pitchVariance * temp.pitch;
         float variance = UnityEngine.Random.Range(direction != PitchDirection.Down ? -maxPitchDifference : 0, direction != PitchDirection.Up ? +maxPitchDifference : 0);
-        Debug.Log(temp.pitch + variance);
         temp.pitch = Mathf.Clamp(temp.pitch + variance, .3f, 3f);
         temp.Play();
         yield return new WaitForSeconds(a.clip.length);

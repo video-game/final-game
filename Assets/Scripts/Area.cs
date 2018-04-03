@@ -8,9 +8,11 @@ public class Area : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        Debug.Log("tigger entered!");
+        if(other.gameObject.tag == "Player")
         {
-            AudioManager.Instance.PlayMusicClip("");
+            Debug.Log("music is going to play now");
+            AudioManager.Instance.PlayMusicClip(musicName);
         }
     }
 }
