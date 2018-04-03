@@ -110,6 +110,10 @@ public class AudioManager : SingletonMB<AudioManager>
     public void PlayAudioClip(string name, float pitchVariancePercent = 0, PitchDirection pitchD = PitchDirection.Both)
     {
         Audio a = AudioClipByName(name);
+        if(a == null)
+        {
+            return;
+        }
         float pitchVariance = pitchVariancePercent != 0 ? (pitchVariancePercent / 100) : 0;
         StartCoroutine(PlayOneShot(a, pitchVariance, pitchD));
     }
@@ -118,6 +122,10 @@ public class AudioManager : SingletonMB<AudioManager>
     public void PlayMusicClip(string name)
     {
         Audio m = MusicClipByName(name);
+        if (m == null)
+        {
+            return;
+        }
         musicPlayingIndex = musicClip.IndexOf(m);
         StopMusic();
         ToggleMusic();
