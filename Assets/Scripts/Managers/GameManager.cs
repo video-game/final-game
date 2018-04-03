@@ -37,6 +37,10 @@ public class GameManager : SingletonMB<GameManager>
     //Very crappy solution, works for now.
     public GameObject Tombstone;
 
+    public GameObject EnemyContainer;
+    public GameObject NPCContainer;
+    public GameObject PlayerContainer;
+
     [HideInInspector]
     public ResourceHud resourceHud;
     public override void CopyValues(GameManager copy)
@@ -94,6 +98,7 @@ public class GameManager : SingletonMB<GameManager>
             for (int i = 0; i < playerCount; i++)
             {
                 player.Add(Instantiate(playerPrefab, LevelManager.Instance.StartLocation[0]).GetComponent<Player>());
+                player[i].transform.parent = PlayerContainer.transform;
                 player[i].Init(playerModelPrefab[i]);
                 player[i].OnPlayerDeath += CheckGameStatus;
             }
