@@ -22,7 +22,7 @@ public class DamageTakenCanvas : MonoBehaviour
 			damageTakenTextPrefab,
 			damageTakenTextPrefab.transform.localPosition,
 			damageTakenTextPrefab.transform.localRotation,
-			GetComponentInChildren<Canvas>().transform
+			transform
 		);
 
 		var text = clone.GetComponent<TextMeshProUGUI>();

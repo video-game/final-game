@@ -6,6 +6,6 @@ public class MoneyPickup : Pickup {
 
 	protected override void Effect()
     {
-        GameManager.Instance.resourceHud.UpdateMoney(10);
+        player.item.ChangeMoney(10);
     }
 }

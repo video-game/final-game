@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Player : Unit
+public class Player : Unit, INTERACTABLE
 {
     public delegate void PlayerDelegate();
     public PlayerDelegate OnPlayerDeath;
@@ -59,17 +60,40 @@ public class Player : Unit
 
     public int nextLevel = 100;
 
+
+    public SharedItem item;
+
+
+    private List<INTERACTABLE> InteractList = new List<INTERACTABLE>();
+
+    private void OnTriggerEnter(Collider other)
+    {
+        INTERACTABLE temp = other.GetComponent<INTERACTABLE>();
+        if (temp != null)
+        {
+            InteractList.Add(temp);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        INTERACTABLE temp = other.GetComponent<INTERACTABLE>();
+        if (temp != null)
+        {
+            InteractList.Remove(temp);
+        }
+    }
+
     public void GrantExperience(int amount)
     {
         experience += amount;
         
         if (experience >= nextLevel)
-            levelUp();
+            LevelUp();
 
         OnExperienceGained(experience, nextLevel);
     }
 
-    private void levelUp()
+    private void LevelUp()
     {
         level++;
         experience -= nextLevel;
@@ -103,6 +127,8 @@ public class Player : Unit
         bodyColor = m.GetComponent<SpriteRenderer>().color;
 
         projectileScript = demoProjectile.GetComponent<PlayerProjectile>();
+
+        item = GameManager.Instance.sharedItems;
     }
 
     //player move function
@@ -169,7 +195,7 @@ public class Player : Unit
             //spawn projectile, set it's trajectory
             Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
             var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.init(projectileScript.speed * aimDirection, gameObject);
+            cloneScript.Init(projectileScript.speed * aimDirection, gameObject);
 
             StartCoroutine(ShootDelay(cloneScript.shootDelay));
         }
@@ -183,7 +209,7 @@ public class Player : Unit
             //spawn projectile, set it's trajectory
             Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
             var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.init(9 * aimDirection, gameObject);
+            cloneScript.Init(9 * aimDirection, gameObject);
 
             StartCoroutine(ShootDelay(cloneScript.shootDelay));
         }
@@ -215,10 +241,10 @@ public class Player : Unit
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "EnemyProjectile")
-            Hit(collision.gameObject.GetComponent<DemoProjectile>());
+            Hit(collision.gameObject.GetComponent<Projectile>());
     }
 
-    protected override void Hit(DemoProjectile projectile)
+    protected override void Hit(Projectile projectile)
     {
         base.Hit(projectile);
 
@@ -278,30 +304,21 @@ public class Player : Unit
     //Used to speak to villagers/revive teammate.
     public void Interact()
     {
-        //check if any KOed players are in a 1 unit radius
-        foreach(var player in GameManager.Instance.player)
+        for(int i = 0; i < InteractList.Count; i++)
         {
-            if(player != this && Vector3.Distance(transform.position, player.transform.position) < 1)
-            {
-                if(player.KOd && player.isActiveAndEnabled)
-                {
-                    if(GameManager.Instance.resourceHud.UpdateRevives(-1))
-                    {
-                        player.Revive();
-                        return;
-                    }
-                }
-            }
+            InteractList[i].Interaction();
         }
+    
+    }
 
-        //This is a ludicrously bad idea as it forces a parent gameObject for villagers
-        //But time constraints force bad coding habits
-        foreach(Transform villager in GameObject.Find("Villagers").transform)
+    //when another player interacts with you.
+    public void Interaction()
+    {
+        if (KOd)
         {
-            Villager vScript = villager.GetComponent<Villager>();
-            if(vScript.InRange(transform.position))
+            if (item.ChangeRevives(-1))
             {
-                vScript.Interact();
+                Revive();
                 return;
             }
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tombstone : MonoBehaviour {
 
-    SpriteRenderer renderer;
+    SpriteRenderer spriterenderer;
     public Sprite[] sprites;
 
     [SerializeField]
@@ -13,7 +13,7 @@ public class Tombstone : MonoBehaviour {
 
     private void Awake()
     {
-        renderer = GetComponent<SpriteRenderer>();
+        spriterenderer = GetComponent<SpriteRenderer>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -22,11 +22,11 @@ public class Tombstone : MonoBehaviour {
         {
             if((float)++hits/(float)hitsToBreak >= 0.5f)
             {
-                renderer.sprite = sprites[1];
+                spriterenderer.sprite = sprites[1];
             }
             if (hitsToBreak == hits)
             {
-                renderer.sprite = sprites[2];
+                spriterenderer.sprite = sprites[2];
                 GetComponent<Collider>().enabled = false;
             }
         }
