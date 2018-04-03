@@ -113,6 +113,10 @@ public class AudioManager : SingletonMB<AudioManager>
     public void PlayAudioClip(string name)
     {
         Audio a = AudioClipByName(name);
+        if(a == null)
+        {
+            return;
+        }
         a.Source.Play();
     }
 
@@ -120,6 +124,10 @@ public class AudioManager : SingletonMB<AudioManager>
     public void PlayMusicClip(string name)
     {
         Audio m = MusicClipByName(name);
+        if (m == null)
+        {
+            return;
+        }
         musicPlayingIndex = musicClip.IndexOf(m);
         StopMusic();
         ToggleMusic();
