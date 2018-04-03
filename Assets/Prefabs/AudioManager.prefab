@@ -143,6 +143,31 @@ MonoBehaviour:
     volume: 0.243
     pitch: 1.05
     loop: 0
-  musicClip: []
+  musicClip:
+  - name: StartingArea
+    clip: {fileID: 8300000, guid: 2b12d504e3514234bae83caeb285fb9d, type: 3}
+    volume: 0.06
+    pitch: 0.87
+    loop: 1
+  - name: EasyArea
+    clip: {fileID: 8300000, guid: 32cb40b4e6e43074ba1023a035c5adb5, type: 3}
+    volume: 0.063
+    pitch: 0.84
+    loop: 1
+  - name: MidArea
+    clip: {fileID: 8300000, guid: 863650db47daf7f4d901d9b3b9d1e483, type: 3}
+    volume: 0.079
+    pitch: 0.87
+    loop: 1
+  - name: HardArea
+    clip: {fileID: 8300000, guid: ef41d9282ad406049a8be565b2108452, type: 3}
+    volume: 0.06
+    pitch: 0.83
+    loop: 1
+  - name: Boss
+    clip: {fileID: 8300000, guid: 0a8b39a216c9e8f4c8f9558962808bb6, type: 3}
+    volume: 0.09
+    pitch: 0.81
+    loop: 1
   loopMusicList: 0
-  loopCurrentMusic: 0
+  loopCurrentMusic: 1
