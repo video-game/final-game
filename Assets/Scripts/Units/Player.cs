@@ -64,12 +64,12 @@ public class Player : Unit
         experience += amount;
         
         if (experience >= nextLevel)
-            levelUp();
+            LevelUp();
 
         OnExperienceGained(experience, nextLevel);
     }
 
-    private void levelUp()
+    private void LevelUp()
     {
         level++;
         experience -= nextLevel;
@@ -169,7 +169,7 @@ public class Player : Unit
             //spawn projectile, set it's trajectory
             Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
             var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.init(projectileScript.speed * aimDirection, gameObject);
+            cloneScript.Init(projectileScript.speed * aimDirection, gameObject);
 
             StartCoroutine(ShootDelay(cloneScript.shootDelay));
         }
@@ -183,7 +183,7 @@ public class Player : Unit
             //spawn projectile, set it's trajectory
             Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
             var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.init(9 * aimDirection, gameObject);
+            cloneScript.Init(9 * aimDirection, gameObject);
 
             StartCoroutine(ShootDelay(cloneScript.shootDelay));
         }
@@ -215,10 +215,10 @@ public class Player : Unit
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "EnemyProjectile")
-            Hit(collision.gameObject.GetComponent<DemoProjectile>());
+            Hit(collision.gameObject.GetComponent<Projectile>());
     }
 
-    protected override void Hit(DemoProjectile projectile)
+    protected override void Hit(Projectile projectile)
     {
         base.Hit(projectile);
 

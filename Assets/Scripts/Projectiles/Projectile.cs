@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DemoProjectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     [HideInInspector]
     public GameObject shooter;
@@ -24,8 +24,11 @@ public class DemoProjectile : MonoBehaviour
 
     private Animator anim;
 
-    public virtual void init(Vector3 vel, GameObject shooter)
+    public virtual void Init(Vector3 vel, GameObject shooter)
     {
+        //set the height to 0.01 so it can detect collisions with mesh collider.
+        transform.position = transform.position + new Vector3(0, 0.01f, 0);
+
         this.shooter = shooter;
 
         //Set the direction according to original velocity + accuracy

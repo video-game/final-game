@@ -24,8 +24,8 @@ public class PlayerHud : MonoBehaviour {
     {
         player = p;
         p.OnHealthChange += UpdateHealth;
-        p.OnPlayerKO += playerKO;
-        p.OnPlayerRevive += playerRevive;
+        p.OnPlayerKO += PlayerKO;
+        p.OnPlayerRevive += PlayerRevive;
         p.OnExperienceGained += UpdateExperience;
         p.OnPlayerLvlUp += LevelUp;
 
@@ -52,14 +52,14 @@ public class PlayerHud : MonoBehaviour {
         experienceSlider.value = (float)current / max;
     }
 
-    private void playerKO()
+    private void PlayerKO()
     {
         KOd = true;
         healthSlider.gameObject.SetActive(false);
         koSlider.gameObject.SetActive(true);
     }
 
-    private void playerRevive()
+    private void PlayerRevive()
     {
         KOd = false;
         healthSlider.gameObject.SetActive(true);
