@@ -23,16 +23,17 @@ public class SellVillager : Villager {
         {
             if (GameManager.Instance.sharedItems.ChangeMoney(cost))
             {
+                AudioManager.Instance.PlayAudioClip("Buy");
                 Drop();
-                StartCoroutine(buyCoroutine(acceptImage));
+                StartCoroutine(BuyCoroutine(acceptImage));
             }
             else
             {
-                StartCoroutine(buyCoroutine(declineImage));
+                StartCoroutine(BuyCoroutine(declineImage));
             }
         }
     }
-    private IEnumerator buyCoroutine(GameObject gObject)
+    private IEnumerator BuyCoroutine(GameObject gObject)
     {
         itemDropped = true;
         var clone = Instantiate(gObject, transform.Find("UIElements"));
