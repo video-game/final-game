@@ -50,7 +50,7 @@ public abstract class Unit : MonoBehaviour
             Die();
     }
 
-    protected virtual void Hit(DemoProjectile projectile)
+    protected virtual void Hit(Projectile projectile)
     {
         if (!invincible)
         {
@@ -74,8 +74,19 @@ public abstract class Unit : MonoBehaviour
 
     protected void Knockback(Vector3 direction, float power)
     {
-        agent.ResetPath();
-        direction = direction.normalized;
-        agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
+        if (alive)
+        {
+            agent.ResetPath();
+            direction = direction.normalized;
+            agent.velocity = new Vector3(direction.x, 0, direction.z) * power;
+        }
+    }
+
+    protected bool HasLineOfSight(Vector3 target)
+    {
+        NavMeshHit dummy;
+        bool blocked = NavMesh.Raycast(transform.position, target, out dummy, NavMesh.GetAreaFromName("Movable"));
+        Debug.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), blocked ? Color.red : Color.green);
+        return !blocked;
     }
 }

@@ -20,9 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224405959844216578}
   - component: {fileID: 114302530792578304}
-  - component: {fileID: 223378784057017234}
-  - component: {fileID: 114826912864994304}
-  - component: {fileID: 114912463192251024}
   m_Layer: 0
   m_Name: DamageTakenCanvas
   m_TagString: Untagged
@@ -139,27 +136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTakenTextPrefab: {fileID: 1900143334929114, guid: 20eb707ef503e70449ac85cdcda4f09f,
     type: 2}
---- !u!114 &114826912864994304
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1435566942722920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 16
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
 --- !u!114 &114889609522974816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -182,22 +158,6 @@ MonoBehaviour:
   updatePathInterval: 0.5
   demoProjectile: {fileID: 54506367409316654, guid: c0473aedfbb28ae49ba1ae5313119407,
     type: 2}
---- !u!114 &114912463192251024
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1435566942722920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!135 &135661646579730880
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -275,26 +235,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!223 &223378784057017234
-Canvas:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1435566942722920}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 872968827
-  m_SortingOrder: 100
-  m_TargetDisplay: 0
 --- !u!224 &224405959844216578
 RectTransform:
   m_ObjectHideFlags: 1

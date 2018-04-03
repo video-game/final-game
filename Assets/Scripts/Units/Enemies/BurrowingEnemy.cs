@@ -32,7 +32,7 @@ public class BurrowingEnemy : Enemy
 		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
     }
 
-    protected override void Hit(DemoProjectile projectile)
+    protected override void Hit(Projectile projectile)
     {
         base.Hit(projectile);
 
@@ -108,7 +108,7 @@ public class BurrowingEnemy : Enemy
                     Vector3 zeroedPos = new Vector3(transform.position.x, 0, transform.position.z);
 
                     GameObject clone = Instantiate(bullet, new Vector3(transform.position.x, 0, transform.position.z), bullet.transform.rotation);
-                    clone.GetComponent<DemoProjectile>().init((playerPosition - zeroedPos).normalized * 4, gameObject);
+                    clone.GetComponent<Projectile>().Init((playerPosition - zeroedPos).normalized * 4, gameObject);
 
                     agent.isStopped = (agent.remainingDistance < stopDistance);
                 }

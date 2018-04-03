@@ -3,56 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ResourceHud : MonoBehaviour {
-    int revives;
-    
-    int money;
 
-    TMPro.TextMeshProUGUI reviveText;
-    TMPro.TextMeshProUGUI moneyText;
+    public TMPro.TextMeshProUGUI reviveText;
+    public TMPro.TextMeshProUGUI moneyText;
 
     public void Init(int mon, int rev)
     {
-        GameManager.Instance.resourceHud = this;
-
-        var texts = GetComponentsInChildren<TMPro.TextMeshProUGUI>();
-        reviveText = texts[0];
-        moneyText = texts[1];
-
+        GameManager.Instance.sharedItems.OnMoneyChange += UpdateMoney;
+        GameManager.Instance.sharedItems.OnReviveChange += UpdateRevives;
         UpdateMoney(mon);
         UpdateRevives(rev);
     }
 
-    public bool UpdateMoney(int amount)
+    public void UpdateMoney(int amount)
     {
-        if(money + amount >= 0 || amount > 0)
-        {
-            money += amount;
-            money = Mathf.Clamp(money, 0, 999);
-            moneyText.text = money.ToString();
-            return true;
-        }
-        return false;
+        moneyText.text = amount.ToString();
     }
 
-    public bool UpdateRevives(int amount)
+    public void UpdateRevives(int amount)
     {
-        if (revives + amount >= 0 || amount > 0)
-        {
-            revives += amount;
-            revives = Mathf.Clamp(revives, 0, 20);
-            reviveText.text = revives.ToString();
-            return true;
-        }
-        return false;
+        reviveText.text = amount.ToString();
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

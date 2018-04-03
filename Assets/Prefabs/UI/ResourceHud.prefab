@@ -516,6 +516,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b507f7c11998c364187908decbcc4671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reviveText: {fileID: 114275704879432290}
+  moneyText: {fileID: 114084460824635268}
 --- !u!222 &222058781781444080
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -1,0 +1,4 @@
+﻿interface INTERACTABLE
+{
+    void Interaction();
+}

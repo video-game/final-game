@@ -19,7 +19,7 @@ public abstract class Enemy : Unit
     {
         if (collision.gameObject.tag == "PlayerProjectile")
         {
-            Hit(collision.gameObject.GetComponent<DemoProjectile>());
+            Hit(collision.gameObject.GetComponent<Projectile>());
             attacking = true;
         }
     }

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 212190184215990882}
   - component: {fileID: 95921973940960514}
   - component: {fileID: 54506367409316654}
-  - component: {fileID: 135392441643877968}
+  - component: {fileID: 135966935873909580}
   m_Layer: 9
   m_Name: PeaShooter
   m_TagString: PlayerProjectile
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4d03356025b40459cb59f4e149f9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shooter: {fileID: 0}
   damage: -10
   inaccuracy: 0.01
   speed: 10
@@ -110,8 +111,8 @@ MonoBehaviour:
   lifetime: 10
   spriteList: []
   continuousFire: 1
-  shootDelay: 0.4
---- !u!135 &135392441643877968
+  shootDelay: 0.1
+--- !u!135 &135966935873909580
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
