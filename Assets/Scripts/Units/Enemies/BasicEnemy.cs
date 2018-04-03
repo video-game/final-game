@@ -28,7 +28,7 @@ public class BasicEnemy : Enemy
     {
         base.Hit(projectile);
 
-        Knockback(projectile.velocity, Mathf.Abs(projectile.damage));        
+        Knockback(projectile.velocity, Mathf.Abs(projectile.damage));
     }
 
     void Update()
