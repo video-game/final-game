@@ -21,12 +21,10 @@ public class AudioManager : SingletonMB<AudioManager>
     public bool loopMusicList;
     public bool loopCurrentMusic;
 
-    private AudioSource SFXSource;
     private AudioSource MusicSource;
 
     private void Start()
     {
-        SFXSource = gameObject.AddComponent<AudioSource>();
         MusicSource = gameObject.AddComponent<AudioSource>();
 
         if (playOnStart)
