@@ -164,7 +164,7 @@ MonoBehaviour:
   dashCooldown: 0.5
   demoProjectile: {fileID: 54506367409316654, guid: 88c7430dde931484fa6d7f7afdc4b1ac,
     type: 2}
-  damageRecoveryTime: 0.3
+  damageRecoveryTime: 1
   KOd: 0
   maxKoHealth: 70
   nextLevel: 20

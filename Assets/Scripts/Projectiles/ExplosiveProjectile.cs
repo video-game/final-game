@@ -22,6 +22,7 @@ public class ExplosiveProjectile : PlayerProjectile {
                 var direction = new Vector3(x, 0, z).normalized;
                 var clone = Instantiate(smallProjectile, transform.position, smallProjectile.transform.rotation);
                 clone.GetComponent<DemoProjectile>().init(direction, gameObject);
+                clone.GetComponent<DemoProjectile>().shooter = shooter;
             }
         }
     }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class DemoProjectile : MonoBehaviour
 {
-    private GameObject shooter;
+    [HideInInspector]
+    public GameObject shooter;
     public GameObject Shooter { get { return shooter; } }
 
     public int damage = -10;
