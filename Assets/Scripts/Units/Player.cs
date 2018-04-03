@@ -95,6 +95,9 @@ public class Player : Unit, INTERACTABLE
 
     private void LevelUp()
     {
+        AudioManager.Instance.PlayAudioClip("LevelUp");
+        damageTakenCanvas.InitializeLevelUpText();
+
         level++;
         experience -= nextLevel;
         if (experience < 0)
@@ -331,6 +334,8 @@ public class Player : Unit, INTERACTABLE
     {
         if (GameManager.Instance.player.Count > 1)
         {
+            AudioManager.Instance.PlayAudioClip("KOd");
+
             animator.SetBool("KOd", true);
             KOd = true;
 

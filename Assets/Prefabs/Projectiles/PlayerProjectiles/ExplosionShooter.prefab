@@ -88,16 +88,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c09ccf4290c0d440874fb596d8e60c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shooter: {fileID: 0}
   damage: -20
   inaccuracy: 0.03
   speed: 10
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 0.5
   spriteList: []
+  projectileAudio: HeavyShot
   continuousFire: 0
   shootDelay: 0.7
   smallProjectile: {fileID: 54506367409316654, guid: 01c134f034c20e546841161c55dc2111,
     type: 2}
+  explodeSound: ClusterExplosion
 --- !u!114 &114492532269787506
 MonoBehaviour:
   m_ObjectHideFlags: 1

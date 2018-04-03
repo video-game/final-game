@@ -7,6 +7,7 @@ public class MoneyPickup : Pickup {
 
 	protected override void Effect()
     {
+        AudioManager.Instance.PlayAudioClip("CoinPickup");
         player.item.ChangeMoney(amount);
     }
 }

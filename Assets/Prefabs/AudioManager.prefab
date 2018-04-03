@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1878451279155648}
+  m_IsPrefabParent: 1
+--- !u!1 &1878451279155648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4783882627252124}
+  - component: {fileID: 114666955419211836}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4783882627252124
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1878451279155648}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114666955419211836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1878451279155648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86a41c096d2c1be4d9d36fcc58f3dea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playOnStart: 0
+  audioClip:
+  - name: Shotgun
+    clip: {fileID: 8300000, guid: c31f302cc047deb4fa42a1f3fdb74815, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: Machinegun
+    clip: {fileID: 8300000, guid: 9d6706a0a89fd904d9b6e27b5852fb15, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: RocketLauncherExplosion
+    clip: {fileID: 8300000, guid: 266c71e9077b9074fb099cfdb736da05, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: HeavyLaser
+    clip: {fileID: 8300000, guid: 7c23eb43c7ea89549a8301ac74fe3140, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: WeakLaser
+    clip: {fileID: 8300000, guid: 4e3649412921d3842887b8cf1ce820cf, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: Step
+    clip: {fileID: 8300000, guid: 5e387d0096bfbe24b9f06fafc3d3bfd2, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: Teleport
+    clip: {fileID: 8300000, guid: 9238b175c055f084fbdbf82864c8de0b, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: ClusterExplosion
+    clip: {fileID: 8300000, guid: 52f6eb19da0566b4082aed6ce1d6fce2, type: 3}
+    volume: 0.317
+    pitch: 0.78
+    loop: 0
+  - name: CoinPickup
+    clip: {fileID: 8300000, guid: d4a920015e5dafa48b774795546062cc, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: LevelUp
+    clip: {fileID: 8300000, guid: 5a96e7eeeaaa4864b85b94ecbffac4db, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: Heal
+    clip: {fileID: 8300000, guid: 2944cb14c472ad74e818e5f980d031ba, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: Buy
+    clip: {fileID: 8300000, guid: e5c9420bf5f1a74439afa97a7a8e3c39, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: KOd
+    clip: {fileID: 8300000, guid: 18d824dd9eac5da489ee84a2b81d6749, type: 3}
+    volume: 0.317
+    pitch: 1.01
+    loop: 0
+  - name: DefaultWeapon
+    clip: {fileID: 8300000, guid: 03c13b6e04b311e4690fa55338d78936, type: 3}
+    volume: 0.243
+    pitch: 0.9
+    loop: 0
+  - name: HeavyShot
+    clip: {fileID: 8300000, guid: 116174c1943092e47b0aaeba56c0216a, type: 3}
+    volume: 0.243
+    pitch: 0.9
+    loop: 0
+  - name: SniperShot
+    clip: {fileID: 8300000, guid: c31f302cc047deb4fa42a1f3fdb74815, type: 3}
+    volume: 0.243
+    pitch: 1.59
+    loop: 0
+  musicClip: []
+  loopMusicList: 0
+  loopCurrentMusic: 0

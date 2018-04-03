@@ -33,4 +33,25 @@ public class DamageTakenCanvas : MonoBehaviour
 
 		Destroy(clone.gameObject, 2);
 	}
+
+    //For showing level up, spawns slightly above the other text
+    public void InitializeLevelUpText()
+    {
+        Vector3 pos = damageTakenTextPrefab.transform.localPosition;
+        pos = new Vector3(pos.x, pos.y, pos.z + 0.5f);
+        var clone = Instantiate(
+            damageTakenTextPrefab,
+            pos,
+            damageTakenTextPrefab.transform.localRotation,
+            transform
+        );
+
+        var text = clone.GetComponent<TextMeshProUGUI>();
+        text.color = Color.magenta;
+        text.text = "Level Up!";
+
+        clone.GetComponent<RectTransform>().localRotation = Quaternion.identity;
+
+        Destroy(clone.gameObject, 3);
+    }
 }
