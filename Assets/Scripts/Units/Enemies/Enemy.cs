@@ -14,7 +14,7 @@ public abstract class Enemy : Unit
     protected bool attacking;
     [SerializeField]
     protected int experienceAward;
-
+    
     protected virtual void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "PlayerProjectile")
