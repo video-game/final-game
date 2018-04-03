@@ -75,12 +75,20 @@ public class Player : Unit
         experience -= nextLevel;
         if (experience < 0)
             experience = 0;
-        nextLevel = (int)(nextLevel * (1 + (level / 10f)));
-        Debug.Log("Level up! You are now level " + level + "! XP until next level: " + nextLevel);
+        
+        LevelUpPackage package = GetComponent<LevelingData>().GetLevelStats(level, nextLevel);
+        Debug.Log("old next level: " + nextLevel);
+        nextLevel = package.nextLevel;
+        maxHealth += package.healthUp;
+        if(package.projectile != null)
+        {
+            demoProjectile = package.projectile;
+        }
 
-        // Temporary
-        maxHealth += 10;
         ChangeHealth(maxHealth);
+        OnPlayerLvlUp();
+        OnExperienceGained(experience, nextLevel);
+        Debug.Log("Level up! You are now level " + level + "! XP until next level: " + nextLevel);
     }
 
     public void Init(GameObject model)

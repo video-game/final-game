@@ -65,10 +65,12 @@ public class DemoProjectile : MonoBehaviour
     //This will trigger an explosion in the animator (duh).
     //The animator will take care of actually destroying it
     //after the animation is finished.
-    private void Explode()
+    protected virtual void Explode()
     {
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Collider>().enabled = false;
         anim.SetTrigger("explode");
+        
+        Camera.main.GetComponent<CameraEffects>().ShakeCamera(0.08f, damage/800f);
     }
 }

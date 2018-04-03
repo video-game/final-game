@@ -19,15 +19,15 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4993170194353842}
+  - component: {fileID: 114605208063101622}
   - component: {fileID: 114492532269787506}
   - component: {fileID: 212190184215990882}
   - component: {fileID: 95921973940960514}
   - component: {fileID: 54506367409316654}
   - component: {fileID: 135392441643877968}
-  - component: {fileID: 96141593449398338}
-  - component: {fileID: 114912367701618330}
+  - component: {fileID: 96536106819740094}
   m_Layer: 9
-  m_Name: DartShooter
+  m_Name: SniperShooter
   m_TagString: PlayerProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,7 +68,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1775384306581496}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: bf3d105af0b7b144cbc164779020270a, type: 2}
   m_CullingMode: 0
@@ -78,7 +78,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!96 &96141593449398338
+--- !u!96 &96536106819740094
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 1
@@ -113,10 +113,10 @@ TrailRenderer:
   m_SortingLayerID: -633446575
   m_SortingLayer: 5
   m_SortingOrder: -1
-  m_Time: 0.1
+  m_Time: 0.2
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.05
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -127,18 +127,18 @@ TrailRenderer:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.9935762
+        time: 1
         value: 0
-        inSlope: 0.2185393
-        outSlope: 0.2185393
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 0.5176471}
-      key1: {r: 1, g: 1, b: 1, a: 0.2901961}
+      key0: {r: 1, g: 1, b: 0.191, a: 0.59607846}
+      key1: {r: 1, g: 1, b: 1, a: 0.30588236}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -167,7 +167,7 @@ TrailRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 1
-    textureMode: 0
+    textureMode: 1
     generateLightingData: 0
   m_MinVertexDistance: 0.05
   m_Autodestruct: 0
@@ -183,10 +183,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion:
-  - {fileID: 21300000, guid: 645f2b3621766274883712dd3ce9f2b9, type: 3}
-  - {fileID: 21300006, guid: 645f2b3621766274883712dd3ce9f2b9, type: 3}
+  - {fileID: 21300004, guid: 6e605fb139ad5e8459b1b167f98e7dd8, type: 3}
+  - {fileID: 21300006, guid: 6e605fb139ad5e8459b1b167f98e7dd8, type: 3}
   rotate: 0
---- !u!114 &114912367701618330
+--- !u!114 &114605208063101622
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -194,17 +194,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1775384306581496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbec6c9c4c93dfc468a4e9f999a6daf5, type: 3}
+  m_Script: {fileID: 11500000, guid: bf4d03356025b40459cb59f4e149f9ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: -7
-  inaccuracy: 0.15
-  speed: 10
+  damage: -25
+  inaccuracy: 0.01
+  speed: 30
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 10
   spriteList: []
-  continuousFire: 1
-  shootDelay: 0.15
+  continuousFire: 0
+  shootDelay: 1
 --- !u!135 &135392441643877968
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -251,7 +251,7 @@ SpriteRenderer:
   m_SortingLayerID: -633446575
   m_SortingLayer: 5
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: c17859b5ca1ba9548891a375cf602963, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e605fb139ad5e8459b1b167f98e7dd8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
