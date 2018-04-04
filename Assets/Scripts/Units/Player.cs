@@ -62,6 +62,8 @@ public class Player : Unit, INTERACTABLE
     public List<AbilityStruct> ability;
     [HideInInspector]
     public int currentAbility;
+    public Ability DashPrefab;
+    public Ability Dash;
 
     private List<INTERACTABLE> InteractList = new List<INTERACTABLE>();
 
@@ -80,6 +82,11 @@ public class Player : Unit, INTERACTABLE
         {
             InteractList.Remove(temp);
         }
+    }
+
+    public void UseDash()
+    {
+        Dash.OnUse();
     }
 
 

@@ -68,6 +68,9 @@ public class UIManager : SingletonMB<UIManager>
             {
                 ABHud[i].instance.abilities[j].Init(player[i].ability[j].instance);
                 player[i].ability[j].instance.Init(player[i]);
+                player[i].Dash = Instantiate(player[i].DashPrefab);
+                ABHud[i].instance.Dash.Init(player[i].Dash);
+                player[i].Dash.Init(player[i]);
             }
         }
     }

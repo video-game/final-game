@@ -7,6 +7,8 @@ public class AbilityBar : MonoBehaviour {
     private Player player;
     public List<AbilityBarButton> abilities;
 
+    public AbilityBarButton Dash;
+
     public void Init(Player p)
     {
         player = p;
@@ -29,19 +31,4 @@ public class AbilityBar : MonoBehaviour {
         }
     }
 
-    public void UpdateAbilityBar(List<Ability> newList)
-    {
-        for (int i = 0; i < abilities.Count; i++)
-        {
-            if(newList[i] != null)
-            {
-                abilities[i].gameObject.SetActive(true);
-                abilities[i].Init(newList[i]);
-            }
-            else
-            {
-                abilities[i].gameObject.SetActive(false);
-            }
-        }
-    }
 }

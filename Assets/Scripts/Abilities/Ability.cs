@@ -16,8 +16,6 @@ public class Ability : ScriptableObject {
     public float damage;
     public float cooldown;
     public float coolDownRemaining;
-    public int maxCharges;
-    public int currentCharges;
 
     [HideInInspector]
     public bool ready;
@@ -53,8 +51,6 @@ public class Ability : ScriptableObject {
         {
             OnHitEffectInstance.Add(ScriptableObject.Instantiate(OnHitEffect[i]));
         }
-
-        currentCharges = maxCharges;
     }
 
     public virtual void Init(Unit u)
@@ -66,6 +62,7 @@ public class Ability : ScriptableObject {
 
         foeTag = UsedBy.gameObject.tag == "Player" ? "Enemy" : "Player";
         foeAttackTag = foeTag == "Enemy" ? "EnemyProjectile" : "PlayerProjectile";
+
     }
 
     public virtual void OnUse(AbilityHitDetector AHD = null)
@@ -89,21 +86,15 @@ public class Ability : ScriptableObject {
 
             if (cooldown > 0)
             {
+    
                 coolDownRemaining += cooldown;
-                if (CDC == null)
-                {
-                    CDC = slave.StartCoroutine(CoolDownCoroutine());
-                }
+                CDC = slave.StartCoroutine(CoolDownCoroutine());
+                
                 if (OnAbilityUse != null)
                 {
                     OnAbilityUse();
                 }
             }
-        }
-        if(maxCharges > 0 && currentCharges > 0)
-        {
-            Mathf.Clamp( currentCharges - 1, 0, maxCharges);
-            coolDownRemaining += cooldown;
         }
     }
 
@@ -143,13 +134,12 @@ public class Ability : ScriptableObject {
         ready = false;
 
         float t = 0f;
-        while (t < 1)
+        while (t < coolDownRemaining)
         {
-            t += Time.deltaTime / coolDownRemaining;
+            t += Time.deltaTime;
             yield return null;
         }
         coolDownRemaining = 0;
-        currentCharges = maxCharges;
         
         ready = true;
     }
