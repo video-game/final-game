@@ -187,6 +187,8 @@ public class PlayerControl
             }
             else
             {
+                Debug.Log(Input.GetAxis("Vertical2"));
+                
                 if(Mathf.Abs(Input.GetAxis("Horizontal2")) > .05f)
                 {
                     hor2 = Input.GetAxis("Horizontal2");
