@@ -141,6 +141,7 @@ MonoBehaviour:
   viewDistance: 3
   itemDrop: {fileID: 1077089531820028, guid: d50a6ca547d98ab429fd88ba1096794d, type: 2}
   interactImage: {fileID: 21300002, guid: bbcd0883c7b24db4e8f57e095d1547bc, type: 3}
+  isInteractable: 1
   dialogueBox: {fileID: 0}
   image: {fileID: 0}
 --- !u!114 &114352957883896946
