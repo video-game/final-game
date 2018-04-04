@@ -387,7 +387,7 @@ public class Player : Unit, INTERACTABLE
         {
             if (item.ChangeRevives(-1))
             {
-                Revive();
+                Revive(0.3f);
                 return;
             }
         }
@@ -411,17 +411,24 @@ public class Player : Unit, INTERACTABLE
         }
         else
         {
-            base.Die();
-            OnPlayerDeath();
+            if(!GameManager.Instance.sharedItems.ChangeRevives(-1))
+            {
+                base.Die();
+                OnPlayerDeath();
+            }
+            else
+            {
+                Revive(0.5f);
+            }
         }
     }
 
-    private void Revive()
+    private void Revive(float percentage)
     {
         animator.SetBool("KOd", false);
         KOd = false;
         
         OnPlayerRevive();
-        ChangeHealth(MaxHealth / 3);
+        ChangeHealth((int)(maxHealth*percentage));
     }
 }
