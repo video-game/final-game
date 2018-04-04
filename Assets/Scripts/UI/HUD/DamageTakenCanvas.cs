@@ -7,7 +7,8 @@ public class DamageTakenCanvas : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject damageTakenTextPrefab;
-
+    [SerializeField]
+    private GameObject lvlUpTextPrefab;
 	// Detach from parent before it's destroyed so text doesn't disappear.
 	// First I tried to set parent to null in OnDestroy but that wouldn't work.
 	// Has to be called manually from parent.
@@ -33,4 +34,23 @@ public class DamageTakenCanvas : MonoBehaviour
 
 		Destroy(clone.gameObject, 2);
 	}
+
+    //For showing level up, spawns slightly above the other text
+    public void InitializeLevelUpText()
+    {
+        var clone = Instantiate(
+            lvlUpTextPrefab,
+            lvlUpTextPrefab.transform.localPosition,
+            lvlUpTextPrefab.transform.localRotation,
+            transform
+        );
+
+        var text = clone.GetComponent<TextMeshProUGUI>();
+        text.color = Color.magenta;
+        text.text = "Level Up!";
+
+        clone.GetComponent<RectTransform>().localRotation = Quaternion.identity;
+
+        Destroy(clone.gameObject, 3);
+    }
 }

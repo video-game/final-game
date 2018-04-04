@@ -22,6 +22,9 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     Sprite[] spriteList;
 
+    [SerializeField]
+    [Tooltip("The sound of the weapon, plays nothing if left empty.")]
+    string projectileAudio = "DefaultWeapon";
     private Animator anim;
 
     public virtual void Init(Vector3 vel, GameObject shooter)
@@ -50,6 +53,9 @@ public class Projectile : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().sprite = spriteList[Random.Range(0, spriteList.Length)];
         }
+
+        if(projectileAudio != "")
+            AudioManager.Instance.PlayAudioClip(projectileAudio, 10f);
     }
 
 	private void Awake()

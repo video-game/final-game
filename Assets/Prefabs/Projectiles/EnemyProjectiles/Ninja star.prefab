@@ -182,12 +182,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3797e2e5ea47f64781c9a0f09aeb509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shooter: {fileID: 0}
   damage: -10
-  inaccuracy: 0.1
+  inaccuracy: 0
   speed: 7
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 10
   spriteList: []
+  projectileAudio: NinjaStar
 --- !u!114 &114605819277133194
 MonoBehaviour:
   m_ObjectHideFlags: 1

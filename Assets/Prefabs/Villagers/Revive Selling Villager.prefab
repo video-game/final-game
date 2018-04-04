@@ -540,7 +540,7 @@ MonoBehaviour:
   - {fileID: 21300002, guid: 979a8adbdd903784a98ca80cc1302b91, type: 3}
   - {fileID: 21300000, guid: 979a8adbdd903784a98ca80cc1302b91, type: 3}
   viewDistance: 3
-  itemDrop: {fileID: 1077089531820028, guid: d50a6ca547d98ab429fd88ba1096794d, type: 2}
+  itemDrop: {fileID: 1077089531820028, guid: 0173f0aa897099546b1c0997a64f3c4a, type: 2}
   interactImage: {fileID: 0}
   dialogueBox: {fileID: 224220867821243850}
   image: {fileID: 224424627704107940}

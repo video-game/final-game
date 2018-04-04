@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour {
     public Texture debugTexture;
 	// Use this for initialization
 	void Start () {
-        Spawn();
+        //Spawn();
 	}
 	
 	// Update is called once per frame
