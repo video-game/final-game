@@ -9,9 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f6b460e574c5c340b132ccfad3f45ef, type: 3}
-  m_Name: Anim
+  m_Name: AnimOnHit
   m_EditorClassIdentifier: 
   loop: 0
-  destroyOnAnimEnd: 0
-  stopMovementOnStart: 0
-  animList: []
+  destroyOnAnimEnd: 1
+  stopMovementOnStart: 1
+  animList:
+  - Sprite: {fileID: 21300006, guid: 28b41fef228d6814f90e541deaf9f262, type: 3}
+    duration: 0.5
+  - Sprite: {fileID: 21300004, guid: 28b41fef228d6814f90e541deaf9f262, type: 3}
+    duration: 0.5
+  - Sprite: {fileID: 21300002, guid: 28b41fef228d6814f90e541deaf9f262, type: 3}
+    duration: 0.5
