@@ -197,9 +197,6 @@ MonoBehaviour:
   ability:
   - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
   - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
-  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
-  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
-  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
   currentAbility: 0
   selectedAbilityIndex: 0
 --- !u!135 &135559819563125842

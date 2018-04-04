@@ -21,6 +21,7 @@ public class AbilityBarButton : MonoBehaviour {
             AbilityImage.sprite = ability.AbilityBarImage;
             CoolDownFade.sprite = ability.AbilityBarImage;
         }
+        CoolDownFade.fillAmount = 0;
     }
 
     public void ShowCoolDown()
