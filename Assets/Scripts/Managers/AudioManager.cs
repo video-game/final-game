@@ -48,6 +48,7 @@ public class AudioManager : SingletonMB<AudioManager>
                 musicPlaying = musicClip[musicPlayingIndex];
                 MusicSource.clip = musicPlaying.clip;
                 MusicSource.volume = musicPlaying.volume;
+                MusicSource.loop = true;
                 MusicSource.Play();
                 //wait til the end of the clip
                 yield return new WaitForSeconds(musicPlaying.clip.length);
