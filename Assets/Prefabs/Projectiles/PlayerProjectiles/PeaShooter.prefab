@@ -104,14 +104,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shooter: {fileID: 0}
-  damage: -10
+  damage: -5
   inaccuracy: 0.01
   speed: 10
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 10
   spriteList: []
+  projectileAudio: DefaultWeapon
   continuousFire: 1
-  shootDelay: 0.3
+  shootDelay: 0.4
 --- !u!135 &135966935873909580
 SphereCollider:
   m_ObjectHideFlags: 1

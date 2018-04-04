@@ -195,7 +195,7 @@ MonoBehaviour:
   damageRecoveryTime: 0.5
   KOd: 0
   maxKoHealth: 70
-  nextLevel: 20
+  nextLevel: 40
 --- !u!135 &135559819563125842
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -96,7 +96,7 @@ MonoBehaviour:
   lifetime: 0.5
   spriteList: []
   projectileAudio: HeavyShot
-  continuousFire: 0
+  continuousFire: 1
   shootDelay: 0.7
   smallProjectile: {fileID: 54506367409316654, guid: 01c134f034c20e546841161c55dc2111,
     type: 2}
