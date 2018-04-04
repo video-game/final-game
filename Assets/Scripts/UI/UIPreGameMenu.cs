@@ -9,4 +9,9 @@ public class UIPreGameMenu : UIMenu
         SceneLoader.Instance.Load("Overworld scene");
     }
 
+    public void ReturnButton()
+    {
+        UIManager.Instance.CloseLast();
+    }
+
 }
