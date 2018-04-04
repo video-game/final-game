@@ -86,9 +86,11 @@ public class Ability : ScriptableObject {
 
             if (cooldown > 0)
             {
-    
-                coolDownRemaining += cooldown;
-                CDC = slave.StartCoroutine(CoolDownCoroutine());
+                if(CDC == null)
+                {
+                    coolDownRemaining += cooldown;
+                    CDC = slave.StartCoroutine(CoolDownCoroutine());
+                }
                 
                 if (OnAbilityUse != null)
                 {
@@ -140,7 +142,7 @@ public class Ability : ScriptableObject {
             yield return null;
         }
         coolDownRemaining = 0;
-        
+        CDC = null;
         ready = true;
     }
 
