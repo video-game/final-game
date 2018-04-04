@@ -18,13 +18,15 @@ public class AnimationEffect : Effect
     public override void Trigger(AbilityHitDetector hitWith)
     {
         hitDetector = hitWith;
-        hitDetector.ability.slave.StartCoroutine(PlayAnimation());
+        ((RangedAbilityHitDetector)hitDetector).HitSlave.StopAllCoroutines();
+        ((RangedAbilityHitDetector)hitDetector).HitSlave.StartCoroutine(PlayAnimation());
     }
 
     public override void Trigger(AbilityHitDetector hitWith, GameObject hitTarget)
     {
         hitDetector = hitWith;
-        hitDetector.ability.slave.StartCoroutine(PlayAnimation());
+        ((RangedAbilityHitDetector)hitDetector).HitSlave.StopAllCoroutines();
+        ((RangedAbilityHitDetector)hitDetector).HitSlave.StartCoroutine(PlayAnimation());
     }
 
     protected IEnumerator PlayAnimation()

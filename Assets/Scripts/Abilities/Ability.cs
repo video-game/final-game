@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Ability : ScriptableObject {
 
+    public delegate void AbilityDelegate();
+    public AbilityDelegate OnAbilityUse;
+
     [HideInInspector]
     public Unit UsedBy;
     [HideInInspector]
     public CoroutineSlave slave;
-    public UnityEngine.UI.Image AbilityBarImage;
+    public Sprite AbilityBarImage;
     public float damage;
     public float cooldown;
+    public float coolDownRemaining;
     [HideInInspector]
     public bool ready;
     public List<Effect> OnUseEffect;
@@ -18,6 +22,11 @@ public class Ability : ScriptableObject {
 
     private List<Effect> OnUseEffectInstance;
     private List<Effect> OnHitEffectInstance;
+
+    [HideInInspector]
+    public string foeTag;
+    [HideInInspector]
+    public string foeAttackTag;
 
     private void InitOnUseEffects()
     {
@@ -48,6 +57,9 @@ public class Ability : ScriptableObject {
         UsedBy = u;
         slave = new GameObject("Slave").AddComponent<CoroutineSlave>();
         slave.transform.parent = UsedBy.transform;
+
+        foeTag = UsedBy.gameObject.tag == "Player" ? "Enemy" : "Player";
+        foeAttackTag = foeTag == "Enemy" ? "EnemyProjectile" : "PlayerProjectile";
     }
 
     public virtual void OnUse(AbilityHitDetector AHD = null)
@@ -71,6 +83,10 @@ public class Ability : ScriptableObject {
 
             if (cooldown > 0)
             {
+                if(OnAbilityUse != null)
+                {
+                    OnAbilityUse();
+                }
                 slave.StartCoroutine(CoolDownCoroutine());
             }
         }
@@ -95,8 +111,23 @@ public class Ability : ScriptableObject {
 
     protected IEnumerator CoolDownCoroutine()
     {
+        coolDownRemaining = cooldown;
         ready = false;
-        yield return new WaitForSeconds(cooldown);
+        while (coolDownRemaining > 0)
+        {
+            coolDownRemaining -= .1f;
+            yield return new WaitForSeconds(.1f);
+        }
+        coolDownRemaining = 0;
         ready = true;
     }
+}
+
+
+[System.Serializable]
+public class AbilityStruct
+{
+    public Ability prefab;
+    [System.NonSerialized]
+    public Ability instance;
 }

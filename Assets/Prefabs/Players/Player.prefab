@@ -189,12 +189,19 @@ MonoBehaviour:
   dashSpeed: 12
   dashDuration: 0.15
   dashCooldown: 0.5
-  demoProjectile: {fileID: 54506367409316654, guid: 88c7430dde931484fa6d7f7afdc4b1ac,
-    type: 2}
+  fireOnDelay: 0
   damageRecoveryTime: 1
   KOd: 0
   maxKoHealth: 70
   nextLevel: 20
+  ability:
+  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
+  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
+  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
+  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
+  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
+  currentAbility: 0
+  selectedAbilityIndex: 0
 --- !u!135 &135559819563125842
 SphereCollider:
   m_ObjectHideFlags: 1
