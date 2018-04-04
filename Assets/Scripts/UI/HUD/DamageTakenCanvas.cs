@@ -13,7 +13,7 @@ public class DamageTakenCanvas : MonoBehaviour
 	// Has to be called manually from parent.
 	public void Orphan()
 	{
-		transform.SetParent(null);
+		transform.SetParent(GameObject.Find("Game World/Enemies").transform);
 	}
 
 	public void InitializeDamageText(int value)

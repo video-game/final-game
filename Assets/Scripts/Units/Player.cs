@@ -13,9 +13,6 @@ public class Player : Unit, INTERACTABLE
     public StatChangeDelegate OnExperienceGained;
 
     [SerializeField]
-    private float speed;
-
-    [SerializeField]
     private float dashSpeed;
 
     [SerializeField]
@@ -65,6 +62,14 @@ public class Player : Unit, INTERACTABLE
 
 
     private List<INTERACTABLE> InteractList = new List<INTERACTABLE>();
+
+    private float initialSpeed;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        initialSpeed = agent.speed;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -129,6 +134,19 @@ public class Player : Unit, INTERACTABLE
         projectileScript = demoProjectile.GetComponent<PlayerProjectile>();
 
         item = GameManager.Instance.sharedItems;
+    }
+
+    public void Slow(float percentage, float duration)
+    {
+        if (agent.speed == initialSpeed)
+            StartCoroutine(slow(percentage, duration));
+    }
+
+    private IEnumerator slow(float percentage, float duration)
+    {
+        agent.speed = initialSpeed * (1 - percentage);
+        yield return new WaitForSeconds(duration);
+        agent.speed = initialSpeed;
     }
 
     //player move function
@@ -259,6 +277,13 @@ public class Player : Unit, INTERACTABLE
 
             Knockback(projectile.velocity, Mathf.Abs(projectile.damage));
         }
+    }
+
+    // Damages player and ignores invincibility
+    public void TakeTrueDamage(GameObject attacker, int damage)
+    {
+        ChangeHealth(damage);
+        lastAttacker = attacker;
     }
 
     public override void ChangeHealth(int value)
