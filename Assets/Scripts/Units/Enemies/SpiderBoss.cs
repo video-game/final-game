@@ -135,6 +135,15 @@ public class SpiderBoss : Enemy
 			yield return new WaitForSeconds(timeBetweenPlayerSearches);
 		}
 	}
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+        if (collision.transform.tag == "PlayerProjectile")
+        {
+            AudioManager.Instance.PlayAudioClip("BossDamage");
+        }
+    }
 }
 
 [System.Serializable]
