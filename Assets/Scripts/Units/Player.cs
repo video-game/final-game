@@ -98,12 +98,12 @@ public class Player : Unit, INTERACTABLE
 
     public void NextPrevAbility(int nextPrev)
     {
-        SelectAbility(Mathf.Clamp(currentAbility-nextPrev, 0, ability.Count - 1));
+        SelectAbility(Mathf.Clamp(currentAbility+nextPrev, 0, ability.Count));
     }
 
     public void SelectAbility(int index)
     {
-        currentAbility = Mathf.Clamp(currentAbility, 0, ability.Count - 1);
+        currentAbility = Mathf.Clamp(index, 0, ability.Count);
         if(OnAbilitySelected != null)
         {
             OnAbilitySelected(currentAbility);
@@ -114,7 +114,18 @@ public class Player : Unit, INTERACTABLE
     {
         if (ability.Count > index && index >= 0 )
         {
-            ability[index].instance.OnUse();
+            if (ability[index].prefab is RangedAbility)
+            { 
+                ((RangedAbility)ability[index].instance).OnUse();
+            }
+            else if(ability[index].prefab is MeleeAbility)
+            {
+                ((MeleeAbility)ability[index].instance).OnUse();
+            }
+            else
+            {
+                ability[index].instance.OnUse();
+            }
         }
     }
 

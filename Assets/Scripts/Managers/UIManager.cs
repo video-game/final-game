@@ -67,6 +67,7 @@ public class UIManager : SingletonMB<UIManager>
             for (int j = 0; j < player[i].ability.Count; j++)
             {
                 ABHud[i].instance.abilities[j].Init(player[i].ability[j].instance);
+                player[i].ability[j].instance.Init(player[i]);
             }
         }
     }

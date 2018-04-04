@@ -96,6 +96,18 @@ public class Ability : ScriptableObject {
     {
         InitOnHitEffects();
 
+        if(hit.tag == foeTag)
+        {
+            if(foeTag == "Enemy")
+            {
+                hit.gameObject.GetComponent<Enemy>().ChangeHealth(-(int)damage);
+            }
+            else if(foeTag == "Player")
+            {
+                hit.gameObject.GetComponent<Player>().ChangeHealth(-(int)damage);
+            }
+        }
+
         for (int i = 0; i < OnHitEffectInstance.Count; i++)
         {
             if(hit == null)
