@@ -116,13 +116,13 @@ public class Player : Unit, INTERACTABLE
         LevelUpPackage package = GetComponent<LevelingData>().GetLevelStats(level, nextLevel);
         Debug.Log("old next level: " + nextLevel);
         nextLevel = package.nextLevel;
-        maxHealth += package.healthUp;
+        MaxHealth += package.healthUp;
         if(package.projectile != null)
         {
             demoProjectile = package.projectile;
         }
 
-        ChangeHealth(maxHealth);
+        ChangeHealth(MaxHealth);
         OnPlayerLvlUp();
         OnExperienceGained(experience, nextLevel);
         Debug.Log("Level up! You are now level " + level + "! XP until next level: " + nextLevel);
