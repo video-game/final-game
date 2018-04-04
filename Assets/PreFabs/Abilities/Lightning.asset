@@ -14,16 +14,17 @@ MonoBehaviour:
   UsedBy: {fileID: 0}
   slave: {fileID: 0}
   AbilityBarImage: {fileID: 0}
-  damage: 0
-  cooldown: 0
+  damage: 25
+  cooldown: 3
   coolDownRemaining: 0
   ready: 0
   OnUseEffect: []
-  OnHitEffect: []
+  OnHitEffect:
+  - {fileID: 11400000, guid: 05c34a3a6c5520048a039e2d7bd55857, type: 2}
   foeTag: 
   foeAttackTag: 
-  projectileSprite: {fileID: 0}
-  speed: 8
-  spread: 10
+  projectileSprite: {fileID: 21300000, guid: 6e605fb139ad5e8459b1b167f98e7dd8, type: 3}
+  speed: 25
+  spread: 1
   lifeTime: 10
   projectileCount: 1
