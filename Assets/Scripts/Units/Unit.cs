@@ -36,6 +36,9 @@ public abstract class Unit : MonoBehaviour
 
     protected GameObject lastAttacker;
 
+    public bool dashing;
+    public Vector3 dashingVelocity;
+
     protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();

@@ -42,6 +42,10 @@ public class AnimationEffect : Effect
         {
             for (int i = 0; i < animList.Count; i++)
             {
+                if (sr == null)
+                {
+                    break;
+                }
                 sr.sprite = animList[i].Sprite;
                 yield return new WaitForSeconds(animList[i].duration);
                 if(sr == null)

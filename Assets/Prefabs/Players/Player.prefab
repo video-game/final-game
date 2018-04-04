@@ -185,6 +185,8 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   tombstone: {fileID: 1006454588332714, guid: e89ff18785fb2c149b5a8d8287ccb621, type: 2}
+  dashing: 0
+  dashingVelocity: {x: 0, y: 0, z: 0}
   speed: 3.5
   dashSpeed: 12
   dashDuration: 0.15
@@ -196,7 +198,7 @@ MonoBehaviour:
   nextLevel: 20
   ability:
   - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
-  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
+  - prefab: {fileID: 11400000, guid: 631e0d15e99fe294581d59d81e868f62, type: 2}
   currentAbility: 0
   selectedAbilityIndex: 0
 --- !u!135 &135559819563125842

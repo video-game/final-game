@@ -77,7 +77,7 @@ public class InputManager : SingletonMB<InputManager> {
                 //if player i is pressing down his "Dash" button.
                 if ((!playerControl[i].joystick && playerControl[i].Moving && Input.GetKeyDown(playerControl[i].Dash)) || (playerControl[i].joystick && playerControl[i].dashReady && Input.GetAxisRaw("Dash") == 1f))
                 {
-                    GameManager.Instance.player[i].Dash();
+                    //GameManager.Instance.player[i].Dash();
 
                     if (playerControl[i].joystick)
                     {

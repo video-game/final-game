@@ -40,9 +40,6 @@ public class Player : Unit, INTERACTABLE
 
     private Color bodyColor;
 
-    private bool dashing; //for stopping other movement during dashing
-    private Vector3 dashVelocity;
-
     [SerializeField]
     private float damageRecoveryTime;
     [HideInInspector]
@@ -115,15 +112,18 @@ public class Player : Unit, INTERACTABLE
         if (ability.Count > index && index >= 0 )
         {
             if (ability[index].prefab is RangedAbility)
-            { 
+            {
+                Debug.Log("Ranged");
                 ((RangedAbility)ability[index].instance).OnUse();
             }
             else if(ability[index].prefab is MeleeAbility)
             {
+                Debug.Log("Melee");
                 ((MeleeAbility)ability[index].instance).OnUse();
             }
             else
             {
+                Debug.Log("Neither");
                 ability[index].instance.OnUse();
             }
         }
@@ -189,7 +189,7 @@ public class Player : Unit, INTERACTABLE
         {
             if (dashing)
             {
-                agent.velocity = dashVelocity;
+                agent.velocity = dashingVelocity;
             }
             else
             {
@@ -202,40 +202,6 @@ public class Player : Unit, INTERACTABLE
                 agent.SetDestination(movePos);
             }
         }
-    }
-
-    //player dash function
-    public void Dash()
-    {
-        if (!dashOnCooldown)
-        {
-            dashVelocity = agent.velocity.normalized * dashSpeed;
-            StartCoroutine(DashCoroutine());
-            if (dashCooldown > 0f)
-                StartCoroutine(DashCooldown());
-        }
-    }
-
-    private IEnumerator DashCoroutine()
-    {
-        dashing = true;
-        TrailRenderer tRenderer = transform.Find("Model").GetComponent<TrailRenderer>();
-        tRenderer.time = 0.3f;
-        tRenderer.enabled = true;
-        agent.ResetPath();
-        yield return new WaitForSeconds(dashDuration);
-        tRenderer.time = 0.1f;
-        dashing = false;
-
-        yield return new WaitForSeconds(0.1f);
-        tRenderer.enabled = false;
-    }
-
-    private IEnumerator DashCooldown()
-    {
-        dashOnCooldown = true;
-        yield return new WaitForSeconds(dashCooldown);
-        dashOnCooldown = false;
     }
 
     //If a projectile should only fire once per trigger press
