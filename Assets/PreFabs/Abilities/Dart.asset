@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UsedBy: {fileID: 0}
   slave: {fileID: 0}
-  AbilityBarImage: {fileID: 0}
+  AbilityBarImage: {fileID: 21300000, guid: c17859b5ca1ba9548891a375cf602963, type: 3}
   damage: 3
   cooldown: 1
   coolDownRemaining: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5db3a0e311f2f0e4dabee92f6161a925, type: 2}
   foeTag: 
   foeAttackTag: 
-  projectileSprite: {fileID: 0}
+  projectileSprite: {fileID: 21300000, guid: c17859b5ca1ba9548891a375cf602963, type: 3}
   speed: 15
   spread: 40
   lifeTime: 10
