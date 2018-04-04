@@ -7,9 +7,13 @@ public class ExplosiveProjectile : PlayerProjectile {
     private Rigidbody smallProjectile;
 
     private bool exploded = false;
+
+    [SerializeField]
+    private string explodeSound = "ClusterExplosion";
     protected override void Explode()
     {
         exploded = true;
+        AudioManager.Instance.PlayAudioClip(explodeSound);
         base.Explode();
         // Fire projectiles in 8 directions (Left, Down, Right, Up, and between)
         for (int x = -1; x <= 1; x++)

@@ -95,6 +95,9 @@ public class Player : Unit, INTERACTABLE
 
     private void LevelUp()
     {
+        AudioManager.Instance.PlayAudioClip("LevelUp");
+        damageTakenCanvas.InitializeLevelUpText();
+
         level++;
         experience -= nextLevel;
         if (experience < 0)
@@ -263,6 +266,15 @@ public class Player : Unit, INTERACTABLE
 
     public override void ChangeHealth(int value)
     {
+        if(value > 0)
+        {
+            AudioManager.Instance.PlayAudioClip("Heal", 20f);
+        }
+        else
+        {
+            AudioManager.Instance.PlayAudioClip("PlayerDamage", 20f);
+        }
+
         if (!KOd)
             base.ChangeHealth(value);
         else
@@ -331,6 +343,8 @@ public class Player : Unit, INTERACTABLE
     {
         if (GameManager.Instance.player.Count > 1)
         {
+            AudioManager.Instance.PlayAudioClip("KOd");
+
             animator.SetBool("KOd", true);
             KOd = true;
 

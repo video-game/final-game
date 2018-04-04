@@ -21,17 +21,11 @@ public class AudioManager : SingletonMB<AudioManager>
     public bool loopMusicList;
     public bool loopCurrentMusic;
 
+    private AudioSource MusicSource;
+
     private void Start()
     {
-        //assign each audio/music a source (not best practice but should be fine for this game)
-        foreach (Audio a in audioClip)
-        {
-            a.Init(gameObject.AddComponent<AudioSource>());
-        }
-        foreach (Audio m in musicClip)
-        {
-            m.Init(gameObject.AddComponent<AudioSource>());
-        }
+        MusicSource = gameObject.AddComponent<AudioSource>();
 
         if (playOnStart)
         {
@@ -46,13 +40,15 @@ public class AudioManager : SingletonMB<AudioManager>
     public IEnumerator PlayMusic(int index = 0)
     {
         //if index not outofbounds it's safe to run
-        if(!(index > musicClip.Count-1 || index < 0))
+        if (!(index > musicClip.Count - 1 || index < 0))
         {
             musicPlayingIndex = index;
             do
             {
                 musicPlaying = musicClip[musicPlayingIndex];
-                musicPlaying.Source.Play();
+                MusicSource.clip = musicPlaying.clip;
+                MusicSource.volume = musicPlaying.volume;
+                MusicSource.Play();
                 //wait til the end of the clip
                 yield return new WaitForSeconds(musicPlaying.clip.length);
 
@@ -69,8 +65,9 @@ public class AudioManager : SingletonMB<AudioManager>
     //a function to stop the music playing, and the looping coroutine
     public void StopMusic()
     {
-        musicPlaying.Source.Stop();
-        StopCoroutine(playMusicCoroutine);
+        MusicSource.Stop();
+        if(playMusicCoroutine != null)
+            StopCoroutine(playMusicCoroutine);
         playMusicCoroutine = null;
     }
 
@@ -110,19 +107,45 @@ public class AudioManager : SingletonMB<AudioManager>
     }
 
     //function that starts playing a clip by name
-    public void PlayAudioClip(string name)
+    public void PlayAudioClip(string name, float pitchVariancePercent = 0, PitchDirection pitchD = PitchDirection.Both)
     {
         Audio a = AudioClipByName(name);
-        a.Source.Play();
+        if(a == null)
+        {
+            return;
+        }
+        float pitchVariance = pitchVariancePercent != 0 ? (pitchVariancePercent / 100) : 0;
+        StartCoroutine(PlayOneShot(a, pitchVariance, pitchD));
     }
 
     //function that starts playing music by name
     public void PlayMusicClip(string name)
     {
         Audio m = MusicClipByName(name);
+        if (m == null)
+        {
+            return;
+        }
         musicPlayingIndex = musicClip.IndexOf(m);
         StopMusic();
         ToggleMusic();
     }
 
+    public IEnumerator PlayOneShot(Audio a, float pitchVariance, PitchDirection direction)
+    {
+        AudioSource temp = gameObject.AddComponent<AudioSource>();
+        a.AttachAudio(temp);
+        float maxPitchDifference = pitchVariance * temp.pitch;
+        float variance = UnityEngine.Random.Range(direction != PitchDirection.Down ? -maxPitchDifference : 0, direction != PitchDirection.Up ? +maxPitchDifference : 0);
+        temp.pitch = Mathf.Clamp(temp.pitch + variance, .3f, 3f);
+        temp.Play();
+        yield return new WaitForSeconds(a.clip.length);
+        Destroy(temp);
+    }
+
+}
+
+public enum PitchDirection
+{
+    Up, Down, Both
 }
