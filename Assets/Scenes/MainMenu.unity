@@ -256,7 +256,7 @@ Prefab:
     - target: {fileID: 20331521229687090, guid: 0fbafb9cd2daddd418c1efd3604bad5c,
         type: 2}
       propertyPath: orthographic size
-      value: 5.9375
+      value: 6.354167
       objectReference: {fileID: 0}
     - target: {fileID: 4636607803341650, guid: 0fbafb9cd2daddd418c1efd3604bad5c, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -478,6 +478,8 @@ MonoBehaviour:
     prefab: {fileID: 1056185016126434, guid: 09e205c5a50d3544497b0a43cdebfe69, type: 2}
   - name: New Game
     prefab: {fileID: 1345644341269148, guid: 37d4176b5fd8ea34da4e1b5d38d8c692, type: 2}
+  - name: PreGameMenu
+    prefab: {fileID: 1439685800728768, guid: 3842734c53ce2254482015bb03b7f6af, type: 2}
   UIContainer: {fileID: 729853609}
   HudContainer: {fileID: 719644934}
   playerHud: []
@@ -51409,7 +51411,9 @@ MonoBehaviour:
   player:
   - {fileID: 0}
   cursorTexture: {fileID: 2800000, guid: e7221348d51e65746aeea4bda5f42445, type: 3}
-  Tombstone: {fileID: 0}
+  EnemyContainer: {fileID: 0}
+  NPCContainer: {fileID: 0}
+  PlayerContainer: {fileID: 0}
   resourceHud: {fileID: 0}
 --- !u!1 &1985150131
 GameObject:
