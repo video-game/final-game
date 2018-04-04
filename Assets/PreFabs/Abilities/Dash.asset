@@ -8,21 +8,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e11db6ddafef3884ab9622066d966eef, type: 3}
+  m_Script: {fileID: 11500000, guid: b41c11a14731f544d83c3af55ec5726b, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
   UsedBy: {fileID: 0}
   slave: {fileID: 0}
-  AbilityBarImage: {fileID: 21300026, guid: 5b32c2d36abe44540bed74c1f787033b, type: 3}
+  AbilityBarImage: {fileID: 0}
   damage: 0
-  cooldown: 1
+  cooldown: 0
   coolDownRemaining: 0
+  maxCharges: 0
+  currentCharges: 0
   ready: 0
   OnUseEffect:
   - {fileID: 11400000, guid: 46a75183e722df541883d395700f226f, type: 2}
   OnHitEffect: []
   foeTag: 
   foeAttackTag: 
-  distance: 0
-  degrees: 0
-  enemyHitCount: 0

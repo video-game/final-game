@@ -198,7 +198,7 @@ MonoBehaviour:
   nextLevel: 20
   ability:
   - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
-  - prefab: {fileID: 11400000, guid: 631e0d15e99fe294581d59d81e868f62, type: 2}
+  - prefab: {fileID: 11400000, guid: c6a722e672f89a24cba3f792b96bb9f3, type: 2}
   currentAbility: 0
   selectedAbilityIndex: 0
 --- !u!135 &135559819563125842

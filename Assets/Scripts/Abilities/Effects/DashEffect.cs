@@ -17,15 +17,15 @@ public class DashEffect : Effect {
 
     Unit unit;
 
-    public override void Trigger(AbilityHitDetector hit) {
-        agent = hit.ability.UsedBy.gameObject.GetComponent<NavMeshAgent>();
-        transform = hit.ability.UsedBy.transform;
+    public override void Trigger(Ability ability) {
+        agent = ability.UsedBy.gameObject.GetComponent<NavMeshAgent>();
+        transform = ability.UsedBy.transform;
         dashVelocity = agent.velocity.normalized * dashSpeed;
 
-        unit = hit.ability.UsedBy;
+        unit = ability.UsedBy;
         unit.dashingVelocity = dashVelocity;
 
-        hit.ability.slave.StartCoroutine(DashCoroutine());
+        ability.slave.StartCoroutine(DashCoroutine());
 
         Debug.Log("dash");
     }
@@ -38,7 +38,7 @@ public class DashEffect : Effect {
         tRenderer.enabled = true;
         agent.ResetPath();
         yield return new WaitForSeconds(dashDuration);
-        tRenderer.time = 0.1f;
+        tRenderer.time = 0.3f;
         unit.dashing = false;
 
         yield return new WaitForSeconds(0.1f);

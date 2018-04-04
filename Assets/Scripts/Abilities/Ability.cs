@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Ability/Ability", fileName = "New Ability")]
 public class Ability : ScriptableObject {
 
     public delegate void AbilityDelegate();
@@ -15,6 +16,9 @@ public class Ability : ScriptableObject {
     public float damage;
     public float cooldown;
     public float coolDownRemaining;
+    public int maxCharges;
+
+    public int currentCharges;
     [HideInInspector]
     public bool ready;
     public List<Effect> OnUseEffect;
@@ -60,12 +64,20 @@ public class Ability : ScriptableObject {
 
         foeTag = UsedBy.gameObject.tag == "Player" ? "Enemy" : "Player";
         foeAttackTag = foeTag == "Enemy" ? "EnemyProjectile" : "PlayerProjectile";
+
+        currentCharges = maxCharges;
+
     }
 
     public virtual void OnUse(AbilityHitDetector AHD = null)
     {
-        if (ready)
+        if (ready || currentCharges > 0)
         {
+            if(maxCharges != 0)
+            {
+                currentCharges--;
+            }
+
             InitOnUseEffects();
 
             for (int i = 0; i < OnUseEffectInstance.Count; i++)
@@ -85,9 +97,13 @@ public class Ability : ScriptableObject {
             {
                 if(OnAbilityUse != null)
                 {
-                    OnAbilityUse();
+                   OnAbilityUse();
                 }
-                slave.StartCoroutine(CoolDownCoroutine());
+                if( CDC == null)
+                {
+                    CDC = slave.StartCoroutine(CoolDownCoroutine());
+                }
+                coolDownRemaining += cooldown;
             }
         }
     }
@@ -121,17 +137,24 @@ public class Ability : ScriptableObject {
         }
     }
 
+    Coroutine CDC;
+
     protected IEnumerator CoolDownCoroutine()
     {
-        coolDownRemaining = cooldown;
         ready = false;
+
         while (coolDownRemaining > 0)
         {
-            coolDownRemaining -= .1f;
+            coolDownRemaining =- 1f;
             yield return new WaitForSeconds(.1f);
+        }
+        if(maxCharges != 0)
+        {
+            currentCharges = Mathf.Clamp(currentCharges + 1, 0, maxCharges);
         }
         coolDownRemaining = 0;
         ready = true;
+        CDC = null;
     }
 }
 

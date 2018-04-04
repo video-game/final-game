@@ -12,6 +12,8 @@ public class AbilityBarButton : MonoBehaviour {
     private Ability ability;
     bool cd = false;
 
+    private Coroutine CDR;
+
     public void Init(Ability a)
     {
         this.ability = a;
@@ -26,19 +28,23 @@ public class AbilityBarButton : MonoBehaviour {
 
     public void ShowCoolDown()
     {
-        StartCoroutine(CoolDown());
+        if(CDR == null)
+        {
+            CDR = StartCoroutine(CoolDown());
+        }
     }
 
     IEnumerator CoolDown()
     {
-        CoolDownFade.fillAmount = ability.coolDownRemaining / ability.cooldown;
+        CoolDownFade.fillAmount = 1;
 
         float t = 0f;
         while (t < 1)
         {
-            t += Time.deltaTime / ability.cooldown;
+            t += Time.deltaTime / ability.coolDownRemaining;
             CoolDownFade.fillAmount = Mathf.Lerp(1f, 0f, t);
             yield return null;
         }
+        CDR = null;
     }
 }
