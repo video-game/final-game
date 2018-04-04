@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a28c2bd8e6338e44af91c3333034268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 150
+  MaxHealth: 150
   currentHealth: 150
   tombstone: {fileID: 1006454588332714, guid: e89ff18785fb2c149b5a8d8287ccb621, type: 2}
   Drops: []
@@ -231,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTakenTextPrefab: {fileID: 1900143334929114, guid: 20eb707ef503e70449ac85cdcda4f09f,
     type: 2}
+  lvlUpTextPrefab: {fileID: 0}
 --- !u!135 &135184753960464396
 SphereCollider:
   m_ObjectHideFlags: 1

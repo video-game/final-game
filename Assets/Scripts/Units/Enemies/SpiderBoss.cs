@@ -70,7 +70,7 @@ public class SpiderBoss : Enemy
 
         if (attacking)
             foreach (var batch in eggBatches)
-                if (!batch.Hatched && (currentHealth / (float)maxHealth) <= batch.hatchAtPercentage)
+                if (!batch.Hatched && (currentHealth / (float)MaxHealth) <= batch.hatchAtPercentage)
                     batch.Hatch();
     }
 
