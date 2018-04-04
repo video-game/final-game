@@ -6,6 +6,7 @@ public class FullHealthRestore : Pickup
 {
 	protected override void Effect()
 	{
-		player.ChangeHealth(9999);
+		foreach (var p in GameManager.Instance.player)
+			p.ChangeHealth(p.MaxHealth);
 	}
 }
