@@ -88,12 +88,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3797e2e5ea47f64781c9a0f09aeb509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shooter: {fileID: 0}
   damage: -15
   inaccuracy: 0
   speed: 7
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 10
   spriteList: []
+  projectileAudio: Step
 --- !u!114 &114897763974268326
 MonoBehaviour:
   m_ObjectHideFlags: 1
