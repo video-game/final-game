@@ -8,9 +8,6 @@ public class Audio
 
     public AudioClip clip;
 
-    private AudioSource source;
-    public AudioSource Source { get { return source; } }
-
     [Range(0f, 1f)]
     public float volume;
 
@@ -19,13 +16,7 @@ public class Audio
 
     public bool loop;
 
-    public void Init(AudioSource s)
-    {
-        source = s;
-        UpdateAudio();
-    }
-
-    public void UpdateAudio()
+    public void AttachAudio(AudioSource source)
     {
         source.clip = clip;
         source.volume = volume;

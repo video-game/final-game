@@ -16,6 +16,9 @@ public class BossBunny : Enemy
 
 	private bool inRange, active;
 
+    [SerializeField]
+    private GameObject deathTeleporter;
+
     //How much time should pass until the bunny starts moving in another direction
     [SerializeField]
     private float movementDecisionTime;
@@ -34,6 +37,12 @@ public class BossBunny : Enemy
 
         bodyColor = transform.Find("Model - X Rotation at 90").GetComponent<SpriteRenderer>().color;
         originalPos = transform.position;
+
+        OnDeath += delegate
+        {
+            if (deathTeleporter != null)
+                deathTeleporter.SetActive(true);
+        };
     }
 
     private void Start()
@@ -146,6 +155,7 @@ public class BossBunny : Enemy
         {
             Damaged();
 
+            AudioManager.Instance.PlayAudioClip("BossDamage");
             if (!active)
             {
                 active = true;

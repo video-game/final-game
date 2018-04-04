@@ -197,14 +197,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbec6c9c4c93dfc468a4e9f999a6daf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shooter: {fileID: 0}
   damage: -7
   inaccuracy: 0.15
   speed: 10
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 10
   spriteList: []
+  projectileAudio: Machinegun
   continuousFire: 1
-  shootDelay: 0.15
+  shootDelay: 0.1
 --- !u!135 &135392441643877968
 SphereCollider:
   m_ObjectHideFlags: 1

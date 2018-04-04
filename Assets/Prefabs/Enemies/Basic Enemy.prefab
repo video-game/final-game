@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTakenTextPrefab: {fileID: 1900143334929114, guid: 20eb707ef503e70449ac85cdcda4f09f,
     type: 2}
+  lvlUpTextPrefab: {fileID: 0}
 --- !u!114 &114546425585709894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -154,12 +155,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af6e41caa6799924eb14ac41a0352937, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  MaxHealth: 50
   currentHealth: 50
   tombstone: {fileID: 1006454588332714, guid: e89ff18785fb2c149b5a8d8287ccb621, type: 2}
   Drops:
   - Chance: 0.1
     Pickup: {fileID: 114739717447332650, guid: 7cb37e7ceb071cf4c9a369ddb09048b2, type: 2}
+  - Chance: 0.3
+    Pickup: {fileID: 114653677197754424, guid: ad40d91c8d3f35747b053b8a3e7dc26d, type: 2}
   experienceAward: 10
   playerCheckTime: 0.5
   attackDistance: 7

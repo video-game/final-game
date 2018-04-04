@@ -38,6 +38,7 @@ public class Player : Unit, INTERACTABLE
     private bool dashOnCooldown;
     private bool isWalking;
 
+
     private Color bodyColor;
 
     [SerializeField]
@@ -57,6 +58,7 @@ public class Player : Unit, INTERACTABLE
 
     public int nextLevel = 100;
 
+
     public SharedItem item;
 
     public List<AbilityStruct> ability;
@@ -66,6 +68,14 @@ public class Player : Unit, INTERACTABLE
     public Ability Dash;
 
     private List<INTERACTABLE> InteractList = new List<INTERACTABLE>();
+
+    private float initialSpeed;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        initialSpeed = agent.speed;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -146,8 +156,16 @@ public class Player : Unit, INTERACTABLE
         OnExperienceGained(experience, nextLevel);
     }
 
+    public void Teleport(Vector3 destination)
+    {
+        agent.Warp(destination);
+    }
+
     private void LevelUp()
     {
+        AudioManager.Instance.PlayAudioClip("LevelUp");
+        damageTakenCanvas.InitializeLevelUpText();
+
         level++;
         experience -= nextLevel;
         if (experience < 0)
@@ -156,13 +174,13 @@ public class Player : Unit, INTERACTABLE
         LevelUpPackage package = GetComponent<LevelingData>().GetLevelStats(level, nextLevel);
         Debug.Log("old next level: " + nextLevel);
         nextLevel = package.nextLevel;
-        maxHealth += package.healthUp;
+        MaxHealth += package.healthUp;
         if(package.projectile != null)
         {
             //demoProjectile = package.projectile;
         }
 
-        ChangeHealth(maxHealth);
+        ChangeHealth(MaxHealth);
         OnPlayerLvlUp();
         OnExperienceGained(experience, nextLevel);
         Debug.Log("Level up! You are now level " + level + "! XP until next level: " + nextLevel);
@@ -179,15 +197,28 @@ public class Player : Unit, INTERACTABLE
 
         bodyColor = m.GetComponent<SpriteRenderer>().color;
 
+
         item = GameManager.Instance.sharedItems;
 
+
         InitAbilities();
-        if(ability != null)
+        if (ability != null)
         {
             SelectAbility(0);
         }
     }
+    public void Slow(float percentage, float duration)
+    {
+        if (agent.speed == initialSpeed)
+            StartCoroutine(slow(percentage, duration));
+    }
 
+    private IEnumerator slow(float percentage, float duration)
+    {
+        agent.speed = initialSpeed * (1 - percentage);
+        yield return new WaitForSeconds(duration);
+        agent.speed = initialSpeed;
+    }
 
     //player move function
     public void Move(float horizontal, float vertical)
@@ -210,6 +241,9 @@ public class Player : Unit, INTERACTABLE
             }
         }
     }
+
+ 
+
 
     //If a projectile should only fire once per trigger press
     public void Shoot()
@@ -280,8 +314,24 @@ public class Player : Unit, INTERACTABLE
         }
     }
 
+    // Damages player and ignores invincibility
+    public void TakeTrueDamage(GameObject attacker, int damage)
+    {
+        ChangeHealth(damage);
+        lastAttacker = attacker;
+    }
+
     public override void ChangeHealth(int value)
     {
+        if(value > 0)
+        {
+            AudioManager.Instance.PlayAudioClip("Heal", 20f);
+        }
+        else
+        {
+            AudioManager.Instance.PlayAudioClip("PlayerDamage", 20f);
+        }
+
         if (!KOd)
             base.ChangeHealth(value);
         else
@@ -350,6 +400,8 @@ public class Player : Unit, INTERACTABLE
     {
         if (GameManager.Instance.player.Count > 1)
         {
+            AudioManager.Instance.PlayAudioClip("KOd");
+
             animator.SetBool("KOd", true);
             KOd = true;
 
@@ -370,6 +422,6 @@ public class Player : Unit, INTERACTABLE
         KOd = false;
         
         OnPlayerRevive();
-        ChangeHealth(maxHealth / 3);
+        ChangeHealth(MaxHealth / 3);
     }
 }

@@ -23,6 +23,7 @@ public class SellVillager : Villager {
         {
             if (GameManager.Instance.sharedItems.ChangeMoney(cost))
             {
+                AudioManager.Instance.PlayAudioClip("Buy");
                 Drop();
                 StartCoroutine(BuyCoroutine(acceptImage));
             }

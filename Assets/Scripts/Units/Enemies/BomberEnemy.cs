@@ -64,7 +64,7 @@ public class BomberEnemy : Enemy
 		base.OnCollisionEnter(other);
 		
 		if (other.transform.tag == "Player")
-			ChangeHealth(-maxHealth);
+			ChangeHealth(-MaxHealth);
 	}
 
 	private void Explode()

@@ -8,9 +8,7 @@ public abstract class Unit : MonoBehaviour
     public delegate void StatChangeDelegate(int current, int max);
     public StatChangeDelegate OnHealthChange;
 
-    [SerializeField]
-    protected int maxHealth;
-    public int MaxHealth { get { return maxHealth; } }
+    public int MaxHealth;
 
     [SerializeField]
     protected int currentHealth;
@@ -52,10 +50,10 @@ public abstract class Unit : MonoBehaviour
     {
         damageTakenCanvas.InitializeDamageText(value);
 
-        currentHealth = Mathf.Clamp(currentHealth + value, 0, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth + value, 0, MaxHealth);
 
         if (OnHealthChange != null)
-            OnHealthChange(currentHealth, maxHealth);
+            OnHealthChange(currentHealth, MaxHealth);
 
         if (currentHealth == 0)
             Die();

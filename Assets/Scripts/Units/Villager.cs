@@ -17,6 +17,8 @@ public class Villager : MonoBehaviour, INTERACTABLE
 
     [SerializeField]
     private Sprite interactImage;
+    [SerializeField]
+    private bool isInteractable;
 
     protected bool someoneInRange;
 
@@ -103,13 +105,15 @@ public class Villager : MonoBehaviour, INTERACTABLE
 
     public virtual void Interaction()
     {
-        if(itemDrop != null && !itemDropped)
-        {
-            Drop();
-        }
-        if(interactImage != null && image.GetComponent<Image>())
-        {
-            image.GetComponent<Image>().sprite = interactImage;
+        if(isInteractable){
+            if(itemDrop != null && !itemDropped)
+            {
+                Drop();
+            }
+            if(interactImage != null && image.GetComponent<Image>())
+            {
+                image.GetComponent<Image>().sprite = interactImage;
+            }
         }
     }
 
