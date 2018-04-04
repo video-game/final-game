@@ -10,6 +10,8 @@ public class RangedAbilityHitDetector : AbilityHitDetector
 
     public RangedAbility Ability { get { return (RangedAbility)ability; } }
 
+    public CoroutineSlave HitSlave;
+
     public void Init(RangedAbility a, string t, Vector3 direction, float lt)
     {
         base.Init(a, t, lt);
@@ -25,6 +27,10 @@ public class RangedAbilityHitDetector : AbilityHitDetector
         transform.position = new Vector3(temp.x, 0.01f, temp.z);
         sr.sprite = Ability.projectileSprite;
         sr.sortingLayerName = "Projectile";
+        GetComponent<SphereCollider>().radius = .125f;
+        HitSlave = new GameObject().AddComponent<CoroutineSlave>();
+
+
         Fire(direction);
     }
 

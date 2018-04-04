@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 //a singleton class that handles all user input.
 public class InputManager : SingletonMB<InputManager> {
@@ -47,8 +48,16 @@ public class InputManager : SingletonMB<InputManager> {
                     GameManager.Instance.player[i].Move(playerControl[i].Horizontal, playerControl[i].Vertical);
                 }
 
+                if (Input.GetKeyDown(playerControl[i].NextAbility)) {
+                    GameManager.Instance.player[i].NextPrevAbility(+1);
+                }
+                if (Input.GetKeyDown(playerControl[i].PrevAbility))
+                {
+                    GameManager.Instance.player[i].NextPrevAbility(-1);
+                }
+
                 //if player i pressed down his "Shoot" button once.
-                if ((!playerControl[i].joystick && Input.GetKeyDown(playerControl[i].Shoot)) || (playerControl[i].joystick && playerControl[i].shootReady  && Input.GetAxisRaw("Shoot") == 1f ))
+                if ((!playerControl[i].joystick && Input.GetKeyDown(playerControl[i].Shoot) && !EventSystem.current.IsPointerOverGameObject()) || (playerControl[i].joystick && playerControl[i].shootReady  && Input.GetAxisRaw("Shoot") == 1f ))
                 {
                     GameManager.Instance.player[i].Shoot();
 
@@ -106,7 +115,7 @@ public class PlayerControl
     public bool dashReady = true;
 
     //player inputs to listen to. //todo support gamepads
-    public KeyCode MoveUp, MoveDown, MoveLeft, MoveRight, Shoot, Dash, Ability1, Ability2, Ability3, Action;
+    public KeyCode MoveUp, MoveDown, MoveLeft, MoveRight, Shoot, Dash, Ability1, Ability2, Ability3, Action, NextAbility, PrevAbility;
 
     //check if player is moving.
     public bool Moving {

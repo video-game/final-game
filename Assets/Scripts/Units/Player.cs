@@ -12,6 +12,12 @@ public class Player : Unit, INTERACTABLE
     public PlayerDelegate OnPlayerLvlUp;
     public StatChangeDelegate OnExperienceGained;
 
+    public delegate void PlayerAbilityDelegate(int index);
+    public PlayerAbilityDelegate OnAbilitySelected;
+
+    public delegate void AbilityListUpdateDelegate(List<RangedAbility> list);
+    public AbilityListUpdateDelegate OnNewAbility;
+
     [SerializeField]
     private float speed;
 
@@ -25,8 +31,6 @@ public class Player : Unit, INTERACTABLE
     private float dashCooldown;
 
     [SerializeField]
-    private Rigidbody demoProjectile; // prefab
-    private PlayerProjectile projectileScript; //its script
     private bool fireOnDelay;
 
     private Transform hand;
@@ -34,11 +38,7 @@ public class Player : Unit, INTERACTABLE
     private bool dashOnCooldown;
     private bool isWalking;
 
-    private Vector3 aimDirection;
-
     private Color bodyColor;
-
-    Transform projectileSpawn;
 
     private bool dashing; //for stopping other movement during dashing
     private Vector3 dashVelocity;
@@ -60,9 +60,11 @@ public class Player : Unit, INTERACTABLE
 
     public int nextLevel = 100;
 
-
     public SharedItem item;
 
+    public List<AbilityStruct> ability;
+    [HideInInspector]
+    public int currentAbility;
 
     private List<INTERACTABLE> InteractList = new List<INTERACTABLE>();
 
@@ -80,6 +82,39 @@ public class Player : Unit, INTERACTABLE
         if (temp != null)
         {
             InteractList.Remove(temp);
+        }
+    }
+
+
+    private void InitAbilities()
+    {
+        for (int i = 0; i < ability.Count; i++)
+        {
+            ability[i].instance = Instantiate(ability[i].prefab);
+        }
+    }
+
+    public int selectedAbilityIndex = 0;
+
+    public void NextPrevAbility(int nextPrev)
+    {
+        SelectAbility(Mathf.Clamp(currentAbility-nextPrev, 0, ability.Count - 1));
+    }
+
+    public void SelectAbility(int index)
+    {
+        currentAbility = Mathf.Clamp(currentAbility, 0, ability.Count - 1);
+        if(OnAbilitySelected != null)
+        {
+            OnAbilitySelected(currentAbility);
+        }
+    }
+
+    public void UseAbility(int index)
+    {
+        if (ability.Count > index && index >= 0 )
+        {
+            ability[index].instance.OnUse();
         }
     }
 
@@ -106,7 +141,7 @@ public class Player : Unit, INTERACTABLE
         maxHealth += package.healthUp;
         if(package.projectile != null)
         {
-            demoProjectile = package.projectile;
+            //demoProjectile = package.projectile;
         }
 
         ChangeHealth(maxHealth);
@@ -126,10 +161,15 @@ public class Player : Unit, INTERACTABLE
 
         bodyColor = m.GetComponent<SpriteRenderer>().color;
 
-        projectileScript = demoProjectile.GetComponent<PlayerProjectile>();
-
         item = GameManager.Instance.sharedItems;
+
+        InitAbilities();
+        if(ability != null)
+        {
+            SelectAbility(0);
+        }
     }
+
 
     //player move function
     public void Move(float horizontal, float vertical)
@@ -190,20 +230,14 @@ public class Player : Unit, INTERACTABLE
     //If a projectile should only fire once per trigger press
     public void Shoot()
     {
-        if(!projectileScript.continuousFire && !fireOnDelay)
-        {
-            //spawn projectile, set it's trajectory
-            Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
-            var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.Init(projectileScript.speed * aimDirection, gameObject);
-
-            StartCoroutine(ShootDelay(cloneScript.shootDelay));
-        }
+        UseAbility(selectedAbilityIndex);
     }
 
     //If a projectile should fire continuously with delay
     public void ShootContinuous()
     {
+        //RAI.OnUse();
+        /*
         if (projectileScript.continuousFire && !fireOnDelay)
         {
             //spawn projectile, set it's trajectory
@@ -213,6 +247,7 @@ public class Player : Unit, INTERACTABLE
 
             StartCoroutine(ShootDelay(cloneScript.shootDelay));
         }
+        */
     }
 
     private IEnumerator ShootDelay(float delay)

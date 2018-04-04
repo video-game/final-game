@@ -9,13 +9,13 @@ public class AbilityBarButton : MonoBehaviour {
     public UnityEngine.UI.Image CoolDownFade;
     public UnityEngine.UI.Image selected;
 
-    private RangedAbility ability;
+    private Ability ability;
     bool cd = false;
 
-    public void Init(RangedAbility ability)
+    public void Init(Ability a)
     {
-        this.ability = ability;
-        ability.ready = true;
+        this.ability = a;
+        ability.OnAbilityUse += ShowCoolDown;
         if(ability.AbilityBarImage != null)
         {
             AbilityImage.sprite = ability.AbilityBarImage;
@@ -23,28 +23,21 @@ public class AbilityBarButton : MonoBehaviour {
         }
     }
 
-    public void Click()
+    public void ShowCoolDown()
     {
-        if (!cd)
-        {
-            StartCoroutine(CoolDown(Mathf.Max(ability.coolDownRemaining, ability.cooldown)));
-        }
-
+        StartCoroutine(CoolDown());
     }
 
-    IEnumerator CoolDown(float cooldown)
+    IEnumerator CoolDown()
     {
-        cd = true;
-        CoolDownFade.fillAmount = 1;
+        CoolDownFade.fillAmount = ability.coolDownRemaining / ability.cooldown;
 
-        var currentPos = transform.position;
         float t = 0f;
         while (t < 1)
         {
-            t += Time.deltaTime / cooldown;
+            t += Time.deltaTime / ability.cooldown;
             CoolDownFade.fillAmount = Mathf.Lerp(1f, 0f, t);
             yield return null;
         }
-        cd = false;
     }
 }

@@ -10,15 +10,7 @@ public class AbilityBar : MonoBehaviour {
     public void Init(Player p)
     {
         player = p;
-
-        player.OnNewAbility += UpdateAbilityBar;
-        player.OnAbilityUsed += Click;
         player.OnAbilitySelected += Select;
-    }
-
-    public void Click(int index)
-    {
-        abilities[index].Click();
     }
 
     public void Select(int index)
@@ -37,19 +29,18 @@ public class AbilityBar : MonoBehaviour {
         }
     }
 
-    public void UpdateAbilityBar(List<RangedAbility> newList)
+    public void UpdateAbilityBar(List<Ability> newList)
     {
-        Debug.Log(newList.Count);
-        for (int i = 0; i < newList.Count; i++)
+        for (int i = 0; i < abilities.Count; i++)
         {
             if(newList[i] != null)
             {
-                abilities[i].enabled = true;
+                abilities[i].gameObject.SetActive(true);
                 abilities[i].Init(newList[i]);
             }
             else
             {
-                abilities[i].enabled = false;
+                abilities[i].gameObject.SetActive(false);
             }
         }
     }

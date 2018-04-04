@@ -7,9 +7,9 @@ public class MeleeAbility : Ability {
 
     public float distance;
     public float degrees;
-    public MeleeAbilityHitDetector MAHD;
+    public int enemyHitCount;
 
-    public void OnUse()
+    public override void OnUse(AbilityHitDetector AHD = null)
     {
         MeleeAbilityHitDetector MAHD = new GameObject().AddComponent< MeleeAbilityHitDetector>();
         MAHD.Init(this, "Enemy" , UsedBy.AimDirection);

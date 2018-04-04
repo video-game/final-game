@@ -21,6 +21,12 @@ public abstract class Unit : MonoBehaviour
 
     protected bool invincible;
 
+    protected Vector3 aimDirection;
+    public Vector3 AimDirection { get { return aimDirection; } }
+
+    protected Transform projectileSpawn;
+    public Transform ProjectileSpawn { get { return projectileSpawn; } }
+
     [SerializeField]
     protected GameObject tombstone;
     
@@ -35,6 +41,8 @@ public abstract class Unit : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = transform.GetComponentInChildren<Animator>();
         damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
+
+        projectileSpawn = transform;
     }
 
     public virtual void ChangeHealth(int value)
@@ -86,7 +94,7 @@ public abstract class Unit : MonoBehaviour
     {
         NavMeshHit dummy;
         bool blocked = NavMesh.Raycast(transform.position, target, out dummy, NavMesh.GetAreaFromName("Movable"));
-        Debug.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), blocked ? Color.red : Color.green);
+        Debug.DrawLine(transform.position, target, blocked ? Color.red : Color.green);
         return !blocked;
     }
 }

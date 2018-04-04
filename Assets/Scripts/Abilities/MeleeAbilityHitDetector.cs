@@ -6,6 +6,8 @@ public class MeleeAbilityHitDetector : AbilityHitDetector
 {
     public MeleeAbility Ability { get { return (MeleeAbility)ability; } }
 
+    public List<GameObject> Hits = new List<GameObject>();
+
     public void Init(MeleeAbility a, string t, Vector3 direction)
     {
         base.Init(a, t);
@@ -17,6 +19,8 @@ public class MeleeAbilityHitDetector : AbilityHitDetector
 
     public void Swing(Vector3 direction)
     {
+        Hits.Clear();
+
         direction = Quaternion.AngleAxis(-Ability.degrees / 2, Vector3.up) * direction;
         int rayCount = (int)(Ability.degrees / 10f);
 
@@ -29,14 +33,19 @@ public class MeleeAbilityHitDetector : AbilityHitDetector
             {
                 if (hit.collider != null && hit.collider.tag == targetTag)
                 {
-                    Debug.Log("hit");
-                    hit.collider.GetComponent<Unit>().ChangeHealth(-5);
-                    Ability.OnHit(this, hit.collider.gameObject);
-                    break;
+                    if (!Hits.Contains(hit.collider.gameObject) && Hits.Count <= Ability.enemyHitCount)
+                    {
+                        Hits.Add(hit.collider.gameObject);
+                    }
                 }
             }
 
             direction = Quaternion.AngleAxis(Ability.degrees / rayCount, Vector3.up) * direction;
+        }
+
+        for (int i = 0; i < Hits.Count; i++)
+        {
+            Ability.OnHit(this, Hits[i]);
         }
     }
 }
