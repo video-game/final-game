@@ -155,6 +155,7 @@ public class BossBunny : Enemy
         {
             Damaged();
 
+            AudioManager.Instance.PlayAudioClip("BossDamage");
             if (!active)
             {
                 active = true;

@@ -17,6 +17,8 @@ public class Teleporter : MonoBehaviour
 				return;
 			}
 
+            AudioManager.Instance.PlayAudioClip("Teleport");
+
 			foreach (var player in GameManager.Instance.player)
 				player.Teleport(destination.position);
 			GameObject.FindObjectOfType<Camera>().transform.position = destination.position;

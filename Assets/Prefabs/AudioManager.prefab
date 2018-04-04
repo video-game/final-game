@@ -68,23 +68,13 @@ MonoBehaviour:
     volume: 0.317
     pitch: 1.01
     loop: 0
-  - name: HeavyLaser
-    clip: {fileID: 8300000, guid: 7c23eb43c7ea89549a8301ac74fe3140, type: 3}
-    volume: 0.317
-    pitch: 1.01
-    loop: 0
-  - name: WeakLaser
-    clip: {fileID: 8300000, guid: 4e3649412921d3842887b8cf1ce820cf, type: 3}
-    volume: 0.317
-    pitch: 1.01
-    loop: 0
   - name: Step
     clip: {fileID: 8300000, guid: 5e387d0096bfbe24b9f06fafc3d3bfd2, type: 3}
     volume: 0.195
     pitch: 1.01
     loop: 0
   - name: Teleport
-    clip: {fileID: 8300000, guid: 9238b175c055f084fbdbf82864c8de0b, type: 3}
+    clip: {fileID: 8300000, guid: e879b99d689990c419ae7e82e22f4993, type: 3}
     volume: 0.317
     pitch: 1.01
     loop: 0
@@ -140,6 +130,21 @@ MonoBehaviour:
     loop: 0
   - name: PlayerDamage
     clip: {fileID: 8300000, guid: 5dbadf186d4fb1242a3447fa50aa894e, type: 3}
+    volume: 0.243
+    pitch: 1.05
+    loop: 0
+  - name: PlayerRevive
+    clip: {fileID: 8300000, guid: f47853e20058db045805131554faf5df, type: 3}
+    volume: 0.243
+    pitch: 1.05
+    loop: 0
+  - name: RevivePickup
+    clip: {fileID: 8300000, guid: c2ce3fdca70934641bcbcef9502b3c93, type: 3}
+    volume: 0.243
+    pitch: 1.05
+    loop: 0
+  - name: BossDamage
+    clip: {fileID: 8300000, guid: 8e4268f8340d62243a1c1d5482162a01, type: 3}
     volume: 0.243
     pitch: 1.05
     loop: 0
