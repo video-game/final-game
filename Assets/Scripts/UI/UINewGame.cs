@@ -11,8 +11,7 @@ public class UINewGame : UIMenu
 
     public void StartGameButton()
     {
-        //todo: clean game state
-        SceneLoader.Instance.Load("Overworld scene");
+        UIManager.Instance.OpenMenu("PreGameMenu");
     }
 
     public void TogglePlayerCount(int val)
