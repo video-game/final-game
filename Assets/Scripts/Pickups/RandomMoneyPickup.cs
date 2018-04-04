@@ -8,7 +8,7 @@ public class RandomMoneyPickup : Pickup {
 
 	protected override void Effect()
     {
-        int amount = Random.Range(1, maxAmount + 1);
+        int amount = Random.Range(1, (maxAmount + 1)/GameManager.Instance.player.Count);
         player.item.ChangeMoney(amount);
     }
 }

@@ -137,7 +137,9 @@ MonoBehaviour:
   MaxHealth: 1000
   currentHealth: 1000
   tombstone: {fileID: 1006454588332714, guid: 110e283940e11f94e910cd02bbbc050f, type: 2}
-  Drops: []
+  Drops:
+  - Chance: 1
+    Pickup: {fileID: 114995733709477572, guid: 9eb987961e9221a46aa59634ae1b529f, type: 2}
   experienceAward: 200
   attackDistance: 10
   timeBetweenPlayerSearches: 0.5
