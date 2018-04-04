@@ -40,6 +40,10 @@ public class BossBunny : Enemy
 
         OnDeath += delegate
         {
+            foreach (var p in GameManager.Instance.player)
+                if (p != lastAttacker.GetComponent<Player>())
+                    p.GrantExperience(experienceAward);
+
             if (deathTeleporter != null)
                 deathTeleporter.SetActive(true);
         };
