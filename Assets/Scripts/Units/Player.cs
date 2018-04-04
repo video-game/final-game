@@ -98,6 +98,11 @@ public class Player : Unit, INTERACTABLE
         OnExperienceGained(experience, nextLevel);
     }
 
+    public void Teleport(Vector3 destination)
+    {
+        agent.Warp(destination);
+    }
+
     private void LevelUp()
     {
         AudioManager.Instance.PlayAudioClip("LevelUp");

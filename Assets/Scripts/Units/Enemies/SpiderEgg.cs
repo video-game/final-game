@@ -15,7 +15,7 @@ public class SpiderEgg : MonoBehaviour
 	private void Awake()
 	{
 		spriteRenderer = GetComponent<SpriteRenderer>();
-		parent =  GameObject.Find("Game World/Enemies").transform;
+		parent = GameObject.Find("Game World").transform;
 	}
 
 	public void Hatch()
