@@ -143,6 +143,21 @@ MonoBehaviour:
     volume: 0.243
     pitch: 1.05
     loop: 0
+  - name: PlayerRevive
+    clip: {fileID: 8300000, guid: f47853e20058db045805131554faf5df, type: 3}
+    volume: 0.243
+    pitch: 1.05
+    loop: 0
+  - name: RevivePickup
+    clip: {fileID: 8300000, guid: c2ce3fdca70934641bcbcef9502b3c93, type: 3}
+    volume: 0.243
+    pitch: 1.05
+    loop: 0
+  - name: BossDamage
+    clip: {fileID: 8300000, guid: 8e4268f8340d62243a1c1d5482162a01, type: 3}
+    volume: 0.243
+    pitch: 1.05
+    loop: 0
   musicClip:
   - name: StartingArea
     clip: {fileID: 8300000, guid: 2b12d504e3514234bae83caeb285fb9d, type: 3}

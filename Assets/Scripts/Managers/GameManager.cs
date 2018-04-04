@@ -168,6 +168,14 @@ public class SharedItem
     {
         if (revives + amount >= 0 || amount > 0)
         {
+            if(amount > 0)
+            {
+                AudioManager.Instance.PlayAudioClip("RevivePickup");
+            }
+            else
+            {
+                AudioManager.Instance.PlayAudioClip("PlayerRevive");
+            }
             revives += amount;
             revives = Mathf.Clamp(revives, 0, 20);
 
