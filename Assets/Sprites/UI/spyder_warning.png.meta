@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: d575ef5a04d2eef4a8e77ef6ad5dfc40
-timeCreated: 1522846996
+guid: a81b8d4cc3cc7084aa9fc0b720e54d34
+timeCreated: 1522850904
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Villager 5_0
-    21300002: Villager 5_1
-    21300004: Villager 5_2
-    21300006: Villager 5_3
+    21300000: spyder_warning_0
+    21300002: spyder_warning_1
+    21300004: spyder_warning_2
+    21300006: spyder_warning_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -94,35 +94,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Villager 5_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Villager 5_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: Villager 5_2
+      name: spyder_warning_0
       rect:
         serializedVersion: 2
         x: 0
@@ -136,10 +108,38 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Villager 5_3
+      name: spyder_warning_1
       rect:
         serializedVersion: 2
         x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spyder_warning_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spyder_warning_3
+      rect:
+        serializedVersion: 2
+        x: 48
         y: 0
         width: 16
         height: 16
