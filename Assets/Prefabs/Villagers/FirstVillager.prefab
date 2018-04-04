@@ -199,10 +199,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   directions:
-  - {fileID: 21300004, guid: 4f1c3c77728effe4a8435425e66e8ff9, type: 3}
-  - {fileID: 21300006, guid: 4f1c3c77728effe4a8435425e66e8ff9, type: 3}
-  - {fileID: 21300002, guid: 4f1c3c77728effe4a8435425e66e8ff9, type: 3}
-  - {fileID: 21300000, guid: 4f1c3c77728effe4a8435425e66e8ff9, type: 3}
+  - {fileID: 21300004, guid: fc4082c72df13694b8830f0d2138f651, type: 3}
+  - {fileID: 21300006, guid: fc4082c72df13694b8830f0d2138f651, type: 3}
+  - {fileID: 21300002, guid: fc4082c72df13694b8830f0d2138f651, type: 3}
+  - {fileID: 21300000, guid: fc4082c72df13694b8830f0d2138f651, type: 3}
   viewDistance: 3
   itemDrop: {fileID: 0}
   interactImage: {fileID: 21300002, guid: bbcd0883c7b24db4e8f57e095d1547bc, type: 3}
@@ -364,7 +364,7 @@ SpriteRenderer:
   m_SortingLayerID: -327257291
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4f1c3c77728effe4a8435425e66e8ff9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1168aa4f55c64af4f8972d8acf0c9035, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
