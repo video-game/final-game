@@ -13,9 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UsedBy: {fileID: 0}
   slave: {fileID: 0}
-  AbilityBarImage: {fileID: 0}
+  AbilityBarImage: {fileID: 21300000, guid: 5b32c2d36abe44540bed74c1f787033b, type: 3}
   damage: 0
-  cooldown: 0
+  cooldown: 3
   coolDownRemaining: 0
   maxCharges: 0
   currentCharges: 0

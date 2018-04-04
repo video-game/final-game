@@ -17,8 +17,8 @@ public class Ability : ScriptableObject {
     public float cooldown;
     public float coolDownRemaining;
     public int maxCharges;
-
     public int currentCharges;
+
     [HideInInspector]
     public bool ready;
     public List<Effect> OnUseEffect;
@@ -53,6 +53,8 @@ public class Ability : ScriptableObject {
         {
             OnHitEffectInstance.Add(ScriptableObject.Instantiate(OnHitEffect[i]));
         }
+
+        currentCharges = maxCharges;
     }
 
     public virtual void Init(Unit u)
@@ -64,20 +66,12 @@ public class Ability : ScriptableObject {
 
         foeTag = UsedBy.gameObject.tag == "Player" ? "Enemy" : "Player";
         foeAttackTag = foeTag == "Enemy" ? "EnemyProjectile" : "PlayerProjectile";
-
-        currentCharges = maxCharges;
-
     }
 
     public virtual void OnUse(AbilityHitDetector AHD = null)
     {
-        if (ready || currentCharges > 0)
-        {
-            if(maxCharges != 0)
-            {
-                currentCharges--;
-            }
-
+        if (ready)
+        { 
             InitOnUseEffects();
 
             for (int i = 0; i < OnUseEffectInstance.Count; i++)
@@ -95,16 +89,21 @@ public class Ability : ScriptableObject {
 
             if (cooldown > 0)
             {
-                if(OnAbilityUse != null)
-                {
-                   OnAbilityUse();
-                }
-                if( CDC == null)
+                coolDownRemaining += cooldown;
+                if (CDC == null)
                 {
                     CDC = slave.StartCoroutine(CoolDownCoroutine());
                 }
-                coolDownRemaining += cooldown;
+                if (OnAbilityUse != null)
+                {
+                    OnAbilityUse();
+                }
             }
+        }
+        if(maxCharges > 0 && currentCharges > 0)
+        {
+            Mathf.Clamp( currentCharges - 1, 0, maxCharges);
+            coolDownRemaining += cooldown;
         }
     }
 
@@ -143,19 +142,18 @@ public class Ability : ScriptableObject {
     {
         ready = false;
 
-        while (coolDownRemaining > 0)
+        float t = 0f;
+        while (t < 1)
         {
-            coolDownRemaining =- 1f;
-            yield return new WaitForSeconds(.1f);
-        }
-        if(maxCharges != 0)
-        {
-            currentCharges = Mathf.Clamp(currentCharges + 1, 0, maxCharges);
+            t += Time.deltaTime / coolDownRemaining;
+            yield return null;
         }
         coolDownRemaining = 0;
+        currentCharges = maxCharges;
+        
         ready = true;
-        CDC = null;
     }
+
 }
 
 
