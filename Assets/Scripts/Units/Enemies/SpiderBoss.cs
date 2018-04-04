@@ -32,6 +32,9 @@ public class SpiderBoss : Enemy
     [SerializeField]
     private GameObject projectile;
 
+    [SerializeField]
+    private GameObject deathTeleporter;
+
     private Vector3 initialPosition;
     private Color initialColor;
     private bool attackingLastFrame;
@@ -41,6 +44,12 @@ public class SpiderBoss : Enemy
         base.Awake();
         initialColor = transform.GetComponentInChildren<SpriteRenderer>().color;
         initialPosition = transform.position;
+
+        OnDeath += delegate
+        {
+            if (deathTeleporter != null)
+                deathTeleporter.SetActive(true);
+        };
     }
 
 	private void Start()
