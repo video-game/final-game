@@ -149,7 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTakenTextPrefab: {fileID: 1900143334929114, guid: 20eb707ef503e70449ac85cdcda4f09f,
     type: 2}
-  lvlUpTextPrefab: {fileID: 0}
+  lvlUpTextPrefab: {fileID: 1900143334929114, guid: c0f11fd5e4830d24d845328464d5119d,
+    type: 2}
 --- !u!114 &114110607581533348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -183,7 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7397dee21119954b9889d61340a3967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 0
+  MaxHealth: 100
   currentHealth: 100
   tombstone: {fileID: 1006454588332714, guid: e89ff18785fb2c149b5a8d8287ccb621, type: 2}
   dashing: 0

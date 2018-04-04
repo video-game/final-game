@@ -199,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shooter: {fileID: 0}
   damage: -7
-  inaccuracy: 0.15
+  inaccuracy: 0.12
   speed: 10
   velocity: {x: 0, y: 0, z: 0}
   lifetime: 10

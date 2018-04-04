@@ -149,8 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageTakenTextPrefab: {fileID: 1900143334929114, guid: 20eb707ef503e70449ac85cdcda4f09f,
     type: 2}
-  lvlUpTextPrefab: {fileID: 1900143334929114, guid: c0f11fd5e4830d24d845328464d5119d,
-    type: 2}
+  lvlUpTextPrefab: {fileID: 0}
 --- !u!114 &114110607581533348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -184,10 +183,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7397dee21119954b9889d61340a3967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 0
   currentHealth: 100
   tombstone: {fileID: 1006454588332714, guid: e89ff18785fb2c149b5a8d8287ccb621, type: 2}
-<<<<<<< HEAD
   dashing: 0
   dashingVelocity: {x: 0, y: 0, z: 0}
   speed: 3.5
@@ -196,24 +194,21 @@ MonoBehaviour:
   dashCooldown: 0.5
   fireOnDelay: 0
   damageRecoveryTime: 1
-=======
-  dashSpeed: 12
-  dashDuration: 0.15
-  dashCooldown: 0.5
-  demoProjectile: {fileID: 54506367409316654, guid: 88c7430dde931484fa6d7f7afdc4b1ac,
-    type: 2}
-  damageRecoveryTime: 0.5
->>>>>>> master
   KOd: 0
   maxKoHealth: 70
+<<<<<<< HEAD
   nextLevel: 20
   ability:
   - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
-  - prefab: {fileID: 11400000, guid: c6a722e672f89a24cba3f792b96bb9f3, type: 2}
+  - prefab: {fileID: 11400000, guid: 714b322c9042d1148a542f29cc17c2a4, type: 2}
+  - prefab: {fileID: 11400000, guid: 3fec742ba51636448ad48da0ea6e6319, type: 2}
   currentAbility: 0
   DashPrefab: {fileID: 11400000, guid: c6a722e672f89a24cba3f792b96bb9f3, type: 2}
   Dash: {fileID: 0}
   selectedAbilityIndex: 0
+=======
+  nextLevel: 40
+>>>>>>> master
 --- !u!135 &135559819563125842
 SphereCollider:
   m_ObjectHideFlags: 1

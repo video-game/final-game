@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ExperiencePickup : Pickup
 {
+	public int Amount = 50;
+
 	protected override void Effect()
 	{
         AudioManager.Instance.PlayAudioClip("PlayerRevive");

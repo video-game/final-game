@@ -25,11 +25,11 @@ public class LevelingData:MonoBehaviour {
         {
             case (2):
                 return new LevelUpPackage(projectiles.lvl5Proj, 10, GetNextMaxExp(oldMaxExp));
-            case (3):
-                return new LevelUpPackage(projectiles.lvl10Proj, 10, GetNextMaxExp(oldMaxExp));
             case (4):
+                return new LevelUpPackage(projectiles.lvl10Proj, 10, GetNextMaxExp(oldMaxExp));
+            case (6):
                 return new LevelUpPackage(projectiles.lvl15Proj, 10, GetNextMaxExp(oldMaxExp));
-            case (5):
+            case (8):
                 return new LevelUpPackage(projectiles.lvl20Proj, 10, GetNextMaxExp(oldMaxExp));
             default:
                 return new LevelUpPackage(null, 10, GetNextMaxExp(oldMaxExp));

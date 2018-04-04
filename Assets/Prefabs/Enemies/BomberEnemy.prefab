@@ -157,7 +157,7 @@ MonoBehaviour:
   - Chance: 0.2
     Pickup: {fileID: 114653677197754424, guid: ad40d91c8d3f35747b053b8a3e7dc26d, type: 2}
   experienceAward: 5
-  attackDistance: 10
+  attackDistance: 12
   updatePathInterval: 0.5
   demoProjectile: {fileID: 54506367409316654, guid: c0473aedfbb28ae49ba1ae5313119407,
     type: 2}
