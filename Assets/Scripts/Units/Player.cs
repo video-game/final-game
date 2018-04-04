@@ -98,12 +98,12 @@ public class Player : Unit, INTERACTABLE
 
     public void NextPrevAbility(int nextPrev)
     {
-        SelectAbility(Mathf.Clamp(currentAbility+nextPrev, 0, ability.Count));
+        SelectAbility(Mathf.Clamp(currentAbility+nextPrev, 0, ability.Count-1));
     }
 
     public void SelectAbility(int index)
     {
-        currentAbility = Mathf.Clamp(index, 0, ability.Count);
+        currentAbility = Mathf.Clamp(index, 0, ability.Count-1);
         if(OnAbilitySelected != null)
         {
             OnAbilitySelected(currentAbility);
