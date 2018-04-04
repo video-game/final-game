@@ -402,6 +402,6 @@ public class Player : Unit, INTERACTABLE
         KOd = false;
         
         OnPlayerRevive();
-        ChangeHealth((int)(maxHealth*percentage));
+        ChangeHealth((int)(MaxHealth*percentage));
     }
 }
