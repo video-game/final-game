@@ -68,23 +68,13 @@ MonoBehaviour:
     volume: 0.317
     pitch: 1.01
     loop: 0
-  - name: HeavyLaser
-    clip: {fileID: 8300000, guid: 7c23eb43c7ea89549a8301ac74fe3140, type: 3}
-    volume: 0.317
-    pitch: 1.01
-    loop: 0
-  - name: WeakLaser
-    clip: {fileID: 8300000, guid: 4e3649412921d3842887b8cf1ce820cf, type: 3}
-    volume: 0.317
-    pitch: 1.01
-    loop: 0
   - name: Step
     clip: {fileID: 8300000, guid: 5e387d0096bfbe24b9f06fafc3d3bfd2, type: 3}
     volume: 0.195
     pitch: 1.01
     loop: 0
   - name: Teleport
-    clip: {fileID: 8300000, guid: 9238b175c055f084fbdbf82864c8de0b, type: 3}
+    clip: {fileID: 8300000, guid: e879b99d689990c419ae7e82e22f4993, type: 3}
     volume: 0.317
     pitch: 1.01
     loop: 0
