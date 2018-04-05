@@ -13,5 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loop: 0
   destroyOnAnimEnd: 0
-  stopMovementOnStart: 0
+  stopMovementOnStart: 1
   animList: []

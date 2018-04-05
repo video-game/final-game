@@ -87,7 +87,7 @@ public class BurrowingEnemy : Enemy
             animator.SetBool("IsRunning", agent.velocity != Vector3.zero);
 
             
-            if (playerCheckTimer > playerCheckTime)
+            if (playerCheckTimer > playerCheckTime && agent.isOnNavMesh)
             {
                 playerCheckTimer = 0;
                 //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.

@@ -14,7 +14,7 @@ MonoBehaviour:
   UsedBy: {fileID: 0}
   slave: {fileID: 0}
   AbilityBarImage: {fileID: 21300000, guid: c17859b5ca1ba9548891a375cf602963, type: 3}
-  damage: 7
+  damage: 10
   cooldown: 1
   coolDownRemaining: 0
   OnUseSound: Machinegun
