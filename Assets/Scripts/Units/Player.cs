@@ -303,8 +303,9 @@ public class Player : Unit, INTERACTABLE
 
     public void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("hit");
         if (collision.gameObject.tag == "EnemyProjectile")
-            Hit(collision.gameObject.GetComponent<AbilityHitDetector>());
+            Hit(collision.gameObject.GetComponent<Projectile>());
     }
 
     protected override void Hit(Projectile projectile)
