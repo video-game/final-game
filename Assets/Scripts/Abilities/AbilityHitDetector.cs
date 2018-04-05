@@ -9,6 +9,8 @@ public abstract class AbilityHitDetector : MonoBehaviour {
     public Ability ability;
     protected float lifetime;
     protected string targetTag;
+    
+    public Vector3 velocity;
 
     public virtual void Init(Ability a, string t, float lt = 5)
     {

@@ -60,6 +60,15 @@ public abstract class Unit : MonoBehaviour
             Die();
     }
 
+    protected virtual void Hit(AbilityHitDetector projectile)
+    {
+        if (!invincible)
+        {
+            //ChangeHealth((int)projectile.ability.damage);
+            //lastAttacker = projectile.ability.UsedBy.gameObject;
+        }
+    }
+
     protected virtual void Hit(Projectile projectile)
     {
         if (!invincible)

@@ -17,13 +17,12 @@ public abstract class Enemy : Unit
     
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        /*
         if (collision.gameObject.tag == "PlayerProjectile")
         {
-            Hit(collision.gameObject.GetComponent<Projectile>());
+            Hit(collision.gameObject.GetComponent<AbilityHitDetector>());
             attacking = true;
         }
-        */
+
     }
 
     protected Vector3 GetClosestPlayer()

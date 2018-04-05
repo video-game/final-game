@@ -24,11 +24,12 @@ public class BasicEnemy : Enemy
 
     public GameObject bullet;
 
-    protected override void Hit(Projectile projectile)
+    protected override void Hit(AbilityHitDetector projectile)
     {
         base.Hit(projectile);
 
-        Knockback(projectile.velocity, Mathf.Abs(projectile.damage));
+        Debug.Log("hit " + projectile.velocity);
+        Knockback(projectile.velocity, Mathf.Abs(projectile.ability.damage));
     }
 
     void Update()

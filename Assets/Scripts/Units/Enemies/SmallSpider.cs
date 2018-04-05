@@ -42,11 +42,11 @@ public class SmallSpider : Enemy
 		harmful = true;
 	}
 	
-	protected override void Hit(Projectile projectile)
+	protected override void Hit(AbilityHitDetector projectile)
 	{
 		base.Hit(projectile);
 
-		Knockback(projectile.velocity, Mathf.Abs(projectile.damage));
+		Knockback(projectile.velocity, Mathf.Abs(projectile.ability.damage));
 	}
 
 	// Look for player every updatePathInterval seconds and chase him if within attackDistance

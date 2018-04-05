@@ -29,6 +29,7 @@ public class RangedAbilityHitDetector : AbilityHitDetector
         sr.sortingLayerName = "Projectile";
         GetComponent<SphereCollider>().radius = .125f;
         HitSlave = new GameObject().AddComponent<CoroutineSlave>();
+        HitSlave.gameObject.transform.parent = transform;
 
 
         Fire(direction);
@@ -44,6 +45,9 @@ public class RangedAbilityHitDetector : AbilityHitDetector
         direction = new Vector3(direction.x, 0, direction.z);
         direction.Normalize();
         rb.velocity = direction * Ability.speed;
+
+        velocity = rb.velocity;
+        Debug.Log("set " + velocity);
 
         float rotation = Quaternion.LookRotation(direction).eulerAngles.y;
         //rotate the projectile towards its direction

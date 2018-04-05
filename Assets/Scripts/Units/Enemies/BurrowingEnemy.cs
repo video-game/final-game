@@ -32,17 +32,11 @@ public class BurrowingEnemy : Enemy
 		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
     }
 
-    protected override void Hit(Projectile projectile)
+    protected override void Hit(AbilityHitDetector projectile)
     {
         base.Hit(projectile);
 
-        Knockback(projectile.velocity, Mathf.Abs(projectile.damage));        
-        Burrow();
-    }
-
-    public override void ChangeHealth(int value)
-    {
-        base.ChangeHealth(value);
+        Knockback(projectile.velocity, Mathf.Abs(projectile.ability.damage));     
         Burrow();
     }
 

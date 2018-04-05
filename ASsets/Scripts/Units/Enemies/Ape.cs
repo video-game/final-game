@@ -68,12 +68,13 @@ public class Ape : Enemy {
         }
     }
 
-    protected override void Hit(Projectile projectile)
+    protected override void Hit(AbilityHitDetector projectile)
     {
         base.Hit(projectile);
 
         // Knockback power 20% of damage
-        Knockback(projectile.velocity, Mathf.Abs(projectile.damage / 5));
+        Debug.Log("hit " + projectile.velocity);
+        Knockback(projectile.velocity, Mathf.Abs(projectile.ability.damage / 5));
     }
 
 
