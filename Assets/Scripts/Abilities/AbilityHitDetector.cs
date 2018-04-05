@@ -28,7 +28,10 @@ public abstract class AbilityHitDetector : MonoBehaviour {
 
     public void Destroy()
     {
-        Destroy(this.gameObject);
+        if(this != null)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
 }

@@ -32,7 +32,8 @@ public abstract class Unit : MonoBehaviour
     protected DamageTakenCanvas damageTakenCanvas;
     protected Animator animator;
 
-    protected GameObject lastAttacker;
+
+    public GameObject lastAttacker;
 
     public bool dashing;
     public Vector3 dashingVelocity;

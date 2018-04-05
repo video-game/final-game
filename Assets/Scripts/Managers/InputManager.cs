@@ -10,13 +10,14 @@ public class InputManager : SingletonMB<InputManager> {
 
     //the keyCode for the pause
     public KeyCode pause;
+    public KeyCode pauseJoystick;
     //a list of all player controls, uses same index as player list. (GameManager.Instance.Player)
     public List<PlayerControl> playerControl;
 
     private void Update()
     {
         //if game not over and pause key is pressed.
-        if (Input.GetKeyDown(pause) && !GameManager.Instance.GameOver)
+        if ( ( Input.GetKeyDown(pause) || Input.GetKeyDown(pauseJoystick) ) && !GameManager.Instance.GameOver)
         {
             //if pause is allowed, pause .. else close current menu. (if possible)
             if (UIManager.Instance.AllowPause)

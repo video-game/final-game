@@ -50,6 +50,7 @@ public class Player : Unit, INTERACTABLE
     private int maxKoHealth;
     private int currentKoHealth;
 
+    [SerializeField]
     private int level = 1;
     public int Level { get { return level; } }
 
@@ -60,6 +61,9 @@ public class Player : Unit, INTERACTABLE
 
 
     public SharedItem item;
+
+    [HideInInspector]
+    public AbilityBar bar;
 
     public List<AbilityStruct> ability;
     [HideInInspector]
@@ -175,8 +179,13 @@ public class Player : Unit, INTERACTABLE
         Debug.Log("old next level: " + nextLevel);
         nextLevel = package.nextLevel;
         MaxHealth += package.healthUp;
-        if(package.projectile != null)
+        if(package.ability != null)
         {
+            AbilityStruct newAbil = new AbilityStruct(package.ability);
+            newAbil.instance = Instantiate(newAbil.prefab);
+            ability.Add(newAbil);
+
+            bar.AddAbility(newAbil.instance);
             //demoProjectile = package.projectile;
         }
 
@@ -248,24 +257,25 @@ public class Player : Unit, INTERACTABLE
     //If a projectile should only fire once per trigger press
     public void Shoot()
     {
-        UseAbility(selectedAbilityIndex);
+        if (!fireOnDelay)
+        {
+            //spawn projectile, set it's trajectory
+            UseAbility(selectedAbilityIndex);
+
+            StartCoroutine(ShootDelay(ability[selectedAbilityIndex].prefab.cooldown));
+        }
     }
 
     //If a projectile should fire continuously with delay
     public void ShootContinuous()
     {
-        //RAI.OnUse();
-        /*
-        if (projectileScript.continuousFire && !fireOnDelay)
+        if (!fireOnDelay)
         {
             //spawn projectile, set it's trajectory
-            Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
-            var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.Init(9 * aimDirection, gameObject);
+            UseAbility(selectedAbilityIndex);
 
-            StartCoroutine(ShootDelay(cloneScript.shootDelay));
+            StartCoroutine(ShootDelay(ability[selectedAbilityIndex].prefab.cooldown));
         }
-        */
     }
 
     private IEnumerator ShootDelay(float delay)

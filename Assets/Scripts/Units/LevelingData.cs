@@ -12,10 +12,10 @@ public class LevelingData:MonoBehaviour {
     [System.Serializable]
     public class Projectiles
     {
-        public Rigidbody lvl5Proj;
-        public Rigidbody lvl10Proj;
-        public Rigidbody lvl15Proj;
-        public Rigidbody lvl20Proj;
+        public Ability lvl5Proj;
+        public Ability lvl10Proj;
+        public Ability lvl15Proj;
+        public Ability lvl20Proj;
     }
     public Projectiles projectiles;
 
@@ -25,11 +25,11 @@ public class LevelingData:MonoBehaviour {
         {
             case (2):
                 return new LevelUpPackage(projectiles.lvl5Proj, 10, GetNextMaxExp(oldMaxExp));
-            case (4):
+            case (3):
                 return new LevelUpPackage(projectiles.lvl10Proj, 10, GetNextMaxExp(oldMaxExp));
-            case (6):
+            case (4):
                 return new LevelUpPackage(projectiles.lvl15Proj, 10, GetNextMaxExp(oldMaxExp));
-            case (8):
+            case (5):
                 return new LevelUpPackage(projectiles.lvl20Proj, 10, GetNextMaxExp(oldMaxExp));
             default:
                 return new LevelUpPackage(null, 10, GetNextMaxExp(oldMaxExp));
@@ -46,11 +46,11 @@ public class LevelingData:MonoBehaviour {
 //used to pass information between leveling system and player
 public class LevelUpPackage
 {
-    public Rigidbody projectile;
+    public Ability ability;
     public int healthUp;
     public int nextLevel;
-    public LevelUpPackage(Rigidbody proj, int health, int nLvl)
+    public LevelUpPackage(Ability abil, int health, int nLvl)
     {
-        projectile = proj; healthUp = health; nextLevel = nLvl;
+        ability = abil; healthUp = health; nextLevel = nLvl;
     }
 }

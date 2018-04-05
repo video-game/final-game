@@ -9,7 +9,7 @@ public class AbilityBarButton : MonoBehaviour {
     public UnityEngine.UI.Image CoolDownFade;
     public UnityEngine.UI.Image selected;
 
-    private Ability ability;
+    public Ability ability;
     bool cd = false;
 
     private Coroutine CDR;

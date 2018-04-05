@@ -71,6 +71,7 @@ public class Ability : ScriptableObject {
         { 
             InitOnUseEffects();
 
+            Debug.Log("OnUseEffectInstance "  + OnUseEffectInstance.Count);
             for (int i = 0; i < OnUseEffectInstance.Count; i++)
             {
                 if(AHD != null)
@@ -84,7 +85,7 @@ public class Ability : ScriptableObject {
                 }
             }
 
-            if (true)
+            if (cooldown > 0)
             {
                 if (CDC != null)
                 {
@@ -95,7 +96,7 @@ public class Ability : ScriptableObject {
 
                 if (OnAbilityUse != null)
                 {
-                    OnAbilityUse();
+                   OnAbilityUse();
                 }
                
             }
@@ -108,9 +109,20 @@ public class Ability : ScriptableObject {
 
         if(hit.tag == foeTag)
         {
-            if(foeTag == "Enemy")
+            if (foeTag == "Enemy")
             {
-                hit.gameObject.GetComponent<Enemy>().ChangeHealth(-(int)damage);
+                float lvl = UsedBy.gameObject.GetComponent<Player>().Level;
+                int dmg;
+                if(lvl > 1f)
+                {
+                    dmg = (int)(damage * (1f + (((float)UsedBy.gameObject.GetComponent<Player>().Level * 10f) / 100f)));
+                }
+                else
+                {
+                    dmg = (int)(damage);
+                }
+                hit.gameObject.GetComponent<Enemy>().lastAttacker = UsedBy.gameObject;
+                hit.gameObject.GetComponent<Enemy>().ChangeHealth(-dmg);
             }
             else if(foeTag == "Player")
             {
@@ -155,4 +167,9 @@ public class AbilityStruct
     public Ability prefab;
     [System.NonSerialized]
     public Ability instance;
+
+    public AbilityStruct(Ability pf)
+    {
+        prefab = pf;
+    }
 }

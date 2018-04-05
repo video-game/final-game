@@ -165,14 +165,10 @@ MonoBehaviour:
   levelScaleMultiplier: 1.5
   levelScaleBias: 20
   projectiles:
-    lvl5Proj: {fileID: 54506367409316654, guid: c3cce3ee42732ab43b3f3b49f2c77ef2,
-      type: 2}
-    lvl10Proj: {fileID: 54506367409316654, guid: 797c2a4ee7866f140b8e8f33bfce461c,
-      type: 2}
-    lvl15Proj: {fileID: 54506367409316654, guid: 86b90e959dda8dd43b5ef69864ae2ae5,
-      type: 2}
-    lvl20Proj: {fileID: 54506367409316654, guid: 86b90e959dda8dd43b5ef69864ae2ae5,
-      type: 2}
+    lvl5Proj: {fileID: 11400000, guid: 3fec742ba51636448ad48da0ea6e6319, type: 2}
+    lvl10Proj: {fileID: 11400000, guid: 714b322c9042d1148a542f29cc17c2a4, type: 2}
+    lvl15Proj: {fileID: 0}
+    lvl20Proj: {fileID: 0}
 --- !u!114 &114170190425166190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,6 +183,7 @@ MonoBehaviour:
   MaxHealth: 100
   currentHealth: 100
   tombstone: {fileID: 1006454588332714, guid: e89ff18785fb2c149b5a8d8287ccb621, type: 2}
+  lastAttacker: {fileID: 0}
   dashing: 0
   dashingVelocity: {x: 0, y: 0, z: 0}
   speed: 3.5
@@ -197,11 +194,12 @@ MonoBehaviour:
   damageRecoveryTime: 1
   KOd: 0
   maxKoHealth: 70
+  level: 1
   nextLevel: 20
+  bar: {fileID: 0}
   ability:
   - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
-  - prefab: {fileID: 11400000, guid: 714b322c9042d1148a542f29cc17c2a4, type: 2}
-  - prefab: {fileID: 11400000, guid: 3fec742ba51636448ad48da0ea6e6319, type: 2}
+  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
   currentAbility: 0
   DashPrefab: {fileID: 11400000, guid: c6a722e672f89a24cba3f792b96bb9f3, type: 2}
   Dash: {fileID: 0}

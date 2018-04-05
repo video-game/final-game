@@ -17,6 +17,7 @@ public class AnimationEffect : Effect
 
     public override void Trigger(AbilityHitDetector hitWith)
     {
+        Debug.Log("Me");
         hitDetector = hitWith;
         ((RangedAbilityHitDetector)hitDetector).HitSlave.StopAllCoroutines();
         ((RangedAbilityHitDetector)hitDetector).HitSlave.StartCoroutine(PlayAnimation());
@@ -54,7 +55,7 @@ public class AnimationEffect : Effect
                 }
             }
 
-        } while (loop);
+        } while (loop && hitDetector != null);
 
         if (sr == null != destroyOnAnimEnd)
         {

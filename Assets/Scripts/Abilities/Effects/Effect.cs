@@ -10,6 +10,10 @@ public abstract class Effect : ScriptableObject {
 
     public virtual void Trigger(AbilityHitDetector hitWith) { }
 
+    public virtual void Trigger(RangedAbilityHitDetector hitWith) { }
+
+    public virtual void Trigger(MeleeAbilityHitDetector hitWith) { }
+
     public virtual void Trigger(Ability ability) { }
 
 }

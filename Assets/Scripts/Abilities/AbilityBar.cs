@@ -13,6 +13,7 @@ public class AbilityBar : MonoBehaviour {
     {
         player = p;
         player.OnAbilitySelected += Select;
+        player.bar = this;
     }
 
     public void Select(int index)
@@ -29,6 +30,22 @@ public class AbilityBar : MonoBehaviour {
                 abilities[i].selected.gameObject.SetActive(false);
             }
         }
+    }
+
+    public void AddAbility(Ability ability)
+    {
+        AbilityBarButton button;
+        for (int i = 0; i < abilities.Count; i++)
+        {
+            if(abilities[i].ability == null)
+            {
+                button = abilities[i];
+                button.Init(ability);
+                ability.Init(player);
+                break;
+            }
+        }
+
     }
 
 }
