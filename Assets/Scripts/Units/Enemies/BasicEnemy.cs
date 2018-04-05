@@ -55,7 +55,7 @@ public class BasicEnemy : Enemy
         }
 
         playerCheckTimer += Time.deltaTime;
-        if (playerPosition != Vector3.zero && playerCheckTimer > playerCheckTime)
+        if (playerPosition != Vector3.zero && playerCheckTimer > playerCheckTime && agent.isOnNavMesh)
         {
             playerCheckTimer = 0;
             NavMeshPath path = new UnityEngine.AI.NavMeshPath();
