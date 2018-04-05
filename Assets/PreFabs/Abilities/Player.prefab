@@ -167,7 +167,7 @@ MonoBehaviour:
   projectiles:
     lvl5Proj: {fileID: 11400000, guid: 3fec742ba51636448ad48da0ea6e6319, type: 2}
     lvl10Proj: {fileID: 11400000, guid: 714b322c9042d1148a542f29cc17c2a4, type: 2}
-    lvl15Proj: {fileID: 0}
+    lvl15Proj: {fileID: 11400000, guid: f2015293f06d9a54e87e6ef62d2ddcc8, type: 2}
     lvl20Proj: {fileID: 0}
 --- !u!114 &114170190425166190
 MonoBehaviour:
@@ -198,7 +198,6 @@ MonoBehaviour:
   nextLevel: 20
   bar: {fileID: 0}
   ability:
-  - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
   - prefab: {fileID: 11400000, guid: 4f3566aadbc39004b81f10a84ed4bbba, type: 2}
   currentAbility: 0
   DashPrefab: {fileID: 11400000, guid: c6a722e672f89a24cba3f792b96bb9f3, type: 2}

@@ -14,9 +14,11 @@ MonoBehaviour:
   UsedBy: {fileID: 0}
   slave: {fileID: 0}
   AbilityBarImage: {fileID: 21300000, guid: c17859b5ca1ba9548891a375cf602963, type: 3}
-  damage: 15
-  cooldown: 0.1
+  damage: 7
+  cooldown: 1
   coolDownRemaining: 0
+  OnUseSound: Machinegun
+  OnHitSound: 
   ready: 0
   OnUseEffect: []
   OnHitEffect:
@@ -24,7 +26,7 @@ MonoBehaviour:
   foeTag: 
   foeAttackTag: 
   projectileSprite: {fileID: 21300000, guid: c17859b5ca1ba9548891a375cf602963, type: 3}
-  speed: 15
+  speed: 12
   spread: 40
   lifeTime: 10
   projectileCount: 3

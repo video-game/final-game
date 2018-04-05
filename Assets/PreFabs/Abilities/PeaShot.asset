@@ -14,9 +14,11 @@ MonoBehaviour:
   UsedBy: {fileID: 0}
   slave: {fileID: 0}
   AbilityBarImage: {fileID: 21300000, guid: 84e32a5070da62e4cb47d6bb31fc6547, type: 3}
-  damage: 20
-  cooldown: 1
+  damage: 10
+  cooldown: 0.25
   coolDownRemaining: 0
+  OnUseSound: DefaultWeapon
+  OnHitSound: 
   ready: 0
   OnUseEffect:
   - {fileID: 11400000, guid: ec5ba5a12c80c704aa34432e837280b3, type: 2}

@@ -17,6 +17,9 @@ public class Ability : ScriptableObject {
     public float cooldown;
     public float coolDownRemaining;
 
+    public string OnUseSound;
+    public string OnHitSound;
+
     [HideInInspector]
     public bool ready;
     public List<Effect> OnUseEffect;
@@ -67,6 +70,10 @@ public class Ability : ScriptableObject {
 
     public virtual void OnUse(AbilityHitDetector AHD = null)
     {
+        if (OnUseSound != string.Empty)
+        {
+            AudioManager.Instance.PlayAudioClip(OnUseSound);
+        }
         if (ready)
         { 
             InitOnUseEffects();
@@ -105,6 +112,10 @@ public class Ability : ScriptableObject {
 
     public virtual void OnHit(AbilityHitDetector attack, GameObject hit)
     {
+        if(OnHitSound != string.Empty)
+        {
+            AudioManager.Instance.PlayAudioClip(OnHitSound);
+        }
         InitOnHitEffects();
 
         if(hit.tag == foeTag)
