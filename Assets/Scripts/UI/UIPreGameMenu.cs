@@ -6,7 +6,7 @@ public class UIPreGameMenu : UIMenu
 {
     public void ContinueButton()
     {
-        SceneLoader.Instance.Load("Overworld scene");
+        SceneLoader.Instance.Load("Overworld scene2");
     }
 
     public void ReturnButton()
