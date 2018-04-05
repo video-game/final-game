@@ -28,10 +28,11 @@ public class AbilityBarButton : MonoBehaviour {
 
     public void ShowCoolDown()
     {
-        if(CDR == null)
+        if(CDR != null)
         {
-            CDR = StartCoroutine(CoolDown());
+            StopCoroutine(CDR);
         }
+        CDR = StartCoroutine(CoolDown());
     }
 
     IEnumerator CoolDown()
@@ -41,7 +42,7 @@ public class AbilityBarButton : MonoBehaviour {
         float t = 0f;
         while (t < 1)
         {
-            t += Time.deltaTime / ability.coolDownRemaining;
+            t += Time.deltaTime / ability.cooldown;
             CoolDownFade.fillAmount = Mathf.Lerp(1f, 0f, t);
             yield return null;
         }

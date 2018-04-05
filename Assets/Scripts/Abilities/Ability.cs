@@ -90,12 +90,13 @@ public class Ability : ScriptableObject {
                 {
                     coolDownRemaining += cooldown;
                     CDC = slave.StartCoroutine(CoolDownCoroutine());
+
+                    if (OnAbilityUse != null)
+                    {
+                        OnAbilityUse();
+                    }
                 }
-                
-                if (OnAbilityUse != null)
-                {
-                    OnAbilityUse();
-                }
+               
             }
         }
     }
@@ -136,16 +137,14 @@ public class Ability : ScriptableObject {
         ready = false;
 
         float t = 0f;
-        while (t < coolDownRemaining)
+        while (t < 1)
         {
-            t += Time.deltaTime;
+            t += Time.deltaTime / cooldown;
             yield return null;
         }
-        coolDownRemaining = 0;
         CDC = null;
         ready = true;
     }
-
 }
 
 
