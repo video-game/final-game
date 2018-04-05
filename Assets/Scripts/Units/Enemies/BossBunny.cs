@@ -154,8 +154,8 @@ public class BossBunny : Enemy
 	protected override void OnCollisionEnter(Collision other)
 	{
         base.OnCollisionEnter(other);
-        
-		if (other.transform.tag == "PlayerProjectile")
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        if (other.transform.tag == "PlayerProjectile")
         {
             Damaged();
 

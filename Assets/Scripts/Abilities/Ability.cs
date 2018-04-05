@@ -134,6 +134,7 @@ public class Ability : ScriptableObject {
                 }
                 hit.gameObject.GetComponent<Enemy>().lastAttacker = UsedBy.gameObject;
                 hit.gameObject.GetComponent<Enemy>().ChangeHealth(-dmg);
+                hit.gameObject.GetComponent<Enemy>().attacking = true;
             }
             else if(foeTag == "Player")
             {

@@ -11,7 +11,7 @@ public abstract class Enemy : Unit
 
     [SerializeField]
     protected List<Drop> Drops;
-    protected bool attacking;
+    public bool attacking;
     [SerializeField]
     protected int experienceAward;
     

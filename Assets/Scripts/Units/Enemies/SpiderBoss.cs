@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -142,11 +142,13 @@ public class SpiderBoss : Enemy
 
     protected override void OnCollisionEnter(Collision collision)
     {
-        base.OnCollisionEnter(collision);
+        
         if (collision.transform.tag == "PlayerProjectile")
         {
             AudioManager.Instance.PlayAudioClip("BossDamage");
         }
+        base.OnCollisionEnter(collision);
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 }
 

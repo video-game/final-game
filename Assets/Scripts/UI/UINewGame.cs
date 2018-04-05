@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UINewGame : UIMenu
 {
-    private void OnEnable()
+    private void Awake()
     {
         GameManager.Instance.SetPlayerCount(1);    
     }

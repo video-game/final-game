@@ -503,6 +503,7 @@ MonoBehaviour:
   AbilityImage: {fileID: 114285734325363910}
   CoolDownFade: {fileID: 114714599453148748}
   selected: {fileID: 114173576518280092}
+  ability: {fileID: 0}
 --- !u!114 &114001535272575648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -518,6 +519,7 @@ MonoBehaviour:
   AbilityImage: {fileID: 114205370390893914}
   CoolDownFade: {fileID: 114733911348658336}
   selected: {fileID: 114076071649271660}
+  ability: {fileID: 0}
 --- !u!114 &114071206795545342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1044,6 +1046,7 @@ MonoBehaviour:
   AbilityImage: {fileID: 114138904984058568}
   CoolDownFade: {fileID: 114071206795545342}
   selected: {fileID: 114950458514161728}
+  ability: {fileID: 0}
 --- !u!114 &114449988281232662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1078,6 +1081,7 @@ MonoBehaviour:
   AbilityImage: {fileID: 114245121779728734}
   CoolDownFade: {fileID: 114336828609911940}
   selected: {fileID: 114291708502093400}
+  ability: {fileID: 0}
 --- !u!114 &114515781858833572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1552,6 +1556,7 @@ MonoBehaviour:
   AbilityImage: {fileID: 114877428974050558}
   CoolDownFade: {fileID: 114720041162748882}
   selected: {fileID: 114737570203144814}
+  ability: {fileID: 0}
 --- !u!114 &114798825264668040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1727,6 +1732,7 @@ MonoBehaviour:
   AbilityImage: {fileID: 114204815377037512}
   CoolDownFade: {fileID: 114379019515450788}
   selected: {fileID: 114758645919605030}
+  ability: {fileID: 0}
 --- !u!114 &114985760904121912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2022,7 +2028,7 @@ RectTransform:
   m_GameObject: {fileID: 1722768023417492}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9999915, y: 0.9999915, z: 0.9999915}
+  m_LocalScale: {x: -0.9999915, y: 0.9999915, z: 0.9999915}
   m_Children:
   - {fileID: 224414919160688456}
   m_Father: {fileID: 224958233436034056}
@@ -2386,9 +2392,9 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1400, y: -988}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -328, y: 92}
   m_SizeDelta: {x: 600, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224996013569784262

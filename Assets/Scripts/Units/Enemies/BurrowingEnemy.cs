@@ -40,6 +40,12 @@ public class BurrowingEnemy : Enemy
         Burrow();
     }
 
+    public override void ChangeHealth(int value)
+    {
+        base.ChangeHealth(value);
+        Burrow();
+    }
+
     private void Burrow()
     {
         agent.speed = 0.7f;

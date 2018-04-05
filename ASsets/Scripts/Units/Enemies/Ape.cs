@@ -76,6 +76,7 @@ public class Ape : Enemy {
         Knockback(projectile.velocity, Mathf.Abs(projectile.damage / 5));
     }
 
+
     private IEnumerator MoveStop(Vector3 playerPos)
     {
         recharging = true;

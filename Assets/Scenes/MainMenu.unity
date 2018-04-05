@@ -187,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pause: 27
+  pauseJoystick: 0
   playerControl:
   - joystick: 0
     shootReady: 1
@@ -201,6 +202,8 @@ MonoBehaviour:
     Ability2: 0
     Ability3: 0
     Action: 0
+    NextAbility: 0
+    PrevAbility: 0
   - joystick: 0
     shootReady: 1
     dashReady: 1
@@ -214,6 +217,8 @@ MonoBehaviour:
     Ability2: 0
     Ability3: 0
     Action: 0
+    NextAbility: 0
+    PrevAbility: 0
 --- !u!1001 &514216305
 Prefab:
   m_ObjectHideFlags: 0
@@ -256,7 +261,7 @@ Prefab:
     - target: {fileID: 20331521229687090, guid: 0fbafb9cd2daddd418c1efd3604bad5c,
         type: 2}
       propertyPath: orthographic size
-      value: 6.354167
+      value: 5.302083
       objectReference: {fileID: 0}
     - target: {fileID: 4636607803341650, guid: 0fbafb9cd2daddd418c1efd3604bad5c, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -483,6 +488,7 @@ MonoBehaviour:
   UIContainer: {fileID: 729853609}
   HudContainer: {fileID: 719644934}
   playerHud: []
+  ABHud: []
   resourceHud:
     prefab: {fileID: 1061248395736208, guid: ebdb5d897d983e343b7c8a0edffefdc4, type: 2}
 --- !u!1 &910564954
