@@ -84,17 +84,18 @@ public class Ability : ScriptableObject {
                 }
             }
 
-            if (cooldown > 0)
+            if (true)
             {
-                if(CDC == null)
+                if (CDC != null)
                 {
-                    coolDownRemaining += cooldown;
-                    CDC = slave.StartCoroutine(CoolDownCoroutine());
+                    slave.StopCoroutine(CDC);
+                }
 
-                    if (OnAbilityUse != null)
-                    {
-                        OnAbilityUse();
-                    }
+                CDC = slave.StartCoroutine(CoolDownCoroutine());
+
+                if (OnAbilityUse != null)
+                {
+                    OnAbilityUse();
                 }
                
             }
@@ -136,13 +137,13 @@ public class Ability : ScriptableObject {
     {
         ready = false;
 
-        float t = 0f;
-        while (t < 1)
+        float t = .1f / cooldown;
+        while (t < .9f)
         {
-            t += Time.deltaTime / cooldown;
-            yield return null;
+            Debug.Log(t);
+            yield return new WaitForSeconds(.1f);
+            t += .1f / cooldown;
         }
-        CDC = null;
         ready = true;
     }
 }

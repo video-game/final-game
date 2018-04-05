@@ -44,8 +44,7 @@ public class AbilityBarButton : MonoBehaviour {
         {
             t += Time.deltaTime / ability.cooldown;
             CoolDownFade.fillAmount = Mathf.Lerp(1f, 0f, t);
-            yield return null;
+            yield return new WaitForEndOfFrame();
         }
-        CDR = null;
     }
 }
