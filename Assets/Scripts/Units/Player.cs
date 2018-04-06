@@ -12,6 +12,15 @@ public class Player : Unit, INTERACTABLE
     public PlayerDelegate OnPlayerLvlUp;
     public StatChangeDelegate OnExperienceGained;
 
+    public delegate void PlayerAbilityDelegate(int index);
+    public PlayerAbilityDelegate OnAbilitySelected;
+
+    public delegate void AbilityListUpdateDelegate(List<RangedAbility> list);
+    public AbilityListUpdateDelegate OnNewAbility;
+
+    [SerializeField]
+    private float speed;
+
     [SerializeField]
     private float dashSpeed;
 
@@ -22,8 +31,6 @@ public class Player : Unit, INTERACTABLE
     private float dashCooldown;
 
     [SerializeField]
-    private Rigidbody demoProjectile; // prefab
-    private PlayerProjectile projectileScript; //its script
     private bool fireOnDelay;
 
     private Transform hand;
@@ -31,14 +38,8 @@ public class Player : Unit, INTERACTABLE
     private bool dashOnCooldown;
     private bool isWalking;
 
-    private Vector3 aimDirection;
 
     private Color bodyColor;
-
-    Transform projectileSpawn;
-
-    private bool dashing; //for stopping other movement during dashing
-    private Vector3 dashVelocity;
 
     [SerializeField]
     private float damageRecoveryTime;
@@ -49,6 +50,7 @@ public class Player : Unit, INTERACTABLE
     private int maxKoHealth;
     private int currentKoHealth;
 
+    [SerializeField]
     private int level = 1;
     public int Level { get { return level; } }
 
@@ -60,6 +62,14 @@ public class Player : Unit, INTERACTABLE
 
     public SharedItem item;
 
+    [HideInInspector]
+    public AbilityBar bar;
+
+    public List<AbilityStruct> ability;
+    [HideInInspector]
+    public int currentAbility;
+    public Ability DashPrefab;
+    public Ability Dash;
 
     private List<INTERACTABLE> InteractList = new List<INTERACTABLE>();
 
@@ -85,6 +95,58 @@ public class Player : Unit, INTERACTABLE
         if (temp != null)
         {
             InteractList.Remove(temp);
+        }
+    }
+
+    public void UseDash()
+    {
+        Dash.OnUse();
+    }
+
+
+    private void InitAbilities()
+    {
+        for (int i = 0; i < ability.Count; i++)
+        {
+            ability[i].instance = Instantiate(ability[i].prefab);
+        }
+    }
+
+    public int selectedAbilityIndex = 0;
+
+    public void NextPrevAbility(int nextPrev)
+    {
+        SelectAbility(Mathf.Clamp(currentAbility+nextPrev, 0, ability.Count-1));
+    }
+
+    public void SelectAbility(int index)
+    {
+        currentAbility = Mathf.Clamp(index, 0, ability.Count-1);
+        if(OnAbilitySelected != null)
+        {
+            OnAbilitySelected(currentAbility);
+        }
+    }
+
+    public void UseAbility(int index)
+    {
+        if (ability.Count > index && index >= 0 )
+        {
+            if (ability[index].prefab is RangedAbility)
+            {
+                Debug.Log("Ranged");
+                ((RangedAbility)ability[index].instance).OnUse();
+            }
+            else if(ability[index].prefab is MeleeAbility)
+            {
+                Debug.Log("Melee");
+                ((MeleeAbility)ability[index].instance).OnUse();
+            }
+            else
+            {
+                Debug.Log("Neither");
+                ability[index].instance.OnUse();
+            }
         }
     }
 
@@ -117,9 +179,14 @@ public class Player : Unit, INTERACTABLE
         Debug.Log("old next level: " + nextLevel);
         nextLevel = package.nextLevel;
         MaxHealth += package.healthUp;
-        if(package.projectile != null)
+        if(package.ability != null)
         {
-            demoProjectile = package.projectile;
+            AbilityStruct newAbil = new AbilityStruct(package.ability);
+            newAbil.instance = Instantiate(newAbil.prefab);
+            ability.Add(newAbil);
+
+            bar.AddAbility(newAbil.instance);
+            //demoProjectile = package.projectile;
         }
 
         ChangeHealth(MaxHealth);
@@ -139,11 +206,16 @@ public class Player : Unit, INTERACTABLE
 
         bodyColor = m.GetComponent<SpriteRenderer>().color;
 
-        projectileScript = demoProjectile.GetComponent<PlayerProjectile>();
 
         item = GameManager.Instance.sharedItems;
-    }
 
+
+        InitAbilities();
+        if (ability != null)
+        {
+            SelectAbility(0);
+        }
+    }
     public void Slow(float percentage, float duration)
     {
         if (agent.speed == initialSpeed)
@@ -164,7 +236,7 @@ public class Player : Unit, INTERACTABLE
         {
             if (dashing)
             {
-                agent.velocity = dashVelocity;
+                agent.velocity = dashingVelocity;
             }
             else
             {
@@ -179,65 +251,30 @@ public class Player : Unit, INTERACTABLE
         }
     }
 
-    //player dash function
-    public void Dash()
-    {
-        if (!dashOnCooldown)
-        {
-            dashVelocity = agent.velocity.normalized * dashSpeed;
-            StartCoroutine(DashCoroutine());
-            if (dashCooldown > 0f)
-                StartCoroutine(DashCooldown());
-        }
-    }
+ 
 
-    private IEnumerator DashCoroutine()
-    {
-        dashing = true;
-        TrailRenderer tRenderer = transform.Find("Model").GetComponent<TrailRenderer>();
-        tRenderer.time = 0.3f;
-        tRenderer.enabled = true;
-        agent.ResetPath();
-        yield return new WaitForSeconds(dashDuration);
-        tRenderer.time = 0.1f;
-        dashing = false;
-
-        yield return new WaitForSeconds(0.1f);
-        tRenderer.enabled = false;
-    }
-
-    private IEnumerator DashCooldown()
-    {
-        dashOnCooldown = true;
-        yield return new WaitForSeconds(dashCooldown);
-        dashOnCooldown = false;
-    }
 
     //If a projectile should only fire once per trigger press
     public void Shoot()
     {
-        if(!projectileScript.continuousFire && !fireOnDelay)
+        if (!fireOnDelay)
         {
             //spawn projectile, set it's trajectory
-            Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
-            var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.Init(projectileScript.speed * aimDirection, gameObject);
+            UseAbility(selectedAbilityIndex);
 
-            StartCoroutine(ShootDelay(cloneScript.shootDelay));
+            StartCoroutine(ShootDelay(ability[selectedAbilityIndex].prefab.cooldown));
         }
     }
 
     //If a projectile should fire continuously with delay
     public void ShootContinuous()
     {
-        if (projectileScript.continuousFire && !fireOnDelay)
+        if (!fireOnDelay)
         {
             //spawn projectile, set it's trajectory
-            Rigidbody clone = (Rigidbody)Instantiate(demoProjectile, new Vector3(projectileSpawn.position.x, 0, projectileSpawn.position.z), demoProjectile.transform.rotation);
-            var cloneScript = clone.GetComponent<PlayerProjectile>();
-            cloneScript.Init(9 * aimDirection, gameObject);
+            UseAbility(selectedAbilityIndex);
 
-            StartCoroutine(ShootDelay(cloneScript.shootDelay));
+            StartCoroutine(ShootDelay(ability[selectedAbilityIndex].prefab.cooldown));
         }
     }
 
@@ -266,6 +303,7 @@ public class Player : Unit, INTERACTABLE
 
     public void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("hit");
         if (collision.gameObject.tag == "EnemyProjectile")
             Hit(collision.gameObject.GetComponent<Projectile>());
     }

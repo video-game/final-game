@@ -105,6 +105,7 @@ public class GameManager : SingletonMB<GameManager>
         }
 
         UIManager.Instance.InstantiatePlayerHud(player);
+        UIManager.Instance.InstantiateAbilityBars(player);
 
         if (cursorTexture)
             Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.ForceSoftware);

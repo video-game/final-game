@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 //a singleton class that handles all user input.
 public class InputManager : SingletonMB<InputManager> {
@@ -9,13 +10,14 @@ public class InputManager : SingletonMB<InputManager> {
 
     //the keyCode for the pause
     public KeyCode pause;
+    public KeyCode pauseJoystick;
     //a list of all player controls, uses same index as player list. (GameManager.Instance.Player)
     public List<PlayerControl> playerControl;
 
     private void Update()
     {
         //if game not over and pause key is pressed.
-        if (Input.GetKeyDown(pause) && !GameManager.Instance.GameOver)
+        if ( ( Input.GetKeyDown(pause) || Input.GetKeyDown(pauseJoystick) ) && !GameManager.Instance.GameOver)
         {
             //if pause is allowed, pause .. else close current menu. (if possible)
             if (UIManager.Instance.AllowPause)
@@ -47,8 +49,16 @@ public class InputManager : SingletonMB<InputManager> {
                     GameManager.Instance.player[i].Move(playerControl[i].Horizontal, playerControl[i].Vertical);
                 }
 
+                if (Input.GetKeyDown(playerControl[i].NextAbility)) {
+                    GameManager.Instance.player[i].NextPrevAbility(+1);
+                }
+                if (Input.GetKeyDown(playerControl[i].PrevAbility))
+                {
+                    GameManager.Instance.player[i].NextPrevAbility(-1);
+                }
+
                 //if player i pressed down his "Shoot" button once.
-                if ((!playerControl[i].joystick && Input.GetKeyDown(playerControl[i].Shoot)) || (playerControl[i].joystick && playerControl[i].shootReady  && Input.GetAxisRaw("Shoot") == 1f ))
+                if ((!playerControl[i].joystick && Input.GetKeyDown(playerControl[i].Shoot) && !EventSystem.current.IsPointerOverGameObject()) || (playerControl[i].joystick && playerControl[i].shootReady  && Input.GetAxisRaw("Shoot") == 1f ))
                 {
                     GameManager.Instance.player[i].Shoot();
 
@@ -68,7 +78,8 @@ public class InputManager : SingletonMB<InputManager> {
                 //if player i is pressing down his "Dash" button.
                 if ((!playerControl[i].joystick && playerControl[i].Moving && Input.GetKeyDown(playerControl[i].Dash)) || (playerControl[i].joystick && playerControl[i].dashReady && Input.GetAxisRaw("Dash") == 1f))
                 {
-                    GameManager.Instance.player[i].Dash();
+                    Debug.Log("dash");
+                    GameManager.Instance.player[i].UseDash();
 
                     if (playerControl[i].joystick)
                     {
@@ -106,7 +117,7 @@ public class PlayerControl
     public bool dashReady = true;
 
     //player inputs to listen to. //todo support gamepads
-    public KeyCode MoveUp, MoveDown, MoveLeft, MoveRight, Shoot, Dash, Ability1, Ability2, Ability3, Action;
+    public KeyCode MoveUp, MoveDown, MoveLeft, MoveRight, Shoot, Dash, Ability1, Ability2, Ability3, Action, NextAbility, PrevAbility;
 
     //check if player is moving.
     public bool Moving {

@@ -18,6 +18,9 @@ public class UIManager : SingletonMB<UIManager>
     //a references list of player huds.
     public List<PHud> playerHud;
 
+    //a references list of player abilityBar.
+    public List<ABHud> ABHud;
+
     public RHud resourceHud;
     //A property that returns if the current menu can be paused over
     public bool AllowPause { get { return openMenu.Count != 0 ? openMenu.Peek().allowPause : true; } }
@@ -51,6 +54,25 @@ public class UIManager : SingletonMB<UIManager>
     {
         resourceHud.instance = Instantiate(resourceHud.prefab, HudContainer.transform).GetComponent<ResourceHud>();
         resourceHud.instance.Init(money, revives);
+    }
+
+    public void InstantiateAbilityBars(List<Player> player)
+    {
+
+        for (int i = 0; i < player.Count; i++)
+        {
+            ABHud[i].instance = Instantiate(ABHud[i].prefab, HudContainer.transform).GetComponent<AbilityBar>();
+            ABHud[i].instance.Init(player[i]);
+
+            for (int j = 0; j < player[i].ability.Count; j++)
+            {
+                ABHud[i].instance.abilities[j].Init(player[i].ability[j].instance);
+                player[i].ability[j].instance.Init(player[i]);
+                player[i].Dash = Instantiate(player[i].DashPrefab);
+                ABHud[i].instance.Dash.Init(player[i].Dash);
+                player[i].Dash.Init(player[i]);
+            }
+        }
     }
 
     //Hide but don't close the current open menu.
@@ -133,4 +155,13 @@ public class RHud
     [System.NonSerialized]
     public ResourceHud instance;
 }
+
+[System.Serializable]
+public class ABHud
+{
+    public GameObject prefab;
+    [System.NonSerialized]
+    public AbilityBar instance;
+}
+
 

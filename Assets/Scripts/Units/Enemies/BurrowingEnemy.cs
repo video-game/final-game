@@ -32,11 +32,11 @@ public class BurrowingEnemy : Enemy
 		damageTakenCanvas = GetComponentInChildren<DamageTakenCanvas>();
     }
 
-    protected override void Hit(Projectile projectile)
+    protected override void Hit(AbilityHitDetector projectile)
     {
         base.Hit(projectile);
 
-        Knockback(projectile.velocity, Mathf.Abs(projectile.damage));        
+        Knockback(projectile.velocity, Mathf.Abs(projectile.ability.damage));     
         Burrow();
     }
 
@@ -87,7 +87,7 @@ public class BurrowingEnemy : Enemy
             animator.SetBool("IsRunning", agent.velocity != Vector3.zero);
 
             
-            if (playerCheckTimer > playerCheckTime)
+            if (playerCheckTimer > playerCheckTime && agent.isOnNavMesh)
             {
                 playerCheckTimer = 0;
                 //NOTE: this code assumes that there is 1 player only. Will need fixing if we do 2 player.

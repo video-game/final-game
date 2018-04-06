@@ -11,7 +11,7 @@ public abstract class Enemy : Unit
 
     [SerializeField]
     protected List<Drop> Drops;
-    protected bool attacking;
+    public bool attacking;
     [SerializeField]
     protected int experienceAward;
     
@@ -19,9 +19,10 @@ public abstract class Enemy : Unit
     {
         if (collision.gameObject.tag == "PlayerProjectile")
         {
-            Hit(collision.gameObject.GetComponent<Projectile>());
+            Hit(collision.gameObject.GetComponent<AbilityHitDetector>());
             attacking = true;
         }
+
     }
 
     protected Vector3 GetClosestPlayer()

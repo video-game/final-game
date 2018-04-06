@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d7f3ae2a416a294ea0b1a16afd3f602, type: 3}
+  m_Name: PeaShot
+  m_EditorClassIdentifier: 
+  UsedBy: {fileID: 0}
+  slave: {fileID: 0}
+  AbilityBarImage: {fileID: 21300000, guid: 84e32a5070da62e4cb47d6bb31fc6547, type: 3}
+  damage: 10
+  cooldown: 0.25
+  coolDownRemaining: 0
+  OnUseSound: DefaultWeapon
+  OnHitSound: 
+  ready: 0
+  OnUseEffect:
+  - {fileID: 11400000, guid: ec5ba5a12c80c704aa34432e837280b3, type: 2}
+  OnHitEffect:
+  - {fileID: 11400000, guid: 543ea9d33320f7343895193532e6ff69, type: 2}
+  foeTag: 
+  foeAttackTag: 
+  projectileSprite: {fileID: 21300000, guid: 84e32a5070da62e4cb47d6bb31fc6547, type: 3}
+  speed: 8
+  spread: 25
+  lifeTime: 10
+  projectileCount: 1

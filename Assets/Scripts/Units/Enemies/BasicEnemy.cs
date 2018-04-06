@@ -24,11 +24,12 @@ public class BasicEnemy : Enemy
 
     public GameObject bullet;
 
-    protected override void Hit(Projectile projectile)
+    protected override void Hit(AbilityHitDetector projectile)
     {
         base.Hit(projectile);
 
-        Knockback(projectile.velocity, Mathf.Abs(projectile.damage));
+        Debug.Log("hit " + projectile.velocity);
+        Knockback(projectile.velocity, Mathf.Abs(projectile.ability.damage));
     }
 
     void Update()
@@ -54,7 +55,7 @@ public class BasicEnemy : Enemy
         }
 
         playerCheckTimer += Time.deltaTime;
-        if (playerPosition != Vector3.zero && playerCheckTimer > playerCheckTime)
+        if (playerPosition != Vector3.zero && playerCheckTimer > playerCheckTime && agent.isOnNavMesh)
         {
             playerCheckTimer = 0;
             NavMeshPath path = new UnityEngine.AI.NavMeshPath();
